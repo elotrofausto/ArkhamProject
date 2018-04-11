@@ -121,7 +121,7 @@ public class View extends JFrame{
 		c.gridheight = 1;
 		bg.add(north, c);
 		
-		c.gridx = 9;
+		c.gridx = 2;
 		c.gridy = 0;
 		c.gridwidth=1;
 		c.gridheight = 2;
