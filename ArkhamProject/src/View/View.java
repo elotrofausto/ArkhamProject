@@ -1,3 +1,4 @@
+package View;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -47,7 +48,7 @@ public class View extends JFrame{
 			for (int j=0; j<arrayCasillas[0].length; j++) {
 				
 				if ((i+j) %2 == 0) arrayCasillas[i][j]=new JLabel();
-				else arrayCasillas[i][j]=new JLabel(new ImageIcon("img/floor1.png"));
+				else arrayCasillas[i][j]=new JLabel(new ImageIcon("img/cthonians.gif"));
 				arrayCasillas[i][j].setSize(65, 65);
 				arrayCasillas[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
 				tab.add(arrayCasillas[i][j]);
