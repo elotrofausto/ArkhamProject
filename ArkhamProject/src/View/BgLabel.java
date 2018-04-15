@@ -5,25 +5,25 @@ import java.awt.Graphics;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
-import javax.swing.JPanel;
+import javax.swing.JLabel;
 
 
 /**
- * Clase que actúa como un JPanel pero permite pintar un fondo mediante el Override del método paint
+ * Clase que actúa como un JLabel pero permite pintar un fondo mediante el Override del método paint
  * @author elotrofausto
  *
  */
-public class BackGround extends JPanel {
+public class BgLabel extends JLabel {
 
 	private static final long serialVersionUID = 1L;
 	private Image tapiz;
 
-	public BackGround() {
-		//this.setPreferredSize(new Dimension(975,650)); No mantiene la proporción del tablero
-		tapiz = new ImageIcon("img/tab_bg.png").getImage();
+	public BgLabel(String ruta) {
+		//this.setPreferredSize(new Dimension(65,65));
+		tapiz = new ImageIcon(ruta).getImage();
 	}
 /**
- * Metodo para pintar el background del JPanel
+ * Metodo para pintar el background del JLabel
  */
 	@Override
 	public void paint(Graphics g) {

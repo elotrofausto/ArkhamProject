@@ -2,6 +2,8 @@ package View;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -16,15 +18,19 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class View extends JFrame{
 
-	private JLabel[][] arrayCasillas;
+	private BgLabel[][] arrayCasillas;
 	private JLabel bg, statTitle, controlTitle, northTitle, fuerza, velocidad, oro, energia, sabiduria, hero, cthulhu;
 	private BackGround tab;
 	private JPanel stats, control, north;
-	Dimension screenSize, columna;
-	GridBagConstraints c = new GridBagConstraints();
-	Font fuente;
+	private Dimension screenSize, columna;
+    private GraphicsEnvironment ge;
+	private GraphicsDevice screen;
+	private GridBagConstraints c = new GridBagConstraints();
+	private Font fuente;
 	
 	public View() {
+		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		screen = ge.getDefaultScreenDevice();
 		tab= new BackGround();
 		stats= new JPanel();
 		control= new JPanel();
@@ -43,13 +49,15 @@ public class View extends JFrame{
 		statTitle= new JLabel("Personaje");
 		controlTitle= new JLabel("Juego");
 		northTitle= new JLabel(new ImageIcon("img/logo.png"));
-		arrayCasillas = new JLabel[8][15];
+		
+		arrayCasillas = new BgLabel[8][15];
 		for (int i=0; i<arrayCasillas.length; i++) {
 			for (int j=0; j<arrayCasillas[0].length; j++) {
 				
-				if ((i+j) %2 == 0) arrayCasillas[i][j]=new JLabel();
-				else arrayCasillas[i][j]=new JLabel(new ImageIcon("img/cthonians.gif"));
-				arrayCasillas[i][j].setSize(65, 65);
+				//if ((i+j) %2 == 0)
+				arrayCasillas[i][j]=new BgLabel("img/floor1.png");
+				arrayCasillas[i][j].setIcon(new ImageIcon("img/blank.png"));
+				//arrayCasillas[i][j].setSize(65, 65);
 				arrayCasillas[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
 				tab.add(arrayCasillas[i][j]);
 				
@@ -136,5 +144,6 @@ public class View extends JFrame{
 		
 		this.add(bg);
 		this.setVisible(true);
+		screen.setFullScreenWindow(this); //Pantalla completa por encima del SO
 	}
 }
