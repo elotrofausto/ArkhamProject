@@ -144,6 +144,6 @@ public class View extends JFrame{
 		
 		this.add(bg);
 		this.setVisible(true);
-		screen.setFullScreenWindow(this); //Pantalla completa por encima del SO
+		//screen.setFullScreenWindow(this); //Pantalla completa por encima del SO
 	}
 }
