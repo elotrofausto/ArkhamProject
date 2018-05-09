@@ -11,6 +11,14 @@ public class Controller {
 	public Controller() {
 		model = new Tablero();
 		vista = new View(model);
+		
+		initController();
 	}
 
+	private void initController() {
+		
+		
+	}
+
+	
 }

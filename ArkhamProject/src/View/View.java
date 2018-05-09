@@ -13,6 +13,8 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 import Model.Locations.Tablero;
@@ -21,6 +23,8 @@ import Model.Locations.Tablero;
 public class View extends JFrame{
 
 	private BgLabel[][] arrayCasillas;
+	private JMenuBar mainMenu;
+	private JMenuItem leyenda, salir;
 	private JLabel bg, statTitle, controlTitle, northTitle, fuerza, velocidad, oro, energia, sabiduria, hero, cthulhu;
 	private BackGround tab;
 	private JPanel stats, control, north;
@@ -33,6 +37,9 @@ public class View extends JFrame{
 	public View(Tablero model) {
 		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		screen = ge.getDefaultScreenDevice();
+		mainMenu = new JMenuBar();
+		leyenda = new JMenuItem("Leyenda");
+		salir = new JMenuItem("Salir");
 		tab= new BackGround();
 		stats= new JPanel();
 		control= new JPanel();
@@ -73,7 +80,12 @@ public class View extends JFrame{
 
 	private void initFrame() {
 		
-		//Stats
+		//JMenu
+		mainMenu.add(leyenda);
+		mainMenu.add(salir);
+		mainMenu.setVisible(true);
+		
+		//Panel de Stats
 		stats.setPreferredSize(columna);
 		stats.setBorder(BorderFactory.createRaisedBevelBorder());
 		stats.setBackground( new Color(255, 0, 0, 80) );
@@ -93,7 +105,7 @@ public class View extends JFrame{
 		stats.add(energia);
 		stats.add(sabiduria);
 		
-		//Control
+		//Panel de juego
 		control.setPreferredSize(columna);
 		control.setBorder(BorderFactory.createRaisedBevelBorder());
 		control.setBackground( new Color(0, 255, 0, 80) );
@@ -109,8 +121,6 @@ public class View extends JFrame{
 		north.setBackground( new Color(0, 0, 0, 95) );
 		
 		//Tablero
-		//tab.setSize(975,650);
-		//tab.setBackground("img/tab_bg");
 		tab.setLayout(new GridLayout(8,15,0,0));
 		tab.setBackground( new Color(0, 0, 0, 99) );
 		tab.setBorder(BorderFactory.createRaisedBevelBorder());
@@ -148,6 +158,7 @@ public class View extends JFrame{
 		bg.add(tab, c);
 		
 		this.add(bg);
+		this.setJMenuBar(mainMenu);
 		this.setVisible(true);
 		screen.setFullScreenWindow(this); //Pantalla completa por encima del SO
 	}
