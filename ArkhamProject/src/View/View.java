@@ -55,15 +55,16 @@ public class View extends JFrame{
 		arrayCasillas = new BgLabel[8][15];
 		for (int i=0; i<arrayCasillas.length; i++) {
 			for (int j=0; j<arrayCasillas[0].length; j++) {
-				arrayCasillas[i][j]=new BgLabel(model.getBoard()[i][j].getEdificio().getImage());
-				arrayCasillas[i][j].setIcon(new ImageIcon("img/blank.png"));
-				
-//				//if ((i+j) %2 == 0)
-//				arrayCasillas[i][j]=new BgLabel("img/floor1.png");
-//				arrayCasillas[i][j].setIcon(new ImageIcon("img/blank.png"));
-//				//arrayCasillas[i][j].setSize(65, 65);
-//				arrayCasillas[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
-//				tab.add(arrayCasillas[i][j]);
+				arrayCasillas[i][j]=new BgLabel("img/" + model.getBoard()[i][j].getEdificio().getImage() + ".png");
+				if(model.getBoard()[i][j].getPj()==null){
+					arrayCasillas[i][j].setIcon(new ImageIcon("img/blank.png"));
+				}
+				else{
+					arrayCasillas[i][j].setIcon(new ImageIcon("img/" + model.getBoard()[i][j].getPj().getNombre() + ".gif"));
+				}
+
+				//arrayCasillas[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+				tab.add(arrayCasillas[i][j]);
 				
 			}
 		}

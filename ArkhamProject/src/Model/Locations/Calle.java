@@ -3,7 +3,7 @@ package Model.Locations;
 public class Calle extends Edificacion {
 
 	public Calle(){
-		super("calle.png");
+		super("calle" + (int)Math.floor(Math.random()*(3-1+1)+(1)));
 	}
 	
 }
