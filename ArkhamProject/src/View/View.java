@@ -15,6 +15,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import Model.Locations.Tablero;
+
 @SuppressWarnings("serial")
 public class View extends JFrame{
 
@@ -28,7 +30,7 @@ public class View extends JFrame{
 	private GridBagConstraints c = new GridBagConstraints();
 	private Font fuente;
 	
-	public View() {
+	public View(Tablero model) {
 		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		screen = ge.getDefaultScreenDevice();
 		tab= new BackGround();
@@ -53,13 +55,15 @@ public class View extends JFrame{
 		arrayCasillas = new BgLabel[8][15];
 		for (int i=0; i<arrayCasillas.length; i++) {
 			for (int j=0; j<arrayCasillas[0].length; j++) {
-				
-				//if ((i+j) %2 == 0)
-				arrayCasillas[i][j]=new BgLabel("img/floor1.png");
+				arrayCasillas[i][j]=new BgLabel(model.getBoard()[i][j].getEdificio().getImage());
 				arrayCasillas[i][j].setIcon(new ImageIcon("img/blank.png"));
-				//arrayCasillas[i][j].setSize(65, 65);
-				arrayCasillas[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
-				tab.add(arrayCasillas[i][j]);
+				
+//				//if ((i+j) %2 == 0)
+//				arrayCasillas[i][j]=new BgLabel("img/floor1.png");
+//				arrayCasillas[i][j].setIcon(new ImageIcon("img/blank.png"));
+//				//arrayCasillas[i][j].setSize(65, 65);
+//				arrayCasillas[i][j].setBorder(BorderFactory.createLineBorder(Color.BLACK));
+//				tab.add(arrayCasillas[i][j]);
 				
 			}
 		}
@@ -144,6 +148,6 @@ public class View extends JFrame{
 		
 		this.add(bg);
 		this.setVisible(true);
-		//screen.setFullScreenWindow(this); //Pantalla completa por encima del SO
+		screen.setFullScreenWindow(this); //Pantalla completa por encima del SO
 	}
 }

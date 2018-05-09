@@ -13,6 +13,15 @@ public class Casilla {
 		edificio=null;
 		pj=new Personaje[2];
 	}
+	
+	public Casilla(Edificacion edificio, Personaje pj[]) {
+		this.edificio=edificio;
+		this.pj=pj;
+	}
+	
+	public Casilla(Casilla casilla) {
+		this(casilla.getEdificio(),casilla.getPj());
+	}
 
 	public Edificacion getEdificio() {
 		return edificio;
