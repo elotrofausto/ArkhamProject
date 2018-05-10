@@ -1,4 +1,4 @@
-package Model.Locations;
+package Model.Logic;
 
 import java.util.ArrayList;
 

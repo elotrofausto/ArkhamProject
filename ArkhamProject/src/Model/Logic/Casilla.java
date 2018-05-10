@@ -1,11 +1,13 @@
-package Model.Locations;
+package Model.Logic;
 
+import Model.Locations.Edificacion;
 import Model.Pers.Personaje;
 
 public class Casilla {
 
 	private Edificacion edificio;
 	private Personaje pj;
+	private Evento evento;
 	
 	public Casilla(){
 		//Los edificios y personajes se inicializan a null en el constructor por defecto. De este modo mediante el Set

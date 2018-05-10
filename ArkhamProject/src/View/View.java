@@ -13,18 +13,18 @@ import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
-import Model.Locations.Tablero;
+import Model.Logic.Tablero;
 
 @SuppressWarnings("serial")
 public class View extends JFrame{
 
 	private BgLabel[][] arrayCasillas;
 	private JMenuBar mainMenu;
-	private JMenuItem leyenda, salir;
+	private JMenu leyenda, salir;
 	private JLabel bg, statTitle, controlTitle, northTitle, fuerza, velocidad, oro, energia, sabiduria, hero, cthulhu;
 	private BackGround tab;
 	private JPanel stats, control, north;
@@ -38,8 +38,8 @@ public class View extends JFrame{
 		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		screen = ge.getDefaultScreenDevice();
 		mainMenu = new JMenuBar();
-		leyenda = new JMenuItem("Leyenda");
-		salir = new JMenuItem("Salir");
+		leyenda = new JMenu("Leyenda");
+		salir = new JMenu("Salir");
 		tab= new BackGround();
 		stats= new JPanel();
 		control= new JPanel();
@@ -160,6 +160,26 @@ public class View extends JFrame{
 		this.add(bg);
 		this.setJMenuBar(mainMenu);
 		this.setVisible(true);
-		screen.setFullScreenWindow(this); //Pantalla completa por encima del SO
+		screen.setFullScreenWindow(this); //Pantalla completa por encima de los elementos del SO
 	}
+
+	
+	//Getters y Setters
+	public JMenu getLeyenda() {
+		return leyenda;
+	}
+
+	public void setLeyenda(JMenu leyenda) {
+		this.leyenda = leyenda;
+	}
+
+	public JMenu getSalir() {
+		return salir;
+	}
+
+	public void setSalir(JMenu salir) {
+		this.salir = salir;
+	}
+	
+	
 }
