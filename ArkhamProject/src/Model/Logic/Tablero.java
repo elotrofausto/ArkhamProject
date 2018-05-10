@@ -123,6 +123,7 @@ public class Tablero {
 		
 		board[origen[0]][origen[1]].setPj(null);
 		board[pos[0]][pos[1]].setPj(new Protagonista());
+		System.out.println(origen[0] + ", " + origen[1]);
 		System.out.println(pos[0] + ", " + pos[1]);
 		return pos;
 	}
