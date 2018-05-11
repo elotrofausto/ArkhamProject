@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -11,7 +12,6 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,7 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-
 import Model.Logic.Tablero;
 
 @SuppressWarnings("serial")
@@ -28,7 +27,7 @@ public class View extends JFrame {
 	private BgLabel[][] tableroCasillas;
 	private JMenuBar mainMenu;
 	private JMenu leyenda, salir;
-	private JLabel bg, statTitle, controlTitle, northTitle, fuerza, velocidad, oro, energia, sabiduria, hero, cthulhu;
+	private JLabel bg, northTitle, fuerza, velocidad, oro, energia, sabiduria, hero, cthulhu;
 	private JButton up, down, right, left;
 	private BackGround tab;
 	private JPanel stats, control, north, arrows;
@@ -62,11 +61,9 @@ public class View extends JFrame {
 		//Imágenes estéticas y fuentes. Botones de movimiento.
 		fuente = new Font("", 1, 20);
 		bg = new JLabel(new ImageIcon("img/background.png"));
-		statTitle = new JLabel("Personaje");
-		controlTitle = new JLabel("Juego");
 		northTitle = new JLabel(new ImageIcon("img/logo.png"));
-		hero = new JLabel(new ImageIcon("img/hero2.png"));
-		cthulhu = new JLabel(new ImageIcon("img/cth.png"));
+		hero = new JLabel(new ImageIcon("img/pers.png"));
+		cthulhu = new JLabel(new ImageIcon("img/game.png"));
 		up= new JButton(new ImageIcon("img/up.png"));
 		down= new JButton(new ImageIcon("img/down.png"));
 		left= new JButton(new ImageIcon("img/left.png"));
@@ -100,14 +97,11 @@ public class View extends JFrame {
 		stats.setBorder(BorderFactory.createRaisedBevelBorder());
 		stats.setBackground(new Color(255, 0, 0, 80));
 		stats.setLayout(new BoxLayout(stats, BoxLayout.Y_AXIS));
-		statTitle.setForeground(Color.WHITE);
-		statTitle.setFont(fuente);
 		fuerza.setForeground(Color.WHITE);
 		velocidad.setForeground(Color.WHITE);
 		oro.setForeground(Color.WHITE);
 		energia.setForeground(Color.WHITE);
 		sabiduria.setForeground(Color.WHITE);
-		stats.add(statTitle);
 		stats.add(hero);
 		stats.add(fuerza);
 		stats.add(velocidad);
@@ -115,21 +109,37 @@ public class View extends JFrame {
 		stats.add(energia);
 		stats.add(sabiduria);
 
-		// Panel de juego
-		arrows.setLayout(new GridLayout(3,3));
-		arrows.setSize(100,100);
+
+		// Panel de juego. El layout es un GridBagLayout. Permite crear un grid más complejo que GridLayout.
+		arrows.setLayout(new GridBagLayout());
 		up.setName("up"); down.setName("down"); left.setName("left"); right.setName("right");
-		arrows.add(up);
-		arrows.add(down);
-		arrows.add(left);
-		arrows.add(right);
+		up.setBackground(new Color(0,0,0,0)); up.setBorder(null);
+		down.setBackground(new Color(0,0,0,0)); down.setBorder(null);
+		left.setBackground(new Color(0,0,0,0)); left.setBorder(null);
+		right.setBackground(new Color(0,0,0,0)); right.setBorder(null);
+		c.fill = GridBagConstraints.BOTH;	
+		c.gridx = 1;
+		c.gridy = 0;
+		c.gridheight = 1;
+		c.weightx = 0;
+		arrows.add(up,c);
+		c.gridx = 0;
+		c.gridy = 1;
+		c.gridheight = 1;
+		arrows.add(left,c);
+		c.gridx = 3;
+		c.gridy = 1;
+		c.gridheight = 1;
+		arrows.add(right,c);
+		c.gridx = 1;
+		c.gridy = 2;
+		c.gridheight = 1;
+		arrows.add(down,c);
+		arrows.setBackground(new Color(0, 0, 0, 0));
 		control.setPreferredSize(columna);
 		control.setBorder(BorderFactory.createRaisedBevelBorder());
 		control.setBackground(new Color(0, 255, 0, 80));
 		control.setLayout(new BoxLayout(control, BoxLayout.Y_AXIS));
-		controlTitle.setForeground(Color.WHITE);
-		controlTitle.setFont(fuente);
-		control.add(controlTitle);
 		control.add(cthulhu);
 		control.add(arrows);
 
@@ -151,7 +161,6 @@ public class View extends JFrame {
 
 		// Organizamos los elementos con un GridBagLayout
 		bg.setLayout(new GridBagLayout());
-		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
 		c.gridy = 0;
 		c.gridheight = 2;
@@ -258,6 +267,14 @@ public class View extends JFrame {
 
 	public void setLeft(JButton left) {
 		this.left = left;
+	}
+
+	public BackGround getTab() {
+		return tab;
+	}
+
+	public void setTab(BackGround tab) {
+		this.tab = tab;
 	}
 
 	

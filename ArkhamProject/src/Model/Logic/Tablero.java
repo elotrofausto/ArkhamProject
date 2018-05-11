@@ -9,7 +9,6 @@ import Model.Locations.Calle;
 import Model.Locations.Hospital;
 import Model.Locations.Logia;
 import Model.Pers.Cthonian;
-import Model.Pers.Fire;
 import Model.Pers.Mentalista;
 import Model.Pers.Protagonista;
 import Model.Pers.Tree;
@@ -91,7 +90,7 @@ public class Tablero {
 				if(board[i][j].getPj()!=null) {
 				if(board[i][j].getPj().getNombre()=="personaje"){
 					pos[0]=i; pos[1]=j;
-					origen[0]=1; origen[1]=j;
+					origen[0]=i; origen[1]=j;
 				}
 				}
 			}
@@ -121,10 +120,9 @@ public class Tablero {
 			break;
 		}
 		
+		board[pos[0]][pos[1]].setPj(board[origen[0]][origen[1]].getPj());
 		board[origen[0]][origen[1]].setPj(null);
-		board[pos[0]][pos[1]].setPj(new Protagonista());
-		System.out.println(origen[0] + ", " + origen[1]);
-		System.out.println(pos[0] + ", " + pos[1]);
+		origen[0]=pos[0]; origen[1]=pos[1];
 		return pos;
 	}
 

@@ -32,7 +32,7 @@ public class Controller implements MouseListener, KeyListener, ActionListener {
 		vista.getDown().addActionListener(this);
 		vista.getLeft().addActionListener(this);
 		vista.getRight().addActionListener(this);
-		vista.addKeyListener(this);
+		vista.getTab().addKeyListener(this);
 
 	}
 
@@ -70,18 +70,24 @@ public class Controller implements MouseListener, KeyListener, ActionListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		int keyCode = e.getKeyCode();
+		int[] pos = new int[2];
 		switch (keyCode) {
 		case KeyEvent.VK_UP:
-			this.model.mover("up");
+			System.out.println("Up");
+			pos=this.model.mover("up");
+			this.vista.efectuarMovimiento("up", pos, this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
 			break;
 		case KeyEvent.VK_DOWN:
-			this.model.mover("down");
+			pos=this.model.mover("down");
+			this.vista.efectuarMovimiento("down", pos, this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
 			break;
 		case KeyEvent.VK_LEFT:
-			this.model.mover("left");
+			pos=this.model.mover("left");
+			this.vista.efectuarMovimiento("left", pos, this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
 			break;
 		case KeyEvent.VK_RIGHT:
-			this.model.mover("right");
+			pos=this.model.mover("right");
+			this.vista.efectuarMovimiento("right", pos, this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
 			break;
 		}
 	}
@@ -103,28 +109,20 @@ public class Controller implements MouseListener, KeyListener, ActionListener {
 		JButton event = (JButton) e.getSource();
 		int[] pos = new int[2];
 		if (event.getName()=="up") {
-			System.out.println("up");
 			pos=this.model.mover("up");
 			this.vista.efectuarMovimiento("up", pos, this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
-			pos=null;
 		}
 		if (event.getName()=="down") {
-			System.out.println("down");
 			pos=this.model.mover("down");
 			this.vista.efectuarMovimiento("down", pos, this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
-			pos=null;
 		}
 		if (event.getName()=="left") {
-			System.out.println("left");
 			pos=this.model.mover("left");
 			this.vista.efectuarMovimiento("left", pos, this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
-			pos=null;
 		}
 		if (event.getName()=="right") {
-			System.out.println("right");
 			pos=this.model.mover("right");
 			this.vista.efectuarMovimiento("right", pos, this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
-			pos=null;
 		}
 		
 	}
