@@ -17,14 +17,15 @@ import Model.Pers.Wolf;
 public class Tablero {
 
 	private ArrayList<Casilla> arrayCasillas;
+	private ArrayList<int[]> arrayPosiciones;
 	private Casilla[][] board;
-	private Dado dice;
+	private int movimientos;
 	private int dificultad;
 	private int cont;
 
 	public Tablero() {
-		dice = new Dado();
 		dificultad = 12;
+		movimientos = Dado.tirarDado(6);
 		arrayCasillas = new ArrayList<Casilla>();
 		for (int i = 0; i < 120; i++) {
 			arrayCasillas.add(new Casilla());
@@ -80,50 +81,96 @@ public class Tablero {
 
 	}
 
-	public int[] mover(String dir){
+	// Método para buscar a un personaje en el tablero
+	public int[] buscarPersonaje(String nombre) {
+		int[] posicion = new int[2];
+
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[0].length; j++) {
+				if (board[i][j].getPj() != null) {
+					if (board[i][j].getPj().getNombre().equals(nombre)) {
+						posicion[0] = i;
+						posicion[1] = j;
+					}
+				}
+			}
+		}
+
+		return posicion;
+	}
+
+	public int[] mover(String dir) {
 		int pos[] = new int[2];
 		int origen[] = new int[2];
 
-		//Buscamos la posición del protagonista
-		for (int i=0; i<board.length; i++) {
-			for (int j=0; j<board[0].length; j++) {
-				if(board[i][j].getPj()!=null) {
-				if(board[i][j].getPj().getNombre()=="personaje"){
-					pos[0]=i; pos[1]=j;
-					origen[0]=i; origen[1]=j;
-				}
-				}
-			}
-		}
-		
-		//Movemos según dirección
+		// Buscamos la posición del protagonista
+		pos = buscarPersonaje("personaje");
+		origen[0] = pos[0];
+		origen[1] = pos[1];
+
+		// Movemos según dirección
 		switch (dir) {
 		case "up":
-			if(pos[0]-1 >= 0){
-			pos[0]=pos[0]-1;
+			if (pos[0] - 1 >= 0) {
+				pos[0] = pos[0] - 1;
 			}
 			break;
 		case "down":
-			if(pos[0]+1 < board.length){
-				pos[0]=pos[0]+1;
-				}
+			if (pos[0] + 1 < board.length) {
+				pos[0] = pos[0] + 1;
+			}
 			break;
 		case "left":
-			if(pos[1]-1 >= 0){
-				pos[1]=pos[1]-1;
-				}
+			if (pos[1] - 1 >= 0) {
+				pos[1] = pos[1] - 1;
+			}
 			break;
 		case "right":
-			if(pos[1]+1 < board[0].length){
-				pos[1]=pos[1]+1;
-				}
+			if (pos[1] + 1 < board[0].length) {
+				pos[1] = pos[1] + 1;
+			}
 			break;
 		}
-		
+
 		board[pos[0]][pos[1]].setPj(board[origen[0]][origen[1]].getPj());
 		board[origen[0]][origen[1]].setPj(null);
-		origen[0]=pos[0]; origen[1]=pos[1];
+		origen[0] = pos[0];
+		origen[1] = pos[1];
+		movimientos--;
+		comprobarEvento(pos);
 		return pos;
+	}
+
+	public void moverMonstruos() {
+
+	}
+
+	public void comprobarEvento(int[] pos) {
+		if (board[pos[0]][pos[1]].getPj() != null) {
+
+		}
+	}
+
+	// Método que calcula el movimiento disponible para el personaje
+	public int calculaMovimiento() {
+		int posicion[] = new int[2];
+
+		posicion = buscarPersonaje("personaje");
+
+		this.movimientos = (int) (Dado.tirarDado(6) * board[posicion[0]][posicion[1]].getPj().getVelocidad());
+		System.out.println(movimientos);
+		return movimientos;
+	}
+
+	// Método que actualiza las estadísticas del personaje principal
+	public void actualizaStats() {
+
+	}
+
+	public void finalizarturno() {
+		int[] pos = new int[2];
+		pos = buscarPersonaje("personaje");
+		comprobarEvento(pos);
 	}
 
 	public Casilla[][] getBoard() {
@@ -134,12 +181,12 @@ public class Tablero {
 		this.board = board;
 	}
 
-	public Dado getDice() {
-		return dice;
+	public int getMovimientos() {
+		return movimientos;
 	}
 
-	public void setDice(Dado dice) {
-		this.dice = dice;
+	public void setMovimientos(int movimientos) {
+		this.movimientos = movimientos;
 	}
 
 }

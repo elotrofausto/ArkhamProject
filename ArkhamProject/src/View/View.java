@@ -27,10 +27,10 @@ public class View extends JFrame {
 	private BgLabel[][] tableroCasillas;
 	private JMenuBar mainMenu;
 	private JMenu leyenda, salir;
-	private JLabel bg, northTitle, fuerza, velocidad, oro, energia, sabiduria, hero, cthulhu;
-	private JButton up, down, right, left;
+	private JLabel bg, northTitle, fuerza, velocidad, oro, energia, sabiduria, movimientos, movVar, fuerzaVar, veloVar, oroVar, enerVar, sabVar, hero, cthulhu;
+	private JButton up, down, right, left, lanzarDado, finTurno;
 	private BackGround tab;
-	private JPanel stats, control, north, arrows;
+	private JPanel stats, control, north, arrows, controlMov, controlStats;
 	private Dimension screenSize, columna;
 	private GraphicsEnvironment ge;
 	private GraphicsDevice screen;
@@ -38,37 +38,50 @@ public class View extends JFrame {
 	private Font fuente;
 
 	public View(Tablero model) {
-		//Elementos para configurar la pantalla completa y las dimensiones de las columnas
+		// Elementos para configurar la pantalla completa y las dimensiones de las
+		// columnas
 		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		screen = ge.getDefaultScreenDevice();
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		columna = new Dimension((int) ((screenSize.getWidth() - 975) / 2), (int) screenSize.getHeight() / 2);
-		//Menú bar
+		// Menú bar
 		mainMenu = new JMenuBar();
 		leyenda = new JMenu("Leyenda");
 		salir = new JMenu("Salir");
-		//Paneles de tablero, estadísticas, juego y título. Juntos componen la pantalla del videojuego
+		// Paneles de tablero, estadísticas, juego y título. Juntos componen la pantalla
+		// del videojuego
 		tab = new BackGround();
 		stats = new JPanel();
 		control = new JPanel();
 		north = new JPanel();
 		arrows = new JPanel();
+		controlMov = new JPanel();
+		controlStats = new JPanel();
 		fuerza = new JLabel("Fuerza");
 		velocidad = new JLabel("Velocidad");
 		oro = new JLabel("Oro");
 		energia = new JLabel("Energía");
 		sabiduria = new JLabel("Sabiduría");
-		//Imágenes estéticas y fuentes. Botones de movimiento.
+		movimientos = new JLabel("Movs");
+		fuerzaVar = new JLabel("");
+		veloVar = new JLabel("");
+		oroVar = new JLabel("");
+		enerVar = new JLabel("");
+		sabVar = new JLabel("");
+		movVar = new JLabel(String.valueOf(model.getMovimientos()));
+		// Imágenes estéticas y fuentes. Botones de movimiento y juego.
 		fuente = new Font("", 1, 20);
 		bg = new JLabel(new ImageIcon("img/background.png"));
 		northTitle = new JLabel(new ImageIcon("img/logo.png"));
 		hero = new JLabel(new ImageIcon("img/pers.png"));
 		cthulhu = new JLabel(new ImageIcon("img/game.png"));
-		up= new JButton(new ImageIcon("img/up.png"));
-		down= new JButton(new ImageIcon("img/down.png"));
-		left= new JButton(new ImageIcon("img/left.png"));
-		right= new JButton(new ImageIcon("img/right.png"));
-		//Tablero de juego
+		up = new JButton(new ImageIcon("img/up.png"));
+		down = new JButton(new ImageIcon("img/down.png"));
+		left = new JButton(new ImageIcon("img/left.png"));
+		right = new JButton(new ImageIcon("img/right.png"));
+		lanzarDado = new JButton("Lanzar Dado");
+		finTurno = new JButton("Fin de turno");
+		// Tablero de juego
 		tableroCasillas = new BgLabel[8][15];
 		for (int i = 0; i < tableroCasillas.length; i++) {
 			for (int j = 0; j < tableroCasillas[0].length; j++) {
@@ -92,55 +105,96 @@ public class View extends JFrame {
 		mainMenu.add(salir);
 		mainMenu.setVisible(true);
 
-		// Panel de Stats
+		// Panel de Stats. Para este panel y algunos otros el layout es un
+		// GridBagLayout. Permite crear un grid más
+		// complejo que GridLayout.
 		stats.setPreferredSize(columna);
 		stats.setBorder(BorderFactory.createRaisedBevelBorder());
 		stats.setBackground(new Color(255, 0, 0, 80));
-		stats.setLayout(new BoxLayout(stats, BoxLayout.Y_AXIS));
+		//stats.setLayout(new BoxLayout(stats, BoxLayout.Y_AXIS));
 		fuerza.setForeground(Color.WHITE);
 		velocidad.setForeground(Color.WHITE);
 		oro.setForeground(Color.WHITE);
 		energia.setForeground(Color.WHITE);
 		sabiduria.setForeground(Color.WHITE);
 		stats.add(hero);
-		stats.add(fuerza);
-		stats.add(velocidad);
-		stats.add(oro);
-		stats.add(energia);
-		stats.add(sabiduria);
+		controlStats.setLayout(new GridLayout(5, 2));
+		controlStats.setBackground(new Color(0, 0, 0, 0));
+		fuerza.setFont(fuente); velocidad.setFont(fuente); oro.setFont(fuente); energia.setFont(fuente); sabiduria.setFont(fuente);
+		c.fill = GridBagConstraints.BOTH;
+		c.weightx = 0;
+		c.gridx = 0;
+		c.gridy = 0;
+		controlStats.add(fuerza, c);
+		c.gridx = 0;
+		c.gridy = 1;
+		controlStats.add(velocidad, c);
+		c.gridx = 0;
+		c.gridy = 2;
+		controlStats.add(oro, c);
+		c.gridx = 0;
+		c.gridy = 3;
+		controlStats.add(energia, c);
+		c.gridx = 0;
+		c.gridy = 4;
+		controlStats.add(sabiduria, c);
+		stats.add(controlStats);
 
-
-		// Panel de juego. El layout es un GridBagLayout. Permite crear un grid más complejo que GridLayout.
+		// Panel de juego.
 		arrows.setLayout(new GridBagLayout());
-		up.setName("up"); down.setName("down"); left.setName("left"); right.setName("right");
-		up.setBackground(new Color(0,0,0,0)); up.setBorder(null);
-		down.setBackground(new Color(0,0,0,0)); down.setBorder(null);
-		left.setBackground(new Color(0,0,0,0)); left.setBorder(null);
-		right.setBackground(new Color(0,0,0,0)); right.setBorder(null);
-		c.fill = GridBagConstraints.BOTH;	
+		controlMov.setLayout(new GridBagLayout());
+		up.setName("up");
+		down.setName("down");
+		left.setName("left");
+		right.setName("right");
+		lanzarDado.setName("lanzarDado");
+		finTurno.setName("finTurno");
+		up.setBackground(new Color(0, 0, 0, 0));
+		up.setBorder(null);
+		down.setBackground(new Color(0, 0, 0, 0));
+		down.setBorder(null);
+		left.setBackground(new Color(0, 0, 0, 0));
+		left.setBorder(null);
+		right.setBackground(new Color(0, 0, 0, 0));
+		right.setBorder(null);
 		c.gridx = 1;
 		c.gridy = 0;
 		c.gridheight = 1;
 		c.weightx = 0;
-		arrows.add(up,c);
+		arrows.add(up, c);
 		c.gridx = 0;
 		c.gridy = 1;
-		c.gridheight = 1;
-		arrows.add(left,c);
+		arrows.add(left, c);
 		c.gridx = 3;
 		c.gridy = 1;
-		c.gridheight = 1;
-		arrows.add(right,c);
+		arrows.add(right, c);
 		c.gridx = 1;
 		c.gridy = 2;
-		c.gridheight = 1;
-		arrows.add(down,c);
+		arrows.add(down, c);
+		c.gridx = 1;
+		c.gridy = 0;
+		movimientos.setFont(fuente);
+		controlMov.add(movimientos, c);
+		c.gridx = 0;
+		c.gridy = 1;
+		controlMov.add(lanzarDado, c);
+		c.gridy = 1;
+		c.gridx = 1;
+		movVar.setFont(fuente);
+		controlMov.add(movVar, c);
+		c.gridx = 0;
+		c.gridy = 2;
+		c.gridwidth = 2;
+		controlMov.add(finTurno, c);
+		c.gridwidth = 1;
 		arrows.setBackground(new Color(0, 0, 0, 0));
+		controlMov.setBackground(new Color(0, 0, 0, 0));
 		control.setPreferredSize(columna);
 		control.setBorder(BorderFactory.createRaisedBevelBorder());
 		control.setBackground(new Color(0, 255, 0, 80));
 		control.setLayout(new BoxLayout(control, BoxLayout.Y_AXIS));
 		control.add(cthulhu);
+		control.add(controlMov);
 		control.add(arrows);
 
 		// Title
@@ -193,19 +247,19 @@ public class View extends JFrame {
 	public void efectuarMovimiento(String dir, int[] pos, String nombre) {
 		switch (dir) {
 		case "up":
-			tableroCasillas[pos[0]+1][pos[1]].setIcon(new ImageIcon("img/blank.png"));
+			tableroCasillas[pos[0] + 1][pos[1]].setIcon(new ImageIcon("img/blank.png"));
 			tableroCasillas[pos[0]][pos[1]].setIcon(new ImageIcon("img/" + nombre + ".gif"));
 			break;
 		case "down":
-			tableroCasillas[pos[0]-1][pos[1]].setIcon(new ImageIcon("img/blank.png"));
+			tableroCasillas[pos[0] - 1][pos[1]].setIcon(new ImageIcon("img/blank.png"));
 			tableroCasillas[pos[0]][pos[1]].setIcon(new ImageIcon("img/" + nombre + ".gif"));
 			break;
 		case "left":
-			tableroCasillas[pos[0]][pos[1]+1].setIcon(new ImageIcon("img/blank.png"));
+			tableroCasillas[pos[0]][pos[1] + 1].setIcon(new ImageIcon("img/blank.png"));
 			tableroCasillas[pos[0]][pos[1]].setIcon(new ImageIcon("img/" + nombre + ".gif"));
 			break;
 		case "right":
-			tableroCasillas[pos[0]][pos[1]-1].setIcon(new ImageIcon("img/blank.png"));
+			tableroCasillas[pos[0]][pos[1] - 1].setIcon(new ImageIcon("img/blank.png"));
 			tableroCasillas[pos[0]][pos[1]].setIcon(new ImageIcon("img/" + nombre + ".gif"));
 			break;
 		}
@@ -277,6 +331,62 @@ public class View extends JFrame {
 		this.tab = tab;
 	}
 
+	public JLabel getMovVar() {
+		return movVar;
+	}
+
+	public void setMovVar(JLabel movVar) {
+		this.movVar = movVar;
+	}
+
+	public JLabel getFuerzaVar() {
+		return fuerzaVar;
+	}
+
+	public void setFuerzaVar(JLabel fuerzaVar) {
+		this.fuerzaVar = fuerzaVar;
+	}
+
+	public JLabel getVeloVar() {
+		return veloVar;
+	}
+
+	public void setVeloVar(JLabel veloVar) {
+		this.veloVar = veloVar;
+	}
+
+	public JLabel getOroVar() {
+		return oroVar;
+	}
+
+	public void setOroVar(JLabel oroVar) {
+		this.oroVar = oroVar;
+	}
+
+	public JLabel getEnerVar() {
+		return enerVar;
+	}
+
+	public void setEnerVar(JLabel enerVar) {
+		this.enerVar = enerVar;
+	}
+
+	public JLabel getSabVar() {
+		return sabVar;
+	}
+
+	public void setSabVar(JLabel sabVar) {
+		this.sabVar = sabVar;
+	}
+
+	public JButton getLanzarDado() {
+		return lanzarDado;
+	}
+
+	public void setLanzarDado(JButton lanzarDado) {
+		this.lanzarDado = lanzarDado;
+	}
 	
 	
+
 }

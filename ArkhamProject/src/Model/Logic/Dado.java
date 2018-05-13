@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Dado {
     public static int tirarDado(int rango) {
         double resultado;
-        resultado=Math.random()*rango; // Se le suma 1 si el valor del 0 es 10. 
+        resultado=Math.floor(Math.random()*(rango)+1);
         return (int)resultado;
     }
     

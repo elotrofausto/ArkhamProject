@@ -18,7 +18,6 @@ public class BgLabel extends JLabel {
 	private Image tapiz;
 
 	public BgLabel(String ruta) {
-		//this.setPreferredSize(new Dimension(65,65));
 		tapiz = new ImageIcon(ruta).getImage();
 	}
 /**
