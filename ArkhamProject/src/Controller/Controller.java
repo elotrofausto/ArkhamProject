@@ -1,7 +1,5 @@
 package Controller;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -98,6 +96,7 @@ public class Controller implements MouseListener, KeyListener {
 			}
 			if (event.getName() == "finTurno") {
 				this.model.comprobarEvento(this.model.buscarPersonaje("personaje"));
+				this.vista.actualizaStats(this.model.buscarPersonaje("personaje"));
 				this.vista.repaint();
 			}
 		}

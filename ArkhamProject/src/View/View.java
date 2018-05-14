@@ -1,6 +1,5 @@
 package View;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -11,7 +10,6 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import javax.swing.BorderFactory;
-import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,13 +18,12 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-
 import Model.Logic.Tablero;
 
 @SuppressWarnings("serial")
 public class View extends JFrame {
 
+	private Tablero model;
 	private BgLabel[][] tableroCasillas;
 	private JMenuBar mainMenu;
 	private JMenu leyenda, salir;
@@ -34,7 +31,7 @@ public class View extends JFrame {
 			oroVar, enerVar, sabVar, hero, cthulhu;
 	private JButton up, down, right, left, lanzarDado, finTurno;
 	private BackGround tab;
-	private JPanel stats, control, north, arrows, controlMov, controlStats, cabeceraS, cabeceraC;
+	private JPanel stats, control, north, arrows, controlMov, controlStats, cabeceraS, cabeceraC, oroPanel;
 	private Dimension screenSize, columna;
 	private GridBagConstraints c = new GridBagConstraints();
 	private Font fuente;
@@ -42,6 +39,7 @@ public class View extends JFrame {
 	private GraphicsDevice screen;
 
 	public View(Tablero model) {
+		this.model=model;
 		// Elementos para configurar la pantalla completa y las dimensiones de
 		// las
 		// columnas
@@ -65,6 +63,7 @@ public class View extends JFrame {
 		controlStats = new JPanel();
 		cabeceraS = new JPanel();
 		cabeceraC = new JPanel();
+		oroPanel = new JPanel();
 		fuerza = new JLabel("Fuerza");
 		velocidad = new JLabel("Velocidad");
 		oro = new JLabel("Oro");
@@ -120,28 +119,43 @@ public class View extends JFrame {
 		stats.setBorder(BorderFactory.createRaisedBevelBorder());
 		stats.setBackground(new Color(255, 0, 0, 80));
 		stats.setLayout(new BoxLayout(stats, BoxLayout.Y_AXIS));
-		fuerza.setForeground(Color.WHITE); fuerzaVar.setForeground(Color.WHITE);
-		velocidad.setForeground(Color.WHITE); veloVar.setForeground(Color.WHITE);
-		oro.setForeground(Color.WHITE); oroVar.setForeground(Color.WHITE);
-		energia.setForeground(Color.WHITE); enerVar.setForeground(Color.WHITE);
-		sabiduria.setForeground(Color.WHITE); sabVar.setForeground(Color.WHITE);
 		cabeceraS.setLayout(new GridBagLayout());
 		cabeceraS.setBackground(new Color(0, 0, 0, 0));
 		controlStats.setLayout(new GridLayout(5, 2));
 		controlStats.setBackground(new Color(0, 0, 0, 0));
-		fuerza.setFont(fuente); fuerzaVar.setFont(fuente);
-		velocidad.setFont(fuente); veloVar.setFont(fuente);
-		oro.setFont(fuente); oroVar.setFont(fuente);
-		energia.setFont(fuente); enerVar.setFont(fuente);
-		sabiduria.setFont(fuente); sabVar.setFont(fuente);
+		oroPanel.setLayout(new GridBagLayout());
+		oroPanel.setBackground(new Color(0, 0, 0, 0));
+		fuerza.setForeground(Color.WHITE);
+		fuerzaVar.setForeground(Color.WHITE);
+		velocidad.setForeground(Color.WHITE);
+		veloVar.setForeground(Color.WHITE);
+		oro.setForeground(Color.WHITE);
+		oroVar.setForeground(Color.WHITE);
+		energia.setForeground(Color.WHITE);
+		enerVar.setForeground(Color.WHITE);
+		sabiduria.setForeground(Color.WHITE);
+		sabVar.setForeground(Color.WHITE);
+
+		fuerza.setFont(fuente);
+		fuerzaVar.setFont(fuente);
+		velocidad.setFont(fuente);
+		veloVar.setFont(fuente);
+		oro.setFont(fuente);
+		oroVar.setFont(fuente);
+		energia.setFont(fuente);
+		enerVar.setFont(fuente);
+		sabiduria.setFont(fuente);
+		sabVar.setFont(fuente);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0;
 		c.gridx = 0;
 		c.gridy = 0;
+		oroPanel.add(oro, c);
 		cabeceraS.add(hero, c);
 		controlStats.add(fuerza, c);
 		c.gridx = 1;
 		c.gridy = 0;
+		oroPanel.add(oroVar);
 		controlStats.add(fuerzaVar, c);
 		c.gridx = 0;
 		c.gridy = 1;
@@ -151,24 +165,19 @@ public class View extends JFrame {
 		controlStats.add(veloVar, c);
 		c.gridx = 0;
 		c.gridy = 2;
-		controlStats.add(oro, c);
-		c.gridx = 1;
-		c.gridy = 2;
-		controlStats.add(oroVar, c);
-		c.gridx = 0;
-		c.gridy = 3;
 		controlStats.add(energia, c);
 		c.gridx = 1;
-		c.gridy = 3;
+		c.gridy = 2;
 		controlStats.add(enerVar, c);
 		c.gridx = 0;
-		c.gridy = 4;
+		c.gridy = 3;
 		controlStats.add(sabiduria, c);
 		c.gridx = 1;
-		c.gridy = 4;
+		c.gridy = 3;
 		controlStats.add(sabVar, c);
 		stats.add(cabeceraS);
 		stats.add(controlStats);
+		stats.add(oroPanel);
 
 		// Panel de juego.
 		arrows.setLayout(new GridBagLayout());
@@ -301,6 +310,14 @@ public class View extends JFrame {
 		}
 
 	}
+	
+	public void actualizaStats(int[] pos) {
+		this.getFuerzaVar().setText(String.valueOf(model.getBoard()[pos[0]][pos[1]].getPj().getFuerza()));
+		this.getVeloVar().setText(String.valueOf(model.getBoard()[pos[0]][pos[1]].getPj().getVelocidad()));
+		this.getOroVar().setText(String.valueOf(model.getBoard()[pos[0]][pos[1]].getPj().getOro()));
+		this.getEnerVar().setText(String.valueOf(model.getBoard()[pos[0]][pos[1]].getPj().getEnergía()));
+		this.getSabVar().setText(String.valueOf(model.getBoard()[pos[0]][pos[1]].getPj().getSabiduría()));
+	}
 
 	// Getters y Setters
 	public JMenu getLeyenda() {
@@ -431,6 +448,4 @@ public class View extends JFrame {
 		this.finTurno = finTurno;
 	}
 
-	
-	
 }

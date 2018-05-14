@@ -17,15 +17,16 @@ import Model.Pers.Wolf;
 public class Tablero {
 
 	private ArrayList<Casilla> arrayCasillas;
-	private ArrayList<int[]> arrayPosiciones;
 	private Casilla[][] board;
+	private Evento[] event;
 	private int movimientos;
 	private int dificultad;
 	private int cont;
 
 	public Tablero() {
 		dificultad = 12;
-		movimientos = Dado.tirarDado(6);
+		movimientos = 0;
+		event = new Evento[2];
 		arrayCasillas = new ArrayList<Casilla>();
 		for (int i = 0; i < 120; i++) {
 			arrayCasillas.add(new Casilla());
@@ -141,7 +142,7 @@ public class Tablero {
 		origen[0] = pos[0];
 		origen[1] = pos[1];
 		movimientos--;
-		comprobarEvento(pos);
+		//comprobarEvento(pos);
 		return pos;
 	}
 
@@ -150,9 +151,25 @@ public class Tablero {
 	}
 
 	public void comprobarEvento(int[] pos) {
-		if (board[pos[0]][pos[1]].getPj() != null) {
-			System.out.println("Aumento de estadísticas");
+
+		float[] recompensa = new float[5];
+		String nombreEdificio = "";
+		if (board[pos[0]][pos[1]].getPj() != null && !(board[pos[0]][pos[1]].getPj() instanceof Protagonista) ) {
+			// Evento combate
+			System.out.println("Combate");
+		} else if (board[pos[0]][pos[1]].getPj() instanceof Protagonista) {
+			// Evento de localización
+			nombreEdificio = board[pos[0]][pos[1]].getEdificio().getImage();
+			event[1] = Recompensa.getInstance();
+			recompensa=event[1].recompensar(nombreEdificio);
+			//Asignamos los valores nuevos a los atributos del personaje
+			board[pos[0]][pos[1]].getPj().setFuerza(board[pos[0]][pos[1]].getPj().getFuerza()*recompensa[0]);
+			board[pos[0]][pos[1]].getPj().setVelocidad(board[pos[0]][pos[1]].getPj().getVelocidad()*recompensa[1]);
+			board[pos[0]][pos[1]].getPj().setOro(board[pos[0]][pos[1]].getPj().getOro()+recompensa[2]);
+			board[pos[0]][pos[1]].getPj().setEnergía(board[pos[0]][pos[1]].getPj().getEnergía()*recompensa[3]);
+			board[pos[0]][pos[1]].getPj().setSabiduría(board[pos[0]][pos[1]].getPj().getSabiduría()*recompensa[4]);
 		}
+
 	}
 
 	// Método que calcula el movimiento disponible para el personaje

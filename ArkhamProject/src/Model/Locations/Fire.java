@@ -1,4 +1,4 @@
-package Model.Pers;
+package Model.Locations;
 
 /**
  * Clase adicional que hace un extends de Edificación. La utilizo para destruir las localizaciones una vez
@@ -6,10 +6,10 @@ package Model.Pers;
  * @author Alberto Fausto
  *
  */
-public class Fire extends Personaje {
+public class Fire extends Edificacion {
 
 	public Fire(){
-		super(0F,0F,0F,0F,0F,"fire");
+		super("fire");
 	}
 	
 }
