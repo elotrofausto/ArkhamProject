@@ -11,6 +11,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -19,6 +20,8 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+
 import Model.Logic.Tablero;
 
 @SuppressWarnings("serial")
@@ -27,18 +30,20 @@ public class View extends JFrame {
 	private BgLabel[][] tableroCasillas;
 	private JMenuBar mainMenu;
 	private JMenu leyenda, salir;
-	private JLabel bg, northTitle, fuerza, velocidad, oro, energia, sabiduria, movimientos, movVar, fuerzaVar, veloVar, oroVar, enerVar, sabVar, hero, cthulhu;
+	private JLabel bg, northTitle, fuerza, velocidad, oro, energia, sabiduria, movimientos, movVar, fuerzaVar, veloVar,
+			oroVar, enerVar, sabVar, hero, cthulhu;
 	private JButton up, down, right, left, lanzarDado, finTurno;
 	private BackGround tab;
-	private JPanel stats, control, north, arrows, controlMov, controlStats;
+	private JPanel stats, control, north, arrows, controlMov, controlStats, cabeceraS, cabeceraC;
 	private Dimension screenSize, columna;
-	private GraphicsEnvironment ge;
-	private GraphicsDevice screen;
 	private GridBagConstraints c = new GridBagConstraints();
 	private Font fuente;
+	private GraphicsEnvironment ge;
+	private GraphicsDevice screen;
 
 	public View(Tablero model) {
-		// Elementos para configurar la pantalla completa y las dimensiones de las
+		// Elementos para configurar la pantalla completa y las dimensiones de
+		// las
 		// columnas
 		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		screen = ge.getDefaultScreenDevice();
@@ -48,7 +53,8 @@ public class View extends JFrame {
 		mainMenu = new JMenuBar();
 		leyenda = new JMenu("Leyenda");
 		salir = new JMenu("Salir");
-		// Paneles de tablero, estadísticas, juego y título. Juntos componen la pantalla
+		// Paneles de tablero, estadísticas, juego y título. Juntos componen la
+		// pantalla
 		// del videojuego
 		tab = new BackGround();
 		stats = new JPanel();
@@ -57,17 +63,19 @@ public class View extends JFrame {
 		arrows = new JPanel();
 		controlMov = new JPanel();
 		controlStats = new JPanel();
+		cabeceraS = new JPanel();
+		cabeceraC = new JPanel();
 		fuerza = new JLabel("Fuerza");
 		velocidad = new JLabel("Velocidad");
 		oro = new JLabel("Oro");
 		energia = new JLabel("Energía");
 		sabiduria = new JLabel("Sabiduría");
 		movimientos = new JLabel("Movs");
-		fuerzaVar = new JLabel("");
-		veloVar = new JLabel("");
-		oroVar = new JLabel("");
-		enerVar = new JLabel("");
-		sabVar = new JLabel("");
+		fuerzaVar = new JLabel("1");
+		veloVar = new JLabel("100");
+		oroVar = new JLabel("1");
+		enerVar = new JLabel("1");
+		sabVar = new JLabel("1");
 		movVar = new JLabel(String.valueOf(model.getMovimientos()));
 		// Imágenes estéticas y fuentes. Botones de movimiento y juego.
 		fuente = new Font("", 1, 20);
@@ -111,33 +119,55 @@ public class View extends JFrame {
 		stats.setPreferredSize(columna);
 		stats.setBorder(BorderFactory.createRaisedBevelBorder());
 		stats.setBackground(new Color(255, 0, 0, 80));
-		//stats.setLayout(new BoxLayout(stats, BoxLayout.Y_AXIS));
-		fuerza.setForeground(Color.WHITE);
-		velocidad.setForeground(Color.WHITE);
-		oro.setForeground(Color.WHITE);
-		energia.setForeground(Color.WHITE);
-		sabiduria.setForeground(Color.WHITE);
-		stats.add(hero);
+		stats.setLayout(new BoxLayout(stats, BoxLayout.Y_AXIS));
+		fuerza.setForeground(Color.WHITE); fuerzaVar.setForeground(Color.WHITE);
+		velocidad.setForeground(Color.WHITE); veloVar.setForeground(Color.WHITE);
+		oro.setForeground(Color.WHITE); oroVar.setForeground(Color.WHITE);
+		energia.setForeground(Color.WHITE); enerVar.setForeground(Color.WHITE);
+		sabiduria.setForeground(Color.WHITE); sabVar.setForeground(Color.WHITE);
+		cabeceraS.setLayout(new GridBagLayout());
+		cabeceraS.setBackground(new Color(0, 0, 0, 0));
 		controlStats.setLayout(new GridLayout(5, 2));
 		controlStats.setBackground(new Color(0, 0, 0, 0));
-		fuerza.setFont(fuente); velocidad.setFont(fuente); oro.setFont(fuente); energia.setFont(fuente); sabiduria.setFont(fuente);
+		fuerza.setFont(fuente); fuerzaVar.setFont(fuente);
+		velocidad.setFont(fuente); veloVar.setFont(fuente);
+		oro.setFont(fuente); oroVar.setFont(fuente);
+		energia.setFont(fuente); enerVar.setFont(fuente);
+		sabiduria.setFont(fuente); sabVar.setFont(fuente);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0;
 		c.gridx = 0;
 		c.gridy = 0;
+		cabeceraS.add(hero, c);
 		controlStats.add(fuerza, c);
+		c.gridx = 1;
+		c.gridy = 0;
+		controlStats.add(fuerzaVar, c);
 		c.gridx = 0;
 		c.gridy = 1;
 		controlStats.add(velocidad, c);
+		c.gridx = 1;
+		c.gridy = 1;
+		controlStats.add(veloVar, c);
 		c.gridx = 0;
 		c.gridy = 2;
 		controlStats.add(oro, c);
+		c.gridx = 1;
+		c.gridy = 2;
+		controlStats.add(oroVar, c);
 		c.gridx = 0;
 		c.gridy = 3;
 		controlStats.add(energia, c);
+		c.gridx = 1;
+		c.gridy = 3;
+		controlStats.add(enerVar, c);
 		c.gridx = 0;
 		c.gridy = 4;
 		controlStats.add(sabiduria, c);
+		c.gridx = 1;
+		c.gridy = 4;
+		controlStats.add(sabVar, c);
+		stats.add(cabeceraS);
 		stats.add(controlStats);
 
 		// Panel de juego.
@@ -157,6 +187,10 @@ public class View extends JFrame {
 		left.setBorder(null);
 		right.setBackground(new Color(0, 0, 0, 0));
 		right.setBorder(null);
+		cabeceraC.setBackground(new Color(0, 0, 0, 0));
+		c.gridx = 0;
+		c.gridy = 0;
+		cabeceraC.add(cthulhu, c);
 		c.gridx = 1;
 		c.gridy = 0;
 		c.gridheight = 1;
@@ -193,7 +227,8 @@ public class View extends JFrame {
 		control.setBorder(BorderFactory.createRaisedBevelBorder());
 		control.setBackground(new Color(0, 255, 0, 80));
 		control.setLayout(new BoxLayout(control, BoxLayout.Y_AXIS));
-		control.add(cthulhu);
+		cthulhu.setHorizontalAlignment(JLabel.CENTER);
+		control.add(cabeceraC);
 		control.add(controlMov);
 		control.add(arrows);
 
@@ -241,7 +276,8 @@ public class View extends JFrame {
 		this.add(bg);
 		this.setJMenuBar(mainMenu);
 		this.setVisible(true);
-		screen.setFullScreenWindow(this); // Pantalla completa por encima de los elementos del SO
+		screen.setFullScreenWindow(this); // Pantalla completa por encima de los
+											// elementos del SO
 	}
 
 	public void efectuarMovimiento(String dir, int[] pos, String nombre) {
@@ -386,7 +422,15 @@ public class View extends JFrame {
 	public void setLanzarDado(JButton lanzarDado) {
 		this.lanzarDado = lanzarDado;
 	}
-	
-	
 
+	public JButton getFinTurno() {
+		return finTurno;
+	}
+
+	public void setFinTurno(JButton finTurno) {
+		this.finTurno = finTurno;
+	}
+
+	
+	
 }

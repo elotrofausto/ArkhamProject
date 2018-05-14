@@ -34,6 +34,7 @@ public class Controller implements MouseListener, KeyListener {
 		vista.getLeft().addMouseListener(this);
 		vista.getRight().addMouseListener(this);
 		vista.getLanzarDado().addMouseListener(this);
+		vista.getFinTurno().addMouseListener(this);
 		// Key Listeners
 		vista.getTab().addKeyListener(this);
 
@@ -93,6 +94,10 @@ public class Controller implements MouseListener, KeyListener {
 			}
 			if (event.getName() == "lanzarDado") {
 				this.vista.getMovVar().setText(String.valueOf(this.model.calculaMovimiento()));
+				this.vista.repaint();
+			}
+			if (event.getName() == "finTurno") {
+				this.model.comprobarEvento(this.model.buscarPersonaje("personaje"));
 				this.vista.repaint();
 			}
 		}

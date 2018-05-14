@@ -49,8 +49,10 @@ public class Tablero {
 		// Desordenamos las edificaciones
 		Collections.shuffle(arrayCasillas);
 
-		// Añadimos enemigos tras el shuffle para que caigan en casillas aleatorias
-		arrayCasillas.get(0).setPj(new Protagonista()); // Primero añadimos al protagonista
+		// Añadimos enemigos tras el shuffle para que caigan en casillas
+		// aleatorias
+		arrayCasillas.get(0).setPj(new Protagonista()); // Primero añadimos al
+														// protagonista
 		for (int i = 1; i <= dificultad; i++) { // Y luego a los enemigos
 			arrayCasillas.get(i).setPj(new Cthonian());
 			i++;
@@ -59,14 +61,16 @@ public class Tablero {
 			arrayCasillas.get(i).setPj(new Mentalista());
 			i++;
 			arrayCasillas.get(i).setPj(new Wolf());
-			// La dificultad va por múltiplos de 4 enemigos (Sumamos 3 teniendo en cuenta el
+			// La dificultad va por múltiplos de 4 enemigos (Sumamos 3 teniendo
+			// en cuenta el
 			// incremento del bucle)
 		}
 
 		// Volvemos a desordenar para que no queden todos al principio
 		Collections.shuffle(arrayCasillas);
 
-		// Asignamos las edificaciones, ya desordenadas de forma aleatoria, al tablero
+		// Asignamos las edificaciones, ya desordenadas de forma aleatoria, al
+		// tablero
 		board = new Casilla[8][15];
 		cont = 0;
 
@@ -147,7 +151,7 @@ public class Tablero {
 
 	public void comprobarEvento(int[] pos) {
 		if (board[pos[0]][pos[1]].getPj() != null) {
-
+			System.out.println("Aumento de estadísticas");
 		}
 	}
 
