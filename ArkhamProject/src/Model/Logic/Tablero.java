@@ -168,6 +168,7 @@ public class Tablero {
 			board[pos[0]][pos[1]].getPj().setOro(board[pos[0]][pos[1]].getPj().getOro()+recompensa[2]);
 			board[pos[0]][pos[1]].getPj().setEnergía(board[pos[0]][pos[1]].getPj().getEnergía()*recompensa[3]);
 			board[pos[0]][pos[1]].getPj().setSabiduría(board[pos[0]][pos[1]].getPj().getSabiduría()*recompensa[4]);
+			movimientos=0;
 		}
 
 	}

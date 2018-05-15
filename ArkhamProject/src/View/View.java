@@ -312,11 +312,11 @@ public class View extends JFrame {
 	}
 	
 	public void actualizaStats(int[] pos) {
-		this.getFuerzaVar().setText(String.valueOf(model.getBoard()[pos[0]][pos[1]].getPj().getFuerza()));
-		this.getVeloVar().setText(String.valueOf(model.getBoard()[pos[0]][pos[1]].getPj().getVelocidad()));
-		this.getOroVar().setText(String.valueOf(model.getBoard()[pos[0]][pos[1]].getPj().getOro()));
-		this.getEnerVar().setText(String.valueOf(model.getBoard()[pos[0]][pos[1]].getPj().getEnergía()));
-		this.getSabVar().setText(String.valueOf(model.getBoard()[pos[0]][pos[1]].getPj().getSabiduría()));
+		this.getFuerzaVar().setText(String.format("%.2f",(float)model.getBoard()[pos[0]][pos[1]].getPj().getFuerza()));
+		this.getVeloVar().setText(String.format("%.2f",(float)model.getBoard()[pos[0]][pos[1]].getPj().getVelocidad()));
+		this.getOroVar().setText(String.format("%.2f",(float)model.getBoard()[pos[0]][pos[1]].getPj().getOro()));
+		this.getEnerVar().setText(String.format("%.2f",(float)(model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
+		this.getSabVar().setText(String.format("%.2f",(float)model.getBoard()[pos[0]][pos[1]].getPj().getSabiduría()));
 	}
 
 	// Getters y Setters
