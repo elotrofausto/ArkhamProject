@@ -88,7 +88,7 @@ public class Tablero {
 
 	// Método para buscar a un personaje en el tablero
 	public int[] buscarPersonaje(String nombre) {
-		int[] posicion = new int[2];
+		int[] posicion = new int[3];
 
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
@@ -100,12 +100,13 @@ public class Tablero {
 				}
 			}
 		}
+		posicion[2]=0;
 
 		return posicion;
 	}
 
 	public int[] mover(String dir) {
-		int pos[] = new int[2];
+		int pos[] = new int[3];
 		int origen[] = new int[2];
 
 		// Buscamos la posición del protagonista
@@ -137,12 +138,19 @@ public class Tablero {
 			break;
 		}
 
-		board[pos[0]][pos[1]].setPj(board[origen[0]][origen[1]].getPj());
-		board[origen[0]][origen[1]].setPj(null);
+		if (pos[0] == origen[0] && pos[1] == origen[1]) {
+			//Con la pos[2] controlamos si el personaje ha podido mover o no
+			pos[2] = 0;
+		} else{
+			pos[2] = 1;
+			board[pos[0]][pos[1]].setPj(board[origen[0]][origen[1]].getPj());
+			board[origen[0]][origen[1]].setPj(null);
+		}
+		
 		origen[0] = pos[0];
 		origen[1] = pos[1];
 		movimientos--;
-		//comprobarEvento(pos);
+		// comprobarEvento(pos);
 		return pos;
 	}
 
@@ -150,37 +158,39 @@ public class Tablero {
 
 	}
 
+	// Comprueba si hay evento en la casilla, y dependiendo de si es de tipo
+	// Localización o Combate lanza unas sentencias u otras.
 	public void comprobarEvento(int[] pos) {
 
 		float[] recompensa = new float[5];
 		String nombreEdificio = "";
-		if (board[pos[0]][pos[1]].getPj() != null && !(board[pos[0]][pos[1]].getPj() instanceof Protagonista) ) {
+		if (board[pos[0]][pos[1]].getPj() != null && !(board[pos[0]][pos[1]].getPj() instanceof Protagonista)) {
 			// Evento combate
 			System.out.println("Combate");
 		} else if (board[pos[0]][pos[1]].getPj() instanceof Protagonista) {
 			// Evento de localización
 			nombreEdificio = board[pos[0]][pos[1]].getEdificio().getImage();
 			event[1] = Recompensa.getInstance();
-			recompensa=event[1].recompensar(nombreEdificio);
-			//Asignamos los valores nuevos a los atributos del personaje
-			board[pos[0]][pos[1]].getPj().setFuerza(board[pos[0]][pos[1]].getPj().getFuerza()*recompensa[0]);
-			board[pos[0]][pos[1]].getPj().setVelocidad(board[pos[0]][pos[1]].getPj().getVelocidad()*recompensa[1]);
-			board[pos[0]][pos[1]].getPj().setOro(board[pos[0]][pos[1]].getPj().getOro()+recompensa[2]);
-			board[pos[0]][pos[1]].getPj().setEnergía(board[pos[0]][pos[1]].getPj().getEnergía()*recompensa[3]);
-			board[pos[0]][pos[1]].getPj().setSabiduría(board[pos[0]][pos[1]].getPj().getSabiduría()*recompensa[4]);
-			movimientos=0;
+			recompensa = event[1].recompensar(nombreEdificio);
+			// Asignamos los valores nuevos a los atributos del personaje
+			board[pos[0]][pos[1]].getPj().setFuerza(board[pos[0]][pos[1]].getPj().getFuerza() * recompensa[0]);
+			board[pos[0]][pos[1]].getPj().setVelocidad(board[pos[0]][pos[1]].getPj().getVelocidad() * recompensa[1]);
+			board[pos[0]][pos[1]].getPj().setOro(board[pos[0]][pos[1]].getPj().getOro() + recompensa[2]);
+			board[pos[0]][pos[1]].getPj().setEnergía(board[pos[0]][pos[1]].getPj().getEnergía() * recompensa[3]);
+			board[pos[0]][pos[1]].getPj().setSabiduría(board[pos[0]][pos[1]].getPj().getSabiduría() * recompensa[4]);
+			// board[pos[0]][pos[1]].setEdificio(new Fire());
+			movimientos = 0;
 		}
 
 	}
 
 	// Método que calcula el movimiento disponible para el personaje
 	public int calculaMovimiento() {
-		int posicion[] = new int[2];
+		int posicion[] = new int[3];
 
 		posicion = buscarPersonaje("personaje");
-
+		
 		this.movimientos = (int) (Dado.tirarDado(6) * board[posicion[0]][posicion[1]].getPj().getVelocidad());
-		System.out.println(movimientos);
 		return movimientos;
 	}
 

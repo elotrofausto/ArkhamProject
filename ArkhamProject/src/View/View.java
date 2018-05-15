@@ -317,7 +317,8 @@ public class View extends JFrame {
 		this.getOroVar().setText(String.format("%.2f",(float)model.getBoard()[pos[0]][pos[1]].getPj().getOro()));
 		this.getEnerVar().setText(String.format("%.2f",(float)(model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
 		this.getSabVar().setText(String.format("%.2f",(float)model.getBoard()[pos[0]][pos[1]].getPj().getSabiduría()));
-	}
+		//this.tableroCasillas[pos[0]][pos[1]].setIcon(new ImageIcon("img/" + this.model.getBoard()[pos[0]][pos[1]].getEdificio().getImage() + ".gif"));
+		}
 
 	// Getters y Setters
 	public JMenu getLeyenda() {
@@ -448,4 +449,6 @@ public class View extends JFrame {
 		this.finTurno = finTurno;
 	}
 
+	
+	
 }

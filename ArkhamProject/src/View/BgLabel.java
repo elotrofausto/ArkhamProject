@@ -33,4 +33,12 @@ public class BgLabel extends JLabel {
         this.setOpaque(false);
         super.paint(g);
 	}
+public Image getTapiz() {
+	return tapiz;
+}
+public void setTapiz(Image tapiz) {
+	this.tapiz = tapiz;
+}
+	
+	
 }
