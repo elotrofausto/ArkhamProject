@@ -28,10 +28,10 @@ public class View extends JFrame {
 	private JMenuBar mainMenu;
 	private JMenu leyenda, salir;
 	private JLabel bg, northTitle, fuerza, velocidad, oro, energia, sabiduria, movimientos, movVar, fuerzaVar, veloVar,
-			oroVar, enerVar, sabVar, hero, cthulhu;
+			oroVar, enerVar, sabVar, hero, cthulhu, controlInst;
 	private JButton up, down, right, left, lanzarDado, finTurno;
 	private BackGround tab;
-	private JPanel stats, control, north, arrows, controlMov, controlStats, cabeceraS, cabeceraC, oroPanel;
+	private JPanel stats, control, north, arrows, controlMov, controlStats, cabeceraS, cabeceraC, oroPanel, controlInfo;
 	private Dimension screenSize, columna;
 	private GridBagConstraints c = new GridBagConstraints();
 	private Font fuente;
@@ -39,7 +39,7 @@ public class View extends JFrame {
 	private GraphicsDevice screen;
 
 	public View(Tablero model) {
-		this.model=model;
+		this.model = model;
 		// Elementos para configurar la pantalla completa y las dimensiones de
 		// las
 		// columnas
@@ -64,18 +64,20 @@ public class View extends JFrame {
 		cabeceraS = new JPanel();
 		cabeceraC = new JPanel();
 		oroPanel = new JPanel();
+		controlInfo = new JPanel();
 		fuerza = new JLabel("Fuerza");
 		velocidad = new JLabel("Velocidad");
 		oro = new JLabel("Oro");
 		energia = new JLabel("Energía");
 		sabiduria = new JLabel("Sabiduría");
 		movimientos = new JLabel("Movs");
-		fuerzaVar = new JLabel("1");
-		veloVar = new JLabel("100");
-		oroVar = new JLabel("1");
-		enerVar = new JLabel("1");
-		sabVar = new JLabel("1");
+		fuerzaVar = new JLabel("1,00");
+		veloVar = new JLabel("100,00");
+		oroVar = new JLabel("1,00");
+		enerVar = new JLabel("1,00");
+		sabVar = new JLabel("1,00");
 		movVar = new JLabel(String.valueOf(model.getMovimientos()));
+		controlInst = new JLabel(new ImageIcon("img/controlInst2.png"));
 		// Imágenes estéticas y fuentes. Botones de movimiento y juego.
 		fuente = new Font("", 1, 20);
 		bg = new JLabel(new ImageIcon("img/background.png"));
@@ -125,6 +127,7 @@ public class View extends JFrame {
 		controlStats.setBackground(new Color(0, 0, 0, 0));
 		oroPanel.setLayout(new GridBagLayout());
 		oroPanel.setBackground(new Color(0, 0, 0, 0));
+		controlInfo.setBackground(new Color(0, 0, 0, 0));
 		fuerza.setForeground(Color.WHITE);
 		fuerzaVar.setForeground(Color.WHITE);
 		velocidad.setForeground(Color.WHITE);
@@ -175,9 +178,11 @@ public class View extends JFrame {
 		c.gridx = 1;
 		c.gridy = 3;
 		controlStats.add(sabVar, c);
+		controlInfo.add(controlInst);
 		stats.add(cabeceraS);
 		stats.add(controlStats);
 		stats.add(oroPanel);
+		stats.add(controlInfo);
 
 		// Panel de juego.
 		arrows.setLayout(new GridBagLayout());
@@ -310,15 +315,21 @@ public class View extends JFrame {
 		}
 
 	}
-	
+
 	public void actualizaStats(int[] pos) {
-		this.getFuerzaVar().setText(String.format("%.2f",(float)model.getBoard()[pos[0]][pos[1]].getPj().getFuerza()));
-		this.getVeloVar().setText(String.format("%.2f",(float)model.getBoard()[pos[0]][pos[1]].getPj().getVelocidad()));
-		this.getOroVar().setText(String.format("%.2f",(float)model.getBoard()[pos[0]][pos[1]].getPj().getOro()));
-		this.getEnerVar().setText(String.format("%.2f",(float)(model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
-		this.getSabVar().setText(String.format("%.2f",(float)model.getBoard()[pos[0]][pos[1]].getPj().getSabiduría()));
-		//this.tableroCasillas[pos[0]][pos[1]].setIcon(new ImageIcon("img/" + this.model.getBoard()[pos[0]][pos[1]].getEdificio().getImage() + ".gif"));
-		}
+		this.getFuerzaVar()
+				.setText(String.format("%.2f", (float) model.getBoard()[pos[0]][pos[1]].getPj().getFuerza()));
+		this.getVeloVar()
+				.setText(String.format("%.2f", (float) model.getBoard()[pos[0]][pos[1]].getPj().getVelocidad()));
+		this.getOroVar().setText(String.format("%.2f", (float) model.getBoard()[pos[0]][pos[1]].getPj().getOro()));
+		this.getEnerVar()
+				.setText(String.format("%.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
+		this.getSabVar()
+				.setText(String.format("%.2f", (float) model.getBoard()[pos[0]][pos[1]].getPj().getSabiduría()));
+		// this.tableroCasillas[pos[0]][pos[1]].setIcon(new ImageIcon("img/" +
+		// this.model.getBoard()[pos[0]][pos[1]].getEdificio().getImage() +
+		// ".gif"));
+	}
 
 	// Getters y Setters
 	public JMenu getLeyenda() {
@@ -449,6 +460,4 @@ public class View extends JFrame {
 		this.finTurno = finTurno;
 	}
 
-	
-	
 }
