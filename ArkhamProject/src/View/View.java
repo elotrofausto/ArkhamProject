@@ -72,9 +72,9 @@ public class View extends JFrame {
 		sabiduria = new JLabel("Sabiduría");
 		movimientos = new JLabel("Movs");
 		fuerzaVar = new JLabel("1,00");
-		veloVar = new JLabel("100,00");
+		veloVar = new JLabel("1,00");
 		oroVar = new JLabel("1,00");
-		enerVar = new JLabel("1,00");
+		enerVar = new JLabel("100,00");
 		sabVar = new JLabel("1,00");
 		movVar = new JLabel(String.valueOf(model.getMovimientos()));
 		controlInst = new JLabel(new ImageIcon("img/controlInst2.png"));
@@ -326,9 +326,13 @@ public class View extends JFrame {
 				.setText(String.format("%.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
 		this.getSabVar()
 				.setText(String.format("%.2f", (float) model.getBoard()[pos[0]][pos[1]].getPj().getSabiduría()));
-		// this.tableroCasillas[pos[0]][pos[1]].setIcon(new ImageIcon("img/" +
-		// this.model.getBoard()[pos[0]][pos[1]].getEdificio().getImage() +
-		// ".gif"));
+		if (!(this.model.getBoard()[pos[0]][pos[1]].getEdificio().getImage().equals("calle1"))
+				&& !(this.model.getBoard()[pos[0]][pos[1]].getEdificio().getImage().equals("calle2"))
+				&& !(this.model.getBoard()[pos[0]][pos[1]].getEdificio().getImage().equals("calle3"))){
+			this.tableroCasillas[pos[0]][pos[1]].setTapiz(new ImageIcon("img/calle2.png").getImage());
+			this.model.getBoard()[pos[0]][pos[1]].getEdificio().setActivo(false);
+		}
+		 
 	}
 
 	// Getters y Setters
