@@ -107,7 +107,7 @@ public class Controller implements MouseListener, KeyListener {
 				}
 			}
 			if (event.getName() == "finTurno") {
-				this.model.comprobarEvento(pos = this.model.buscarPersonaje("personaje"));
+				this.model.comprobarEvento(pos = this.model.buscarPersonaje("personaje"), new int[2]);
 				if (this.model.getBoard()[pos[0]][pos[1]].getEdificio().isActivo()){
 				this.vista.actualizaStats(pos);
 				this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
@@ -172,7 +172,7 @@ public class Controller implements MouseListener, KeyListener {
 			}
 			break;
 		case KeyEvent.VK_ENTER:
-			this.model.comprobarEvento(pos=this.model.buscarPersonaje("personaje"));
+			this.model.comprobarEvento(pos=this.model.buscarPersonaje("personaje"), new int[2]);
 			if (this.model.getBoard()[pos[0]][pos[1]].getEdificio().isActivo()){
 				this.vista.actualizaStats(pos);
 				this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));

@@ -28,7 +28,7 @@ public class Dado {
         return (int)resultado;
     }
     
-    public static ArrayList<Integer> tirarDados(int numero, int rango) {
+    public ArrayList<Integer> tirarDados(int numero, int rango) {
         ArrayList<Integer> resultados=new ArrayList<Integer>();
         for (int i=0; i<numero; i++) {
             resultados.add(Dado.getInstance().tirarDado(rango));

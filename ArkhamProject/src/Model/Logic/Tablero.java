@@ -100,12 +100,13 @@ public class Tablero {
 				}
 			}
 		}
-		posicion[2]=0;
+		posicion[2] = 0;
 
 		return posicion;
 	}
 
-	//Método para mover los personajes. Recibe la dirección y ubicación como parámtro
+	// Método para mover los personajes. Recibe la dirección y ubicación como
+	// parámtro
 	public int[] mover(String dir, int[] pos) {
 		int origen[] = new int[2];
 
@@ -138,57 +139,54 @@ public class Tablero {
 		}
 
 		if (pos[0] == origen[0] && pos[1] == origen[1]) {
-			//Con la pos[2] controlamos si el personaje ha podido mover o no
+			// Con la pos[2] controlamos si el personaje ha podido mover o no
 			pos[2] = 0;
-		} else{
+		} else {
 			pos[2] = 1;
-			comprobarEvento(pos);
+			comprobarEvento(pos, origen);
 			board[pos[0]][pos[1]].setPj(board[origen[0]][origen[1]].getPj());
 			board[origen[0]][origen[1]].setPj(null);
 		}
-		
-		if (movimientos >= 1) movimientos--;
+
+		if (movimientos >= 1)
+			movimientos--;
 		return pos;
 	}
 
 	public void moverMonstruos() {
 		ArrayList<int[]> posiciones = new ArrayList<int[]>();
-		ArrayList<int[]> posFinales = new ArrayList<int[]>();
-		
-		int k=0;
-		
+
+		int k = 0;
+
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
 				if (board[i][j].getPj() != null) {
 					if (!board[i][j].getPj().getNombre().equals("personaje")) {
 						posiciones.add(new int[3]);
-						posiciones.get(k)[0]=i;
-						posiciones.get(k)[1]=j;
-						posiciones.get(k)[2]=0;
+						posiciones.get(k)[0] = i;
+						posiciones.get(k)[1] = j;
+						posiciones.get(k)[2] = 0;
 						k++;
 					}
 				}
 			}
 		}
-		
-		for (int i=0; i < posiciones.size(); i++) {
-			
+
+		for (int i = 0; i < posiciones.size(); i++) {
+
 		}
-		
-		
+
 	}
 
 	// Comprueba si hay evento en la casilla, y dependiendo de si es de tipo
 	// Localización o Combate lanza unas sentencias u otras.
-	public void comprobarEvento(int[] pos) {
+	public void comprobarEvento(int[] pos, int[] origen) {
 
-		
 		float[] recompensa = new float[5];
 		String nombreEdificio = "";
 		if ((board[pos[0]][pos[1]].getPj() != null) && !(board[pos[0]][pos[1]].getPj() instanceof Protagonista)) {
 			// Evento combate
-			System.out.println("Combate");
-			combate(pos);
+			combate(pos, origen);
 			movimientos = 0;
 		} else if (board[pos[0]][pos[1]].getPj() instanceof Protagonista) {
 			// Evento de localización
@@ -206,15 +204,46 @@ public class Tablero {
 		}
 
 	}
-	
-	public void combate(int[] pos){
+
+	public void combate(int[] pos, int[] origen) {
 		ArrayList<Integer> arrayDados = new ArrayList<Integer>();
-		float damage;
-		//(3dados*Fuerza)*0.75+(3Dados*Sabiduría)*0.25
+		double damage, defense, result;
 		
-		arrayDados = Dado.getInstance().tirarDados(3, 6);
-		damage = (arrayDados.get(0) + arrayDados.get(1) + arrayDados.get(2));
-		arrayDados = Dado.getInstance().tirarDados(3, 6);
+		System.out.println("Combate");
+		System.out.println("Vida pers inicial " + board[origen[0]][origen[1]].getPj().getEnergía());
+
+		while (board[pos[0]][pos[1]].getPj().getEnergía() > 0 && board[origen[0]][origen[1]].getPj().getEnergía() > 0) {
+
+			// Calculamos el ataque del personaje
+			arrayDados = Dado.getInstance().tirarDados(6, 6);
+			damage = (((arrayDados.get(0) + arrayDados.get(1) + arrayDados.get(2))
+					* board[origen[0]][origen[1]].getPj().getFuerza()) * 0.75)
+					+ (((arrayDados.get(3) + arrayDados.get(4) + arrayDados.get(5))
+							* board[origen[0]][origen[1]].getPj().getSabiduría()) * 0.25);
+
+			// Calculamos la defensa del monstruo
+			arrayDados = Dado.getInstance().tirarDados(6, 6);
+			defense = (((arrayDados.get(0) + arrayDados.get(1) + arrayDados.get(2))
+					* board[pos[0]][pos[1]].getPj().getFuerza()) * 0.75)
+					+ (((arrayDados.get(3) + arrayDados.get(4) + arrayDados.get(5))
+							* board[pos[0]][pos[1]].getPj().getSabiduría()) * 0.25);
+
+			result = damage - defense;
+			System.out.println(damage + " - " + defense + " = " + result);
+
+			if (damage > defense) {
+				board[pos[0]][pos[1]].getPj().setEnergía((float) (board[pos[0]][pos[1]].getPj().getEnergía() - result));
+			} else {
+				board[origen[0]][origen[1]].getPj()
+						.setEnergía((float) (board[origen[0]][origen[1]].getPj().getEnergía() + result));
+			}
+			System.out.println("Vida pers " + board[origen[0]][origen[1]].getPj().getEnergía());
+		}
+
+		if (board[origen[0]][origen[1]].getPj().getEnergía() <= 0) {
+			System.out.println("Has perdido la partida");
+			System.exit(0);
+		}
 	}
 
 	// Método que calcula el movimiento disponible para el personaje
@@ -222,8 +251,9 @@ public class Tablero {
 		int posicion[] = new int[3];
 
 		posicion = buscarPersonaje("personaje");
-		
-		this.movimientos = (int) (Dado.getInstance().tirarDado(6) * Math.floor(board[posicion[0]][posicion[1]].getPj().getVelocidad()));
+
+		this.movimientos = (int) (Dado.getInstance().tirarDado(6)
+				* Math.floor(board[posicion[0]][posicion[1]].getPj().getVelocidad()));
 		return movimientos;
 	}
 
@@ -235,7 +265,7 @@ public class Tablero {
 	public void finalizarturno() {
 		int[] pos = new int[2];
 		pos = buscarPersonaje("personaje");
-		comprobarEvento(pos);
+		comprobarEvento(pos, new int[2]);
 	}
 
 	public Casilla[][] getBoard() {
