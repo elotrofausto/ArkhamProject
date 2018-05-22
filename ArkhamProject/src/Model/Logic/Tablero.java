@@ -109,6 +109,25 @@ public class Tablero {
 	// parámtro
 	public int[] mover(String dir, int[] pos) {
 		int origen[] = new int[2];
+		int movs = 0; // Variable para almacenar la cantidad de movimientos
+
+		// Asignamos a la variable movs las casillas que movera el personaje de
+		// golpe dependiendo del tipo
+		if (board[pos[0]][pos[1]].getPj() instanceof Protagonista) {
+			movs = 1;
+		}
+		if (board[pos[0]][pos[1]].getPj() instanceof Cthonian) {
+			movs = 1;
+		}
+		if (board[pos[0]][pos[1]].getPj() instanceof Mentalista) {
+			movs = 1;
+		}
+		if (board[pos[0]][pos[1]].getPj() instanceof Tree) {
+			movs = 1;
+		}
+		if (board[pos[0]][pos[1]].getPj() instanceof Wolf) {
+			movs = 1;
+		}
 
 		// Guardamos la posición de origen para siguientes comprobaciones
 		origen[0] = pos[0];
@@ -117,23 +136,35 @@ public class Tablero {
 		// Movemos según dirección
 		switch (dir) {
 		case "up":
-			if (pos[0] - 1 >= 0) {
-				pos[0] = pos[0] - 1;
+			if ((pos[0] - movs >= 0) && (board[pos[0] - movs][pos[1]].getPj() == null)
+					|| (pos[0] - movs >= 0) && (board[pos[0] - movs][pos[1]].getPj() instanceof Protagonista)
+					|| (pos[0] - movs >= 0) && (board[pos[0] - movs][pos[1]].getPj() != null)
+							&& (board[pos[0]][pos[1]].getPj() instanceof Protagonista)) {
+				pos[0] = pos[0] - movs;
 			}
 			break;
 		case "down":
-			if (pos[0] + 1 < board.length) {
-				pos[0] = pos[0] + 1;
+			if (pos[0] + movs < board.length && (board[pos[0] + movs][pos[1]].getPj() == null)
+					|| (pos[0] + movs < board.length) && (board[pos[0] + movs][pos[1]].getPj() instanceof Protagonista)
+					|| (pos[0] + movs < board.length) && (board[pos[0] + movs][pos[1]].getPj() != null)
+							&& (board[pos[0]][pos[1]].getPj() instanceof Protagonista)) {
+				pos[0] = pos[0] + movs;
 			}
 			break;
 		case "left":
-			if (pos[1] - 1 >= 0) {
-				pos[1] = pos[1] - 1;
+			if (pos[1] - movs >= 0 && (board[pos[0]][pos[1] - movs].getPj() == null)
+				|| (pos[1] - movs >= 0) && (board[pos[0]][pos[1] - movs].getPj() instanceof Protagonista)
+				|| (pos[1] - movs >= 0) && (board[pos[0]][pos[1] - movs].getPj() != null)
+						&& (board[pos[0]][pos[1]].getPj() instanceof Protagonista)){
+				pos[1] = pos[1] - movs;
 			}
 			break;
 		case "right":
-			if (pos[1] + 1 < board[0].length) {
-				pos[1] = pos[1] + 1;
+			if (pos[1] + movs < board[0].length && (board[pos[0]][pos[1] + movs].getPj() == null)
+					|| (pos[1] + movs < board[0].length) && (board[pos[0]][pos[1] + movs].getPj() instanceof Protagonista)
+					|| (pos[1] + movs < board[0].length) && (board[pos[0]][pos[1] + movs].getPj() != null)
+							&& (board[pos[0]][pos[1]].getPj() instanceof Protagonista)) {
+				pos[1] = pos[1] + movs;
 			}
 			break;
 		}
@@ -155,6 +186,8 @@ public class Tablero {
 
 	public void moverMonstruos() {
 		ArrayList<int[]> posiciones = new ArrayList<int[]>();
+		String[] direcciones = { "up", "down", "right", "left" };
+		int random;
 
 		int k = 0;
 
@@ -173,7 +206,8 @@ public class Tablero {
 		}
 
 		for (int i = 0; i < posiciones.size(); i++) {
-
+			random = Dado.getInstance().tirarDado(4);
+			mover(direcciones[random - 1], posiciones.get(i));
 		}
 
 	}
@@ -184,9 +218,15 @@ public class Tablero {
 
 		float[] recompensa = new float[5];
 		String nombreEdificio = "";
-		if ((board[pos[0]][pos[1]].getPj() != null) && !(board[pos[0]][pos[1]].getPj() instanceof Protagonista)) {
+		if ((board[pos[0]][pos[1]].getPj() != null) && (board[origen[0]][origen[1]].getPj() != null)
+				&& ((board[pos[0]][pos[1]].getPj() instanceof Protagonista)
+						|| (board[origen[0]][origen[1]].getPj() instanceof Protagonista))) {
 			// Evento combate
-			combate(pos, origen);
+			if (board[pos[0]][pos[1]].getPj() instanceof Protagonista) {
+				combate(origen, pos);
+			} else {
+				combate(pos, origen);
+			}
 			movimientos = 0;
 		} else if (board[pos[0]][pos[1]].getPj() instanceof Protagonista) {
 			// Evento de localización
@@ -208,7 +248,7 @@ public class Tablero {
 	public void combate(int[] pos, int[] origen) {
 		ArrayList<Integer> arrayDados = new ArrayList<Integer>();
 		double damage, defense, result;
-		
+
 		System.out.println("Combate");
 		System.out.println("Vida pers inicial " + board[origen[0]][origen[1]].getPj().getEnergía());
 

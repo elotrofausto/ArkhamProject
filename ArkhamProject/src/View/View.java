@@ -328,11 +328,25 @@ public class View extends JFrame {
 				.setText(String.format("%.2f", (float) model.getBoard()[pos[0]][pos[1]].getPj().getSabiduría()));
 		if (!(this.model.getBoard()[pos[0]][pos[1]].getEdificio().getImage().equals("calle1"))
 				&& !(this.model.getBoard()[pos[0]][pos[1]].getEdificio().getImage().equals("calle2"))
-				&& !(this.model.getBoard()[pos[0]][pos[1]].getEdificio().getImage().equals("calle3"))){
+				&& !(this.model.getBoard()[pos[0]][pos[1]].getEdificio().getImage().equals("calle3"))) {
 			this.tableroCasillas[pos[0]][pos[1]].setTapiz(new ImageIcon("img/calle2.png").getImage());
 			this.model.getBoard()[pos[0]][pos[1]].getEdificio().setActivo(false);
 		}
-		 
+
+	}
+
+	public void repintarTablero() {
+		// Repinta el tablero de juego teniendo en cuenta dónde están los personajes
+		for (int i = 0; i < tableroCasillas.length; i++) {
+			for (int j = 0; j < tableroCasillas[0].length; j++) {
+				if (model.getBoard()[i][j].getPj() == null) {
+					tableroCasillas[i][j].setIcon(new ImageIcon("img/blank.png"));
+				} else {
+					tableroCasillas[i][j]
+							.setIcon(new ImageIcon("img/" + model.getBoard()[i][j].getPj().getNombre() + ".gif"));
+				}
+			}
+		}
 	}
 
 	// Getters y Setters

@@ -112,6 +112,7 @@ public class Controller implements MouseListener, KeyListener {
 				this.vista.actualizaStats(pos);
 				this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
 				this.model.moverMonstruos();
+				this.vista.repintarTablero();
 				}
 
 			}
@@ -139,6 +140,7 @@ public class Controller implements MouseListener, KeyListener {
 					this.vista.efectuarMovimiento("up", pos, this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
 				}
 				this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
+				this.vista.getEnerVar().setText(String.format("%.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
 			}
 			break;
 		case KeyEvent.VK_DOWN:
@@ -147,6 +149,7 @@ public class Controller implements MouseListener, KeyListener {
 				pos = this.model.mover("down",pos);
 				this.vista.efectuarMovimiento("down", pos, this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
 				this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
+				this.vista.getEnerVar().setText(String.format("%.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
 			}
 			break;
 		case KeyEvent.VK_LEFT:
@@ -158,6 +161,7 @@ public class Controller implements MouseListener, KeyListener {
 							this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
 				}
 				this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
+				this.vista.getEnerVar().setText(String.format("%.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
 			}
 			break;
 		case KeyEvent.VK_RIGHT:
@@ -169,6 +173,7 @@ public class Controller implements MouseListener, KeyListener {
 							this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
 				}
 				this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
+				this.vista.getEnerVar().setText(String.format("%.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
 			}
 			break;
 		case KeyEvent.VK_ENTER:
@@ -177,6 +182,7 @@ public class Controller implements MouseListener, KeyListener {
 				this.vista.actualizaStats(pos);
 				this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
 				this.model.moverMonstruos();
+				this.vista.repintarTablero();
 				}
 			break;
 		case KeyEvent.VK_SPACE:
