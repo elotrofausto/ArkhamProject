@@ -330,8 +330,11 @@ public class View extends JFrame {
 				&& !(this.model.getBoard()[pos[0]][pos[1]].getEdificio().getImage().equals("calle2"))
 				&& !(this.model.getBoard()[pos[0]][pos[1]].getEdificio().getImage().equals("calle3"))) {
 			this.tableroCasillas[pos[0]][pos[1]].setTapiz(new ImageIcon("img/calle2.png").getImage());
-			this.model.getBoard()[pos[0]][pos[1]].getEdificio().setActivo(false);
+
 		}
+
+		this.model.getBoard()[pos[0]][pos[1]].getEdificio().setActivo(false);
+		
 
 	}
 

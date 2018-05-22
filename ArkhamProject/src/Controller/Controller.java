@@ -68,7 +68,7 @@ public class Controller implements MouseListener, KeyListener {
 			int[] pos = new int[3];
 			if (event.getName() == "up" && model.getMovimientos() > 0) {
 				pos = this.model.buscarPersonaje("personaje");
-				pos = this.model.mover("up",pos);
+				pos = this.model.mover("up", pos);
 				if (pos[2] != 0) {
 					this.vista.efectuarMovimiento("up", pos, this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
 				}
@@ -76,7 +76,7 @@ public class Controller implements MouseListener, KeyListener {
 			}
 			if (event.getName() == "down" && model.getMovimientos() > 0) {
 				pos = this.model.buscarPersonaje("personaje");
-				pos = this.model.mover("down",pos);
+				pos = this.model.mover("down", pos);
 				if (pos[2] != 0) {
 					this.vista.efectuarMovimiento("down", pos,
 							this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
@@ -85,7 +85,7 @@ public class Controller implements MouseListener, KeyListener {
 			}
 			if (event.getName() == "left" && model.getMovimientos() > 0) {
 				pos = this.model.buscarPersonaje("personaje");
-				pos = this.model.mover("left",pos);
+				pos = this.model.mover("left", pos);
 				if (pos[2] != 0) {
 					this.vista.efectuarMovimiento("left", pos,
 							this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
@@ -94,7 +94,7 @@ public class Controller implements MouseListener, KeyListener {
 			}
 			if (event.getName() == "right" && model.getMovimientos() > 0) {
 				pos = this.model.buscarPersonaje("personaje");
-				pos = this.model.mover("right",pos);
+				pos = this.model.mover("right", pos);
 				if (pos[2] != 0) {
 					this.vista.efectuarMovimiento("right", pos,
 							this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
@@ -108,13 +108,12 @@ public class Controller implements MouseListener, KeyListener {
 			}
 			if (event.getName() == "finTurno") {
 				this.model.comprobarEvento(pos = this.model.buscarPersonaje("personaje"), new int[2]);
-				if (this.model.getBoard()[pos[0]][pos[1]].getEdificio().isActivo()){
-				this.vista.actualizaStats(pos);
+				if (this.model.getBoard()[pos[0]][pos[1]].getEdificio().isActivo()) {
+				}
 				this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
 				this.model.moverMonstruos();
+				this.vista.actualizaStats(pos);
 				this.vista.repintarTablero();
-				}
-
 			}
 		}
 		vista.repaint();
@@ -135,55 +134,59 @@ public class Controller implements MouseListener, KeyListener {
 		case KeyEvent.VK_UP:
 			if (model.getMovimientos() > 0) {
 				pos = this.model.buscarPersonaje("personaje");
-				pos = this.model.mover("up",pos);
+				pos = this.model.mover("up", pos);
 				if (pos[2] != 0) {
 					this.vista.efectuarMovimiento("up", pos, this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
 				}
 				this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
-				this.vista.getEnerVar().setText(String.format("%.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
+				this.vista.getEnerVar().setText(
+						String.format("%.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
 			}
 			break;
 		case KeyEvent.VK_DOWN:
 			if (model.getMovimientos() > 0) {
 				pos = this.model.buscarPersonaje("personaje");
-				pos = this.model.mover("down",pos);
+				pos = this.model.mover("down", pos);
 				this.vista.efectuarMovimiento("down", pos, this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
 				this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
-				this.vista.getEnerVar().setText(String.format("%.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
+				this.vista.getEnerVar().setText(
+						String.format("%.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
 			}
 			break;
 		case KeyEvent.VK_LEFT:
 			if (model.getMovimientos() > 0) {
 				pos = this.model.buscarPersonaje("personaje");
-				pos = this.model.mover("left",pos);
+				pos = this.model.mover("left", pos);
 				if (pos[2] != 0) {
 					this.vista.efectuarMovimiento("left", pos,
 							this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
 				}
 				this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
-				this.vista.getEnerVar().setText(String.format("%.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
+				this.vista.getEnerVar().setText(
+						String.format("%.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
 			}
 			break;
 		case KeyEvent.VK_RIGHT:
 			if (model.getMovimientos() > 0) {
 				pos = this.model.buscarPersonaje("personaje");
-				pos = this.model.mover("right",pos);
+				pos = this.model.mover("right", pos);
 				if (pos[2] != 0) {
 					this.vista.efectuarMovimiento("right", pos,
 							this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
 				}
 				this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
-				this.vista.getEnerVar().setText(String.format("%.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
+				this.vista.getEnerVar().setText(
+						String.format("%.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
 			}
 			break;
 		case KeyEvent.VK_ENTER:
-			this.model.comprobarEvento(pos=this.model.buscarPersonaje("personaje"), new int[2]);
-			if (this.model.getBoard()[pos[0]][pos[1]].getEdificio().isActivo()){
+			this.model.comprobarEvento(pos = this.model.buscarPersonaje("personaje"), new int[2]);
+			if (this.model.getBoard()[pos[0]][pos[1]].getEdificio().isActivo()) {
 				this.vista.actualizaStats(pos);
-				this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
-				this.model.moverMonstruos();
-				this.vista.repintarTablero();
-				}
+			}
+			this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
+			this.model.moverMonstruos();
+			this.vista.repintarTablero();
 			break;
 		case KeyEvent.VK_SPACE:
 			if (this.model.getMovimientos() == 0) {
