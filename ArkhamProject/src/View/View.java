@@ -334,7 +334,6 @@ public class View extends JFrame {
 		}
 
 		this.model.getBoard()[pos[0]][pos[1]].getEdificio().setActivo(false);
-		
 
 	}
 
