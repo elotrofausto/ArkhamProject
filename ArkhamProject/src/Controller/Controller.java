@@ -103,6 +103,7 @@ public class Controller implements MouseListener, KeyListener {
 			}
 			if (event.getName() == "lanzarDado") {
 				if (this.model.getMovimientos() == 0) {
+					this.model.moverMonstruos();
 					this.vista.getMovVar().setText(String.valueOf(this.model.calculaMovimiento()));
 				}
 			}
@@ -135,48 +136,28 @@ public class Controller implements MouseListener, KeyListener {
 			if (model.getMovimientos() > 0) {
 				pos = this.model.buscarPersonaje("personaje");
 				pos = this.model.mover("up", pos);
-				if (pos[2] != 0) {
-					this.vista.efectuarMovimiento("up", pos, this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
-				}
 				this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
-				this.vista.getEnerVar().setText(
-						String.format("%.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
 			}
 			break;
 		case KeyEvent.VK_DOWN:
 			if (model.getMovimientos() > 0) {
 				pos = this.model.buscarPersonaje("personaje");
 				pos = this.model.mover("down", pos);
-				this.vista.efectuarMovimiento("down", pos, this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
 				this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
-				this.vista.getEnerVar().setText(
-						String.format("%.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
 			}
 			break;
 		case KeyEvent.VK_LEFT:
 			if (model.getMovimientos() > 0) {
 				pos = this.model.buscarPersonaje("personaje");
 				pos = this.model.mover("left", pos);
-				if (pos[2] != 0) {
-					this.vista.efectuarMovimiento("left", pos,
-							this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
-				}
 				this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
-				this.vista.getEnerVar().setText(
-						String.format("%.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
 			}
 			break;
 		case KeyEvent.VK_RIGHT:
 			if (model.getMovimientos() > 0) {
 				pos = this.model.buscarPersonaje("personaje");
 				pos = this.model.mover("right", pos);
-				if (pos[2] != 0) {
-					this.vista.efectuarMovimiento("right", pos,
-							this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
-				}
 				this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
-				this.vista.getEnerVar().setText(
-						String.format("%.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
 			}
 			break;
 		case KeyEvent.VK_ENTER:
@@ -186,14 +167,18 @@ public class Controller implements MouseListener, KeyListener {
 			}
 			this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
 			this.model.moverMonstruos();
-			this.vista.repintarTablero();
 			break;
 		case KeyEvent.VK_SPACE:
 			if (this.model.getMovimientos() == 0) {
+				this.model.moverMonstruos();
 				this.vista.getMovVar().setText(String.valueOf(this.model.calculaMovimiento()));
 			}
 			break;
 		}
+		pos = this.model.buscarPersonaje("personaje");
+		this.vista.getEnerVar()
+				.setText(String.format("%.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
+		this.vista.repintarTablero();
 		this.vista.repaint();
 	}
 

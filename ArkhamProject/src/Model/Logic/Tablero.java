@@ -16,13 +16,15 @@ import Model.Pers.Wolf;
 
 public class Tablero {
 
-	private ArrayList<Casilla> arrayCasillas; //ArrayList para construir el tablero
-	private Casilla[][] board; //Tablero de casillas
-	private ArrayList<Double> combate; // ArrayList para los resultados de combate. Necesita ser accesible.
-	private Evento[] event; //Array de eventos
-	private int movimientos; //Movimientos disponibles del personaje
-	private int dificultad; //Dificultad del juego
-	private int cont; //Contador necesario en el constructor
+	private ArrayList<Casilla> arrayCasillas; // ArrayList para construir el
+												// tablero
+	private Casilla[][] board; // Tablero de casillas
+	private ArrayList<Double> combate; // ArrayList para los resultados de
+										// combate. Necesita ser accesible.
+	private Evento[] event; // Array de eventos
+	private int movimientos; // Movimientos disponibles del personaje
+	private int dificultad; // Dificultad del juego
+	private int cont; // Contador necesario en el constructor
 
 	public Tablero() {
 		dificultad = 12;
@@ -112,7 +114,8 @@ public class Tablero {
 	public int[] mover(String dir, int[] pos) {
 		int origen[] = new int[2];
 		int movs = 0; // Variable para almacenar la cantidad de movimientos
-		if (!combate.isEmpty()) combate.clear();
+		if (!combate.isEmpty())
+			combate.clear();
 
 		// Asignamos a la variable movs las casillas que movera el personaje de
 		// golpe dependiendo del tipo
@@ -184,25 +187,34 @@ public class Tablero {
 			System.out.println("VS " + pos[0] + "," + pos[1]);
 
 			comprobarEvento(pos, origen);
-			
 
-			//Reorganizamos los personajes dependiendo de si ha habido combate y de quién ha movido.
-			if (combate.isEmpty()) {
+			// Si el que mueve es el protagonista
+			if (board[origen[0]][origen[1]].getPj() instanceof Protagonista) {
+				System.out.println("Mueve protagonista");
 				board[pos[0]][pos[1]].setPj(board[origen[0]][origen[1]].getPj());
 				board[origen[0]][origen[1]].setPj(null);
 			}
-			else if (board[origen[0]][origen[1]].getPj() instanceof Protagonista){
-				board[pos[0]][pos[1]].setPj(null);
+			// Si monstruo va a casilla donde está el protagonista
+			else if (!(board[origen[0]][origen[1]].getPj() instanceof Protagonista)) {
+
+				if (!(board[pos[0]][pos[1]].getPj() instanceof Protagonista)) {
+					System.out.println("Monstruo va a Casilla vacía");
+					board[pos[0]][pos[1]].setPj(board[origen[0]][origen[1]].getPj());
+					board[origen[0]][origen[1]].setPj(null);
+				} else {
+					System.out.println("Monstruo va a Prota");
+					board[origen[0]][origen[1]].setPj(null);
+				}
+
 			}
-			else if (!(board[origen[0]][origen[1]].getPj() instanceof Protagonista)){
-				board[origen[0]][origen[1]].setPj(null);
-			}
+
 
 		}
 
 		if (movimientos >= 1)
 			movimientos--;
 		return pos;
+
 	}
 
 	public void moverMonstruos() {
@@ -250,6 +262,7 @@ public class Tablero {
 
 			combate(pos, origen);
 			movimientos = 0;
+
 		} else if (board[pos[0]][pos[1]].getPj() instanceof Protagonista) {
 			// Evento de localización
 			nombreEdificio = board[pos[0]][pos[1]].getEdificio().getImage();
@@ -270,13 +283,18 @@ public class Tablero {
 		ArrayList<Integer> arrayDados = new ArrayList<Integer>();
 		double damage, defense, result;
 		int[] aux = new int[2];
-		
-		//El método de movimiento lo utiliza tanto el Protagonista como los monstruos.
-		//Hay que comprobar quién está en cada posición para tratarlos como tal.
+
+		// El método de movimiento lo utiliza tanto el Protagonista como los
+		// monstruos.
+		// Hay que comprobar quién está en cada posición para tratarlos como
+		// tal.
 		if (board[pos[0]][pos[1]].getPj() instanceof Protagonista) {
-			aux[0]=pos[0]; aux[1]=pos[1];
-			pos[0]=origen[0]; pos[1]=origen[1];
-			origen[0]=aux[0]; origen[1]=aux[1];
+			aux[0] = pos[0];
+			aux[1] = pos[1];
+			pos[0] = origen[0];
+			pos[1] = origen[1];
+			origen[0] = aux[0];
+			origen[1] = aux[1];
 		}
 
 		System.out.println("Combate");
