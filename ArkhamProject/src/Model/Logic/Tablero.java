@@ -376,4 +376,14 @@ public class Tablero {
 		this.movimientos = movimientos;
 	}
 
+	public int getDificultad() {
+		return dificultad;
+	}
+
+	public void setDificultad(int dificultad) {
+		this.dificultad = dificultad;
+	}
+	
+	
+
 }

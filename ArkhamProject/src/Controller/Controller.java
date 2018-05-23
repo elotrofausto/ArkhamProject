@@ -16,8 +16,8 @@ public class Controller implements MouseListener, KeyListener {
 	Tablero model;
 	View vista;
 
-	public Controller() {
-		model = new Tablero();
+	public Controller(Tablero model) {
+		this.model = model;
 		vista = new View(model);
 
 		initController();

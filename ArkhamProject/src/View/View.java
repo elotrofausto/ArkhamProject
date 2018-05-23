@@ -40,9 +40,7 @@ public class View extends JFrame {
 
 	public View(Tablero model) {
 		this.model = model;
-		// Elementos para configurar la pantalla completa y las dimensiones de
-		// las
-		// columnas
+		// Elementos para configurar la pantalla completa y las dimensiones
 		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		screen = ge.getDefaultScreenDevice();
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
