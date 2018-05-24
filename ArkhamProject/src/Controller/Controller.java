@@ -8,16 +8,19 @@ import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.JMenu;
 
+import Model.Logic.InicioModel;
 import Model.Logic.Tablero;
 import View.View;
 
 public class Controller implements MouseListener, KeyListener {
 
+	InicioModel modeloInicio;
 	Tablero model;
 	View vista;
 
-	public Controller(Tablero model) {
-		this.model = model;
+	public Controller(InicioModel modeloInicio) {
+		this.modeloInicio = modeloInicio;
+		model = new Tablero(modeloInicio);
 		vista = new View(model);
 
 		initController();

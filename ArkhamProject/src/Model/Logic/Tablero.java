@@ -16,16 +16,20 @@ import Model.Pers.Wolf;
 
 public class Tablero {
 
+	private InicioModel modeloInicio;
 	private ArrayList<Casilla> arrayCasillas; // ArrayList para tablero
 	private Casilla[][] board; // Tablero de casillas
 	private ArrayList<Double> combate; // ArrayList para los resultados de combate
+	private String nombrePj;
 	private Evento[] event; // Array de eventos
 	private int movimientos; // Movimientos disponibles del personaje
 	private int dificultad; // Dificultad del juego
 	private int cont; // Contador necesario en el constructor
 
-	public Tablero() {
-		dificultad = 12;
+	public Tablero(InicioModel modeloInicio) {
+		this.modeloInicio = modeloInicio;
+		dificultad = modeloInicio.getDificultad();
+		nombrePj = modeloInicio.getNombrePlayer();
 		movimientos = Dado.getInstance().tirarDado(6);
 		combate = new ArrayList<Double>();
 		event = new Evento[2];

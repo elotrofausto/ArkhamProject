@@ -9,16 +9,17 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JTextField;
 
+import Model.Logic.InicioModel;
 import Model.Logic.Tablero;
 import View.InitView;
 
 public class InitViewController implements MouseListener, ItemListener {
 
 	InitView vistaInicial;
-	Tablero model;
+	InicioModel model;
 
 	public InitViewController() {
-		model = new Tablero();
+		model = new InicioModel();
 		vistaInicial = new InitView(model);
 		iniciarControladores();
 	}
@@ -83,7 +84,7 @@ public class InitViewController implements MouseListener, ItemListener {
 			System.out.println("Fácil" + this.model.getDificultad());
 			
 		}
-		else if (event == this.vistaInicial.getFacil()) {
+		else if (event == this.vistaInicial.getMedio()) {
 			this.model.setDificultad(12);
 			System.out.println("Med");
 

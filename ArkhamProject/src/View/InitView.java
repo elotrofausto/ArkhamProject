@@ -16,6 +16,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import Model.Logic.InicioModel;
 import Model.Logic.Tablero;
 
 @SuppressWarnings("serial")
@@ -30,7 +32,7 @@ public class InitView extends JFrame{
 	private JTextField nombre;
 	private GridBagConstraints c = new GridBagConstraints();
 
-	public InitView(Tablero modelo) {
+	public InitView(InicioModel model) {
 		fondo = new JLabel(new ImageIcon("img/giphy.gif"));
 		northTitle = new JLabel(new ImageIcon("img/logo.png"));
 		recogidaDatos = new JPanel();
