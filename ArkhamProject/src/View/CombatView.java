@@ -91,6 +91,12 @@ public class CombatView extends JFrame {
 		this.requestFocus();
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
+	
+	@Override
+	public void dispose() {
+		combate.clear();
+		super.dispose();
+	}
 
 	public JLabel getDamagePj() {
 		return damagePj;

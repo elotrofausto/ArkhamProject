@@ -168,7 +168,7 @@ public class Controller implements MouseListener, KeyListener {
 			System.out.println("Ha habido combate");
 			new CombatController(model.getCombate());
 			//this.vista.reFullScreen(); Lanzar al terminar
-			this.model.getCombate().removeAll(this.model.getCombate());
+			//this.model.getCombate().removeAll(this.model.getCombate());
 		}
 		
 		//Actualización de estadísticas y tablero
