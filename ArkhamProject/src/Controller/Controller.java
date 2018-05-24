@@ -4,7 +4,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
 import javax.swing.JButton;
 import javax.swing.JMenu;
 
@@ -61,6 +60,7 @@ public class Controller implements MouseListener, KeyListener {
 
 	@Override
 	public void mousePressed(MouseEvent ev) {
+		int[] pos = new int[3];
 		if (ev.getSource() instanceof JMenu) {
 			JMenu event = (JMenu) ev.getSource();
 			if (event == this.vista.getSalir()) {
@@ -68,59 +68,45 @@ public class Controller implements MouseListener, KeyListener {
 			}
 		} else {
 			JButton event = (JButton) ev.getSource();
-			int[] pos = new int[3];
 			if (event.getName() == "up" && model.getMovimientos() > 0) {
 				pos = this.model.buscarPersonaje("personaje");
 				pos = this.model.mover("up", pos);
-				if (pos[2] != 0) {
-					this.vista.efectuarMovimiento("up", pos, this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
-				}
 				this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
 			}
 			if (event.getName() == "down" && model.getMovimientos() > 0) {
 				pos = this.model.buscarPersonaje("personaje");
 				pos = this.model.mover("down", pos);
-				if (pos[2] != 0) {
-					this.vista.efectuarMovimiento("down", pos,
-							this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
-				}
 				this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
 			}
 			if (event.getName() == "left" && model.getMovimientos() > 0) {
 				pos = this.model.buscarPersonaje("personaje");
 				pos = this.model.mover("left", pos);
-				if (pos[2] != 0) {
-					this.vista.efectuarMovimiento("left", pos,
-							this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
-				}
 				this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
 			}
 			if (event.getName() == "right" && model.getMovimientos() > 0) {
 				pos = this.model.buscarPersonaje("personaje");
 				pos = this.model.mover("right", pos);
-				if (pos[2] != 0) {
-					this.vista.efectuarMovimiento("right", pos,
-							this.model.getBoard()[pos[0]][pos[1]].getPj().getNombre());
-				}
 				this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
 			}
 			if (event.getName() == "lanzarDado") {
 				if (this.model.getMovimientos() == 0) {
+					this.model.moverMonstruos();
 					this.vista.getMovVar().setText(String.valueOf(this.model.calculaMovimiento()));
 				}
 			}
 			if (event.getName() == "finTurno") {
 				this.model.comprobarEvento(pos = this.model.buscarPersonaje("personaje"), new int[2]);
 				if (this.model.getBoard()[pos[0]][pos[1]].getEdificio().isActivo()) {
+					this.vista.actualizaStats(pos);
 				}
 				this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
-				this.model.moverMonstruos();
-				this.vista.actualizaStats(pos);
-				this.vista.repintarTablero();
 			}
 		}
-		vista.repaint();
-		vista.requestFocus();
+		pos = this.model.buscarPersonaje("personaje");
+		this.vista.getEnerVar()
+				.setText(String.format("%.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
+		this.vista.repintarTablero();
+		this.vista.repaint();
 	}
 
 	@Override
@@ -169,15 +155,23 @@ public class Controller implements MouseListener, KeyListener {
 				this.vista.actualizaStats(pos);
 			}
 			this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
-			this.model.moverMonstruos();
-			this.vista.getMovVar().setText(String.valueOf(this.model.calculaMovimiento()));
 			break;
 		case KeyEvent.VK_SPACE:
 			if (this.model.getMovimientos() == 0) {
+				this.model.moverMonstruos();
 				this.vista.getMovVar().setText(String.valueOf(this.model.calculaMovimiento()));
 			}
 			break;
 		}
+		//Enviamos a la vista los resultados del combate para su representación
+		if (!this.model.getCombate().isEmpty()) {
+			System.out.println("Ha habido combate");
+			new CombatController(model.getCombate());
+			//this.vista.reFullScreen(); Lanzar al terminar
+			this.model.getCombate().removeAll(this.model.getCombate());
+		}
+		
+		//Actualización de estadísticas y tablero
 		pos = this.model.buscarPersonaje("personaje");
 		this.vista.getEnerVar()
 				.setText(String.format("%.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));

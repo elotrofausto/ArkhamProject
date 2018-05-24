@@ -316,6 +316,7 @@ public class View extends JFrame {
 
 	}
 
+	//Método que actualiza las estadísticas conforme a la recompensa de la casilla
 	public void actualizaStats(int[] pos) {
 		this.getFuerzaVar()
 				.setText(String.format("%.2f", (float) model.getBoard()[pos[0]][pos[1]].getPj().getFuerza()));
@@ -328,11 +329,8 @@ public class View extends JFrame {
 				.setText(String.format("%.2f", (float) model.getBoard()[pos[0]][pos[1]].getPj().getSabiduría()));
 		if (!(this.model.getBoard()[pos[0]][pos[1]].getEdificio() instanceof Calle)) {
 			this.tableroCasillas[pos[0]][pos[1]].setTapiz(new ImageIcon("img/calle2.png").getImage());
-
 		}
-		
-		this.model.getBoard()[pos[0]][pos[1]].getEdificio().setActivo(false);
-
+		this.model.getBoard()[pos[0]][pos[1]].getEdificio().setActivo(false); //Desactivamos la casilla
 	}
 
 	public void repintarTablero() {
@@ -347,6 +345,11 @@ public class View extends JFrame {
 				}
 			}
 		}
+	}
+	
+	public void reFullScreen() {
+		screen.setFullScreenWindow(this);
+		this.setVisible(true);
 	}
 
 	// Getters y Setters

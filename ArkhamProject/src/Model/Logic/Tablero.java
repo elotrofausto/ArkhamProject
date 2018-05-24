@@ -19,7 +19,7 @@ public class Tablero {
 	private InicioModel modeloInicio;
 	private ArrayList<Casilla> arrayCasillas; // ArrayList para tablero
 	private Casilla[][] board; // Tablero de casillas
-	private ArrayList<Double> combate; // ArrayList para los resultados de combate
+	private ArrayList<String> combate; // ArrayList para los resultados de combate
 	private String nombrePj;
 	private Evento[] event; // Array de eventos
 	private int movimientos; // Movimientos disponibles del personaje
@@ -32,7 +32,7 @@ public class Tablero {
 		dificultad = modeloInicio.getDificultad();
 		nombrePj = modeloInicio.getNombrePlayer();
 		movimientos = Dado.getInstance().tirarDado(6);
-		combate = new ArrayList<Double>();
+		combate = new ArrayList<String>();
 		event = new Evento[2];
 		arrayCasillas = new ArrayList<Casilla>();
 		for (int i = 0; i < 120; i++) {
@@ -117,8 +117,8 @@ public class Tablero {
 	public int[] mover(String dir, int[] pos) {
 		int origen[] = new int[2];
 		int movs = 0; // Variable para almacenar la cantidad de movimientos
-		if (!combate.isEmpty())
-			combate.clear();
+//		if (!combate.isEmpty())
+//			combate.clear();
 
 		// Asignamos a la variable movs las casillas que movera el personaje de
 		// golpe dependiendo del tipo
@@ -292,8 +292,8 @@ public class Tablero {
 		if (board[origen[0]][origen[1]].getPj() instanceof Protagonista) {
 			prota[0] = origen[0];
 			prota[1] = origen[1];
-			enem[0] = origen[0];
-			enem[1] = origen[1];
+			enem[0] = pos[0];
+			enem[1] = pos[1];
 		} else {
 			prota[0] = pos[0];
 			prota[1] = pos[1];
@@ -301,6 +301,8 @@ public class Tablero {
 			enem[1] = origen[1];
 		}
 
+		combate.add(board[enem[0]][enem[1]].getPj().getNombre());
+		
 		while (board[prota[0]][prota[1]].getPj().getEnergía() > 0 && board[enem[0]][enem[1]].getPj().getEnergía() > 0) {
 
 			// Calculamos el ataque del personaje
@@ -317,8 +319,9 @@ public class Tablero {
 					+ (((arrayDados.get(3) + arrayDados.get(4) + arrayDados.get(5))
 							* board[enem[0]][enem[1]].getPj().getSabiduría()) * 0.25);
 
+			
 			result = damage - defense;
-			combate.add(result);
+			combate.add(String.valueOf(Math.floor(result)));
 
 			if (damage > defense) {
 				board[enem[0]][enem[1]].getPj()
@@ -331,7 +334,6 @@ public class Tablero {
 
 		if (board[prota[0]][prota[1]].getPj().getEnergía() <= 0) {
 			System.out.println("Has perdido la partida");
-			System.exit(0);
 		}
 
 	}
@@ -396,6 +398,14 @@ public class Tablero {
 
 	public void setNombrePj(String nombrePj) {
 		this.nombrePj = nombrePj;
+	}
+
+	public ArrayList<String> getCombate() {
+		return combate;
+	}
+
+	public void setCombate(ArrayList<String> combate) {
+		this.combate = combate;
 	}
 	
 	
