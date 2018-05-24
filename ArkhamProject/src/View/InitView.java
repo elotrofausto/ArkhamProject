@@ -18,7 +18,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import Model.Logic.InicioModel;
-import Model.Logic.Tablero;
 
 @SuppressWarnings("serial")
 public class InitView extends JFrame{

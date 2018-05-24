@@ -10,7 +10,6 @@ import javax.swing.JCheckBox;
 import javax.swing.JTextField;
 
 import Model.Logic.InicioModel;
-import Model.Logic.Tablero;
 import View.InitView;
 
 public class InitViewController implements MouseListener, ItemListener {
@@ -80,20 +79,14 @@ public class InitViewController implements MouseListener, ItemListener {
 	public void itemStateChanged(ItemEvent e) {
 		JCheckBox event = (JCheckBox) e.getSource();
 		if (event == this.vistaInicial.getFacil()) {
-			this.model.setDificultad(6);
-			System.out.println("Fácil" + this.model.getDificultad());
-			
+			this.model.setDificultad(6);			
 		}
 		else if (event == this.vistaInicial.getMedio()) {
 			this.model.setDificultad(12);
-			System.out.println("Med");
-
 		}
 		else if (event == this.vistaInicial.getDificil()) {
 			this.model.setDificultad(24);
-			System.out.println("Difícil");
 		}
-		
 	}
 
 }

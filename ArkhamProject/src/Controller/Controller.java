@@ -106,7 +106,6 @@ public class Controller implements MouseListener, KeyListener {
 			}
 			if (event.getName() == "lanzarDado") {
 				if (this.model.getMovimientos() == 0) {
-					this.model.moverMonstruos();
 					this.vista.getMovVar().setText(String.valueOf(this.model.calculaMovimiento()));
 				}
 			}
@@ -165,15 +164,16 @@ public class Controller implements MouseListener, KeyListener {
 			break;
 		case KeyEvent.VK_ENTER:
 			this.model.comprobarEvento(pos = this.model.buscarPersonaje("personaje"), new int[2]);
+
 			if (this.model.getBoard()[pos[0]][pos[1]].getEdificio().isActivo()) {
 				this.vista.actualizaStats(pos);
 			}
 			this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
 			this.model.moverMonstruos();
+			this.vista.getMovVar().setText(String.valueOf(this.model.calculaMovimiento()));
 			break;
 		case KeyEvent.VK_SPACE:
 			if (this.model.getMovimientos() == 0) {
-				this.model.moverMonstruos();
 				this.vista.getMovVar().setText(String.valueOf(this.model.calculaMovimiento()));
 			}
 			break;

@@ -26,6 +26,7 @@ public class Tablero {
 	private int dificultad; // Dificultad del juego
 	private int cont; // Contador necesario en el constructor
 
+	//Constructor parametrizado. Recibe en un modeloInicio la dificultad, nombrePj...
 	public Tablero(InicioModel modeloInicio) {
 		this.modeloInicio = modeloInicio;
 		dificultad = modeloInicio.getDificultad();
@@ -188,15 +189,11 @@ public class Tablero {
 			pos[2] = 0;
 		} else {
 			pos[2] = 1;
-			System.out.println("Movimiento");
-			System.out.println("Pers inicial " + origen[0] + "," + origen[1]);
-			System.out.println("VS " + pos[0] + "," + pos[1]);
 
 			comprobarEvento(pos, origen);
 
 			// Si el que mueve es el protagonista
 			if (board[origen[0]][origen[1]].getPj() instanceof Protagonista) {
-				System.out.println("Mueve protagonista");
 				board[pos[0]][pos[1]].setPj(board[origen[0]][origen[1]].getPj());
 				board[origen[0]][origen[1]].setPj(null);
 			}
@@ -204,11 +201,9 @@ public class Tablero {
 			else if (!(board[origen[0]][origen[1]].getPj() instanceof Protagonista)) {
 
 				if (!(board[pos[0]][pos[1]].getPj() instanceof Protagonista)) {
-					System.out.println("Monstruo va a Casilla vacía");
 					board[pos[0]][pos[1]].setPj(board[origen[0]][origen[1]].getPj());
 					board[origen[0]][origen[1]].setPj(null);
 				} else {
-					System.out.println("Monstruo va a Prota");
 					board[origen[0]][origen[1]].setPj(null);
 				}
 
@@ -268,6 +263,7 @@ public class Tablero {
 
 		} else if (board[pos[0]][pos[1]].getPj() instanceof Protagonista) {
 			// Evento de localización
+			if (board[pos[0]][pos[1]].getEdificio().isActivo()){
 			nombreEdificio = board[pos[0]][pos[1]].getEdificio().getImage();
 			event[1] = Recompensa.getInstance();
 			recompensa = event[1].recompensar(nombreEdificio);
@@ -277,6 +273,7 @@ public class Tablero {
 			board[pos[0]][pos[1]].getPj().setOro(board[pos[0]][pos[1]].getPj().getOro() + recompensa[2]);
 			board[pos[0]][pos[1]].getPj().setEnergía(board[pos[0]][pos[1]].getPj().getEnergía() * recompensa[3]);
 			board[pos[0]][pos[1]].getPj().setSabiduría(board[pos[0]][pos[1]].getPj().getSabiduría() * recompensa[4]);
+			}
 			movimientos = 0;
 		}
 
@@ -304,7 +301,6 @@ public class Tablero {
 			enem[1] = origen[1];
 		}
 
-		System.out.println("Control while " + board[prota[0]][prota[1]].getPj().getNombre() + "VS" + board[enem[0]][enem[1]].getPj().getNombre());
 		while (board[prota[0]][prota[1]].getPj().getEnergía() > 0 && board[enem[0]][enem[1]].getPj().getEnergía() > 0) {
 
 			// Calculamos el ataque del personaje
@@ -323,7 +319,6 @@ public class Tablero {
 
 			result = damage - defense;
 			combate.add(result);
-			System.out.println(damage + " - " + defense + " = " + result);
 
 			if (damage > defense) {
 				board[enem[0]][enem[1]].getPj()
@@ -332,7 +327,6 @@ public class Tablero {
 				board[prota[0]][prota[1]].getPj()
 						.setEnergía((float) (board[prota[0]][prota[1]].getPj().getEnergía() + result));
 			}
-			System.out.println("Vida pers " + board[prota[0]][prota[1]].getPj().getEnergía());
 		}
 
 		if (board[prota[0]][prota[1]].getPj().getEnergía() <= 0) {
@@ -386,6 +380,22 @@ public class Tablero {
 
 	public void setDificultad(int dificultad) {
 		this.dificultad = dificultad;
+	}
+
+	public InicioModel getModeloInicio() {
+		return modeloInicio;
+	}
+
+	public void setModeloInicio(InicioModel modeloInicio) {
+		this.modeloInicio = modeloInicio;
+	}
+
+	public String getNombrePj() {
+		return nombrePj;
+	}
+
+	public void setNombrePj(String nombrePj) {
+		this.nombrePj = nombrePj;
 	}
 	
 	

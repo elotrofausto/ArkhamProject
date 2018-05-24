@@ -18,6 +18,8 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+
+import Model.Locations.Calle;
 import Model.Logic.Tablero;
 
 @SuppressWarnings("serial")
@@ -324,13 +326,11 @@ public class View extends JFrame {
 				.setText(String.format("%.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
 		this.getSabVar()
 				.setText(String.format("%.2f", (float) model.getBoard()[pos[0]][pos[1]].getPj().getSabiduría()));
-		if (!(this.model.getBoard()[pos[0]][pos[1]].getEdificio().getImage().equals("calle1"))
-				&& !(this.model.getBoard()[pos[0]][pos[1]].getEdificio().getImage().equals("calle2"))
-				&& !(this.model.getBoard()[pos[0]][pos[1]].getEdificio().getImage().equals("calle3"))) {
+		if (!(this.model.getBoard()[pos[0]][pos[1]].getEdificio() instanceof Calle)) {
 			this.tableroCasillas[pos[0]][pos[1]].setTapiz(new ImageIcon("img/calle2.png").getImage());
 
 		}
-
+		
 		this.model.getBoard()[pos[0]][pos[1]].getEdificio().setActivo(false);
 
 	}
