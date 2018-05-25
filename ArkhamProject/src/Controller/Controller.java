@@ -6,7 +6,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import javax.swing.JMenu;
-
 import Model.Logic.InicioModel;
 import Model.Logic.Tablero;
 import View.View;
@@ -159,6 +158,7 @@ public class Controller implements MouseListener, KeyListener {
 			this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
 			break;
 		case KeyEvent.VK_SPACE:
+			this.vista.reFullScreen();
 			if (this.model.getMovimientos() == 0) {
 				this.model.moverMonstruos();
 				this.vista.getMovVar().setText(String.valueOf(this.model.calculaMovimiento()));
@@ -167,23 +167,7 @@ public class Controller implements MouseListener, KeyListener {
 		}
 		// Enviamos a la vista los resultados del combate para su representación
 		if (this.model.getCombate().size() > 1) {
-			Thread hilo = new Thread(controladorCombate = new CombatController(model.getCombate()));
-			//this.vista.setVisible(false);
-			this.vista.setEnabled(false);
-
-			
-			try {
-				hilo.join();
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			
-			System.out.println("Salgo del hilo");
-
-			this.vista.setVisible(true);
-			this.vista.setEnabled(true);
-
+			controladorCombate = new CombatController(model.getCombate());
 		}
 
 		// Actualización de estadísticas y tablero

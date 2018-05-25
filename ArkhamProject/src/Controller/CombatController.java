@@ -12,7 +12,7 @@ import javax.swing.Timer;
 
 import View.CombatView;
 
-public class CombatController implements MouseListener, KeyListener, Runnable {
+public class CombatController implements MouseListener, KeyListener{
 	private CombatView vistaCombate;
 	private int contadorTimer;
 	private Timer timer;
@@ -112,12 +112,6 @@ public class CombatController implements MouseListener, KeyListener, Runnable {
 		timer = new Timer(500, action);
 		timer.setInitialDelay(0);
 		timer.start();
-		
-	}
-
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
 		
 	}
 

@@ -3,6 +3,8 @@ package View;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.util.ArrayList;
@@ -22,9 +24,13 @@ public class CombatView extends JDialog {
 	private GridBagConstraints c;
 	private ArrayList<String> combate;
 	private JProgressBar pjLife, eneLife;
+	private GraphicsEnvironment ge;
+	private GraphicsDevice screen;
 
 	public CombatView(ArrayList<String> combate) {
-		
+
+		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		screen = ge.getDefaultScreenDevice();
 		this.combate = combate;
 		c = new GridBagConstraints();
 		fondo = new JLabel(new ImageIcon("img/catedral.gif"));
@@ -92,6 +98,8 @@ public class CombatView extends JDialog {
 		this.setLocationRelativeTo(null);
 		this.requestFocus();
 		this.setAlwaysOnTop(true);
+		fondo.setBackground(Color.BLACK);
+		screen.setFullScreenWindow(this);
 		this.setVisible(true);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
