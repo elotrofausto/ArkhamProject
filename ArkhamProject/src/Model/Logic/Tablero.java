@@ -16,12 +16,13 @@ import Model.Pers.Wolf;
 
 public class Tablero {
 
-	private InicioModel modeloInicio;
+	private InicioModel modeloInicio; //Modelo con los parámetros de inicio de partida
 	private ArrayList<Casilla> arrayCasillas; // ArrayList para tablero
 	private Casilla[][] board; // Tablero de casillas
 	private ArrayList<String> combate; // ArrayList para los resultados de combate
-	private String nombrePj;
+	private String nombrePj; //Nombre elegido por el jugador
 	private Evento[] event; // Array de eventos
+	private float puntos; //Puntuación del jugador
 	private int movimientos; // Movimientos disponibles del personaje
 	private int dificultad; // Dificultad del juego
 	private int cont; // Contador necesario en el constructor
@@ -32,6 +33,7 @@ public class Tablero {
 		dificultad = modeloInicio.getDificultad();
 		nombrePj = modeloInicio.getNombrePlayer();
 		movimientos = Dado.getInstance().tirarDado(6);
+		puntos = 0F;
 		combate = new ArrayList<String>();
 		event = new Evento[2];
 		arrayCasillas = new ArrayList<Casilla>();
@@ -156,7 +158,7 @@ public class Tablero {
 			break;
 		case "down":
 			if (pos[0] + movs < board.length && (board[pos[0] + movs][pos[1]].getPj() == null)
-					|| (pos[0] + movs >= 0) && (board[origen[0]][origen[1]].getPj() instanceof Protagonista)
+					|| (pos[0] + movs < 0) && (board[origen[0]][origen[1]].getPj() instanceof Protagonista)
 					|| (pos[0] + movs < board.length) && (board[pos[0] + movs][pos[1]].getPj() instanceof Protagonista)
 					|| (pos[0] + movs < board.length) && (board[pos[0] + movs][pos[1]].getPj() != null)
 							&& (board[pos[0]][pos[1]].getPj() instanceof Protagonista)) {
@@ -174,7 +176,7 @@ public class Tablero {
 			break;
 		case "right":
 			if (pos[1] + movs < board[0].length && (board[pos[0]][pos[1] + movs].getPj() == null)
-					|| (pos[1] + movs >= 0) && (board[origen[0]][origen[1]].getPj() instanceof Protagonista)
+					|| (pos[1] + movs < board[0].length) && (board[origen[0]][origen[1]].getPj() instanceof Protagonista)
 					|| (pos[1] + movs < board[0].length)
 							&& (board[pos[0]][pos[1] + movs].getPj() instanceof Protagonista)
 					|| (pos[1] + movs < board[0].length) && (board[pos[0]][pos[1] + movs].getPj() != null)
@@ -284,6 +286,7 @@ public class Tablero {
 		double damage, defense, result;
 		int[] prota = new int[2];
 		int[] enem = new int[2];
+		float[] oro;
 
 		// El método de movimiento lo utiliza tanto el Protagonista como los
 		// monstruos.
@@ -337,6 +340,11 @@ public class Tablero {
 
 		if (board[prota[0]][prota[1]].getPj().getEnergía() <= 0) {
 			System.out.println("Has perdido la partida");
+			System.exit(0);
+		}
+		else {
+			oro = RecompensaCombate.getInstance().recompensar(board[enem[0]][enem[1]].getPj().getNombre());
+			board[prota[0]][prota[1]].getPj().setOro(board[prota[0]][prota[1]].getPj().getOro() + oro[0]);
 		}
 
 	}
@@ -352,15 +360,16 @@ public class Tablero {
 		return movimientos;
 	}
 
-	// Método que actualiza las estadísticas del personaje principal
-	public void actualizaStats() {
-
-	}
 
 	public void finalizarturno() {
 		int[] pos = new int[2];
 		pos = buscarPersonaje("personaje");
 		comprobarEvento(pos, new int[2]);
+	}
+	
+	public void compruebaVictoria() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public Casilla[][] getBoard() {
@@ -410,12 +419,14 @@ public class Tablero {
 	public void setCombate(ArrayList<String> combate) {
 		this.combate = combate;
 	}
-
-	public void compruebaVictoria() {
-		// TODO Auto-generated method stub
-		
-	}
 	
+	public float getPuntos() {
+		return puntos;
+	}
+
+	public void setPuntos(float puntos) {
+		this.puntos = puntos;
+	}	
 	
 
 }

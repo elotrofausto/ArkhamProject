@@ -10,6 +10,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -18,7 +19,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-
 import Model.Locations.Calle;
 import Model.Logic.Tablero;
 
@@ -29,8 +29,8 @@ public class View extends JFrame {
 	private BgLabel[][] tableroCasillas;
 	private JMenuBar mainMenu;
 	private JMenu leyenda, salir;
-	private JLabel bg, northTitle, fuerza, velocidad, oro, energia, sabiduria, movimientos, movVar, fuerzaVar, veloVar,
-			oroVar, enerVar, sabVar, hero, cthulhu, controlInst;
+	private JLabel bg, northTitle, nombrePj, fuerza, velocidad, oro, energia, sabiduria, movimientos, movVar, fuerzaVar,
+			veloVar, oroVar, enerVar, sabVar, hero, cthulhu, controlInst;
 	private JButton up, down, right, left, lanzarDado, finTurno;
 	private BackGround tab;
 	private JPanel stats, control, north, arrows, controlMov, controlStats, cabeceraS, cabeceraC, oroPanel, controlInfo;
@@ -65,17 +65,18 @@ public class View extends JFrame {
 		cabeceraC = new JPanel();
 		oroPanel = new JPanel();
 		controlInfo = new JPanel();
-		fuerza = new JLabel("Fuerza");
-		velocidad = new JLabel("Velocidad");
-		oro = new JLabel("Oro");
-		energia = new JLabel("Energía");
-		sabiduria = new JLabel("Sabiduría");
-		movimientos = new JLabel("Movs");
-		fuerzaVar = new JLabel("1,00");
-		veloVar = new JLabel("1,00");
-		oroVar = new JLabel("1,00");
-		enerVar = new JLabel("100,00");
-		sabVar = new JLabel("1,00");
+		nombrePj = new JLabel(model.getNombrePj());
+		fuerza = new JLabel(" Fuerza");
+		velocidad = new JLabel(" Velocidad");
+		oro = new JLabel(" Oro");
+		energia = new JLabel(" Energía");
+		sabiduria = new JLabel(" Sabiduría");
+		movimientos = new JLabel(" Movs");
+		fuerzaVar = new JLabel(" 1,00");
+		veloVar = new JLabel(" 1,00");
+		oroVar = new JLabel(" 0.0");
+		enerVar = new JLabel(" 100,00");
+		sabVar = new JLabel(" 1,00");
 		movVar = new JLabel(String.valueOf(model.getMovimientos()));
 		controlInst = new JLabel(new ImageIcon("img/controlInst2.png"));
 		// Imágenes estéticas y fuentes. Botones de movimiento y juego.
@@ -138,7 +139,9 @@ public class View extends JFrame {
 		enerVar.setForeground(Color.WHITE);
 		sabiduria.setForeground(Color.WHITE);
 		sabVar.setForeground(Color.WHITE);
+		nombrePj.setForeground(Color.LIGHT_GRAY);
 
+		nombrePj.setFont(fuente);
 		fuerza.setFont(fuente);
 		fuerzaVar.setFont(fuente);
 		velocidad.setFont(fuente);
@@ -155,28 +158,36 @@ public class View extends JFrame {
 		c.gridy = 0;
 		oroPanel.add(oro, c);
 		cabeceraS.add(hero, c);
-		controlStats.add(fuerza, c);
+		c.gridwidth = 2;
+		controlStats.add(nombrePj);
+		c.gridwidth = 1;
 		c.gridx = 1;
 		c.gridy = 0;
 		oroPanel.add(oroVar);
+		controlStats.add(Box.createHorizontalGlue());
+		c.gridx = 0;
+		c.gridy = 1;
+		controlStats.add(fuerza, c);
+		c.gridx = 1;
+		c.gridy = 1;
 		controlStats.add(fuerzaVar, c);
 		c.gridx = 0;
-		c.gridy = 1;
+		c.gridy = 2;
 		controlStats.add(velocidad, c);
 		c.gridx = 1;
-		c.gridy = 1;
+		c.gridy = 2;
 		controlStats.add(veloVar, c);
 		c.gridx = 0;
-		c.gridy = 2;
+		c.gridy = 3;
 		controlStats.add(energia, c);
 		c.gridx = 1;
-		c.gridy = 2;
+		c.gridy = 3;
 		controlStats.add(enerVar, c);
 		c.gridx = 0;
-		c.gridy = 3;
+		c.gridy = 4;
 		controlStats.add(sabiduria, c);
 		c.gridx = 1;
-		c.gridy = 3;
+		c.gridy = 4;
 		controlStats.add(sabVar, c);
 		controlInfo.add(controlInst);
 		stats.add(cabeceraS);
@@ -316,21 +327,21 @@ public class View extends JFrame {
 
 	}
 
-	//Método que actualiza las estadísticas conforme a la recompensa de la casilla
+	// Método que actualiza las estadísticas conforme a la recompensa de la casilla
 	public void actualizaStats(int[] pos) {
 		this.getFuerzaVar()
-				.setText(String.format("%.2f", (float) model.getBoard()[pos[0]][pos[1]].getPj().getFuerza()));
+				.setText(String.format(" %.2f", (float) model.getBoard()[pos[0]][pos[1]].getPj().getFuerza()));
 		this.getVeloVar()
-				.setText(String.format("%.2f", (float) model.getBoard()[pos[0]][pos[1]].getPj().getVelocidad()));
+				.setText(String.format(" %.2f", (float) model.getBoard()[pos[0]][pos[1]].getPj().getVelocidad()));
 		this.getOroVar().setText(String.format("%.2f", (float) model.getBoard()[pos[0]][pos[1]].getPj().getOro()));
 		this.getEnerVar()
-				.setText(String.format("%.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
+				.setText(String.format(" %.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
 		this.getSabVar()
-				.setText(String.format("%.2f", (float) model.getBoard()[pos[0]][pos[1]].getPj().getSabiduría()));
+				.setText(String.format(" %.2f", (float) model.getBoard()[pos[0]][pos[1]].getPj().getSabiduría()));
 		if (!(this.model.getBoard()[pos[0]][pos[1]].getEdificio() instanceof Calle)) {
 			this.tableroCasillas[pos[0]][pos[1]].setTapiz(new ImageIcon("img/calle2.png").getImage());
 		}
-		this.model.getBoard()[pos[0]][pos[1]].getEdificio().setActivo(false); //Desactivamos la casilla
+		this.model.getBoard()[pos[0]][pos[1]].getEdificio().setActivo(false); // Desactivamos la casilla
 	}
 
 	public void repintarTablero() {
@@ -346,7 +357,7 @@ public class View extends JFrame {
 			}
 		}
 	}
-	
+
 	public void reFullScreen() {
 		screen.setFullScreenWindow(this);
 		this.setVisible(true);

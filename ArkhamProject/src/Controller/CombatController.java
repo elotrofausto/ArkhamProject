@@ -13,6 +13,7 @@ import javax.swing.Timer;
 import View.CombatView;
 
 public class CombatController implements MouseListener, KeyListener{
+	
 	private CombatView vistaCombate;
 	private int contadorTimer;
 	private Timer timer;
@@ -90,13 +91,15 @@ public class CombatController implements MouseListener, KeyListener{
 			public void actionPerformed(ActionEvent event) {
 				if (contadorTimer < vistaCombate.getCombate().size()) {
 					if (Double.parseDouble(vistaCombate.getCombate().get(contadorTimer)) >= 0) {
-						vistaCombate.getDamageEne().setText("-" + vistaCombate.getCombate().get(contadorTimer));
+						vistaCombate.getDamagePj().setText("");
+						vistaCombate.getDamageEne().setText("GOLPEAS! - " + vistaCombate.getCombate().get(contadorTimer) + " VIT");
 						vistaCombate.getEneLife().setValue((int) vistaCombate.getEneLife().getValue() - (int) Double.parseDouble(vistaCombate.getCombate().get(contadorTimer)));
 						vistaCombate.repaint();
 						contadorTimer++;
 
 					} else {
-						vistaCombate.getDamagePj().setText(vistaCombate.getCombate().get(contadorTimer));
+						vistaCombate.getDamageEne().setText("");
+						vistaCombate.getDamagePj().setText("RECIBES! " + vistaCombate.getCombate().get(contadorTimer) + " VIT");
 						vistaCombate.getPjLife().setValue((int) vistaCombate.getPjLife().getValue() + (int) Double.parseDouble(vistaCombate.getCombate().get(contadorTimer)));
 						vistaCombate.repaint();
 						contadorTimer++;
@@ -109,7 +112,7 @@ public class CombatController implements MouseListener, KeyListener{
 			}
 		};
 
-		timer = new Timer(500, action);
+		timer = new Timer(700, action);
 		timer.setInitialDelay(0);
 		timer.start();
 		

@@ -33,14 +33,17 @@ public class CombatView extends JDialog {
 		screen = ge.getDefaultScreenDevice();
 		this.combate = combate;
 		c = new GridBagConstraints();
-		fondo = new JLabel(new ImageIcon("img/catedral.gif"));
+		new JLabel();
+		fondo = new JLabel(new ImageIcon("img/catedralBIG.gif"));
 		personaje = new JLabel(new ImageIcon("img/char.gif"));
 		enemigo = new JLabel(new ImageIcon("img/" + combate.get(0) + "BIG" + ".gif"));
-		damagePj = new JLabel("DAÑO PJ");
-		damageEne = new JLabel("DAÑO ENE");
+		damagePj = new JLabel("");
+		damageEne = new JLabel("");
 		fight = new JButton("Combate!");
 		pjLife = new JProgressBar(0, (int) Double.parseDouble(this.combate.get(1)));
+		System.out.println((int) Double.parseDouble(this.combate.get(1)));
 		eneLife = new JProgressBar(0, (int) Double.parseDouble(this.combate.get(2)));
+		System.out.println((int) Double.parseDouble(this.combate.get(2)));
 		iniciarCombatView();
 	}
 
@@ -59,7 +62,7 @@ public class CombatView extends JDialog {
 		damagePj.setFont(new Font("", 1, 20));
 		damagePj.setForeground(Color.RED);
 		damageEne.setFont(new Font("", 1, 20));
-		damageEne.setForeground(Color.RED);
+		damageEne.setForeground(Color.GRAY);
 		
 		c.fill = GridBagConstraints.HORIZONTAL;
 

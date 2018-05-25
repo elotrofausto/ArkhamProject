@@ -173,7 +173,8 @@ public class Controller implements MouseListener, KeyListener {
 		// Actualización de estadísticas y tablero
 		pos = this.model.buscarPersonaje("personaje");
 		this.vista.getEnerVar()
-				.setText(String.format("%.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
+				.setText(String.format(" %.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
+		this.vista.getOroVar().setText(" " + String.valueOf(model.getBoard()[pos[0]][pos[1]].getPj().getOro()));
 		this.vista.repintarTablero();
 		this.vista.repaint();
 	}
