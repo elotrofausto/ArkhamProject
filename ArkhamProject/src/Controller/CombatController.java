@@ -12,7 +12,7 @@ import javax.swing.Timer;
 
 import View.CombatView;
 
-public class CombatController implements MouseListener, KeyListener {
+public class CombatController implements MouseListener, KeyListener, Runnable {
 	private CombatView vistaCombate;
 	private int contadorTimer;
 	private Timer timer;
@@ -23,7 +23,7 @@ public class CombatController implements MouseListener, KeyListener {
 		this.combate = combate;
 		vistaCombate = new CombatView(combate);
 		iniciarControlCombate();
-		contadorTimer = 1; // Se saltará la 1a pos del ArrayList
+		contadorTimer = 3;
 		timer = null;
 	}
 
@@ -91,11 +91,13 @@ public class CombatController implements MouseListener, KeyListener {
 				if (contadorTimer < vistaCombate.getCombate().size()) {
 					if (Double.parseDouble(vistaCombate.getCombate().get(contadorTimer)) >= 0) {
 						vistaCombate.getDamageEne().setText("-" + vistaCombate.getCombate().get(contadorTimer));
+						vistaCombate.getEneLife().setValue((int) vistaCombate.getEneLife().getValue() - (int) Double.parseDouble(vistaCombate.getCombate().get(contadorTimer)));
 						vistaCombate.repaint();
 						contadorTimer++;
 
 					} else {
 						vistaCombate.getDamagePj().setText(vistaCombate.getCombate().get(contadorTimer));
+						vistaCombate.getPjLife().setValue((int) vistaCombate.getPjLife().getValue() + (int) Double.parseDouble(vistaCombate.getCombate().get(contadorTimer)));
 						vistaCombate.repaint();
 						contadorTimer++;
 					}
@@ -111,6 +113,20 @@ public class CombatController implements MouseListener, KeyListener {
 		timer.setInitialDelay(0);
 		timer.start();
 		
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public ArrayList<String> getCombate() {
+		return combate;
+	}
+
+	public void setCombate(ArrayList<String> combate) {
+		this.combate = combate;
 	}
 
 }

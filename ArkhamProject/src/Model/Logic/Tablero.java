@@ -302,6 +302,9 @@ public class Tablero {
 		}
 
 		combate.add(board[enem[0]][enem[1]].getPj().getNombre());
+		combate.add(String.valueOf(board[prota[0]][prota[1]].getPj().getEnergía()));
+		combate.add(String.valueOf(board[enem[0]][enem[1]].getPj().getEnergía()));
+
 		
 		while (board[prota[0]][prota[1]].getPj().getEnergía() > 0 && board[enem[0]][enem[1]].getPj().getEnergía() > 0) {
 
@@ -406,6 +409,11 @@ public class Tablero {
 
 	public void setCombate(ArrayList<String> combate) {
 		this.combate = combate;
+	}
+
+	public void compruebaVictoria() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

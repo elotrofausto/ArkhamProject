@@ -10,12 +10,12 @@ import java.util.ArrayList;
 import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 
 @SuppressWarnings("serial")
-public class CombatView extends JFrame {
+public class CombatView extends JDialog {
 
 	private JLabel fondo, personaje, enemigo, damagePj, damageEne;
 	private JButton fight;
@@ -33,18 +33,20 @@ public class CombatView extends JFrame {
 		damagePj = new JLabel("DAÑO PJ");
 		damageEne = new JLabel("DAÑO ENE");
 		fight = new JButton("Combate!");
-		pjLife = new JProgressBar(0, 300);
-		eneLife = new JProgressBar(0, 150);
+		pjLife = new JProgressBar(0, (int) Double.parseDouble(this.combate.get(1)));
+		eneLife = new JProgressBar(0, (int) Double.parseDouble(this.combate.get(2)));
 		iniciarCombatView();
 	}
 
 	public void iniciarCombatView() {
 
-		pjLife.setValue(100); // Fijar valor por defecto.
+		pjLife.setValue((int) Double.parseDouble(this.combate.get(1))); // Fijar valor por defecto.
 		pjLife.setStringPainted(true); // Mostrar valor numérico del progreso de la barra
+		pjLife.setForeground(Color.GREEN);
 
-		eneLife.setValue(100); // Fijar valor por defecto.
+		eneLife.setValue((int) Double.parseDouble(this.combate.get(2))); // Fijar valor por defecto.
 		eneLife.setStringPainted(true); // Mostrar valor numérico del progreso de la barra
+		eneLife.setForeground(Color.RED);
 		
 		fondo.setLayout(new GridBagLayout());
 		fight.setFont(new Font("", 1, 20));
@@ -85,11 +87,14 @@ public class CombatView extends JFrame {
 		fondo.add(enemigo, c);
 		this.add(fondo);
 
+		this.setUndecorated(true);
 		this.setSize(new Dimension(768, 368));
-		this.setVisible(true);
 		this.setLocationRelativeTo(null);
 		this.requestFocus();
+		this.setAlwaysOnTop(true);
+		this.setVisible(true);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
 	}
 	
 	@Override
@@ -129,7 +134,21 @@ public class CombatView extends JFrame {
 	public void setCombate(ArrayList<String> combate) {
 		this.combate = combate;
 	}
-	
-	
+
+	public JProgressBar getPjLife() {
+		return pjLife;
+	}
+
+	public void setPjLife(JProgressBar pjLife) {
+		this.pjLife = pjLife;
+	}
+
+	public JProgressBar getEneLife() {
+		return eneLife;
+	}
+
+	public void setEneLife(JProgressBar eneLife) {
+		this.eneLife = eneLife;
+	}	
 	
 }

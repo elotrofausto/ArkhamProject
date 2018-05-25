@@ -14,10 +14,12 @@ import View.View;
 public class Controller implements MouseListener, KeyListener {
 
 	InicioModel modeloInicio;
+	CombatController controladorCombate;
 	Tablero model;
 	View vista;
 
 	public Controller(InicioModel modeloInicio) {
+		controladorCombate = null;
 		this.modeloInicio = modeloInicio;
 		model = new Tablero(modeloInicio);
 		vista = new View(model);
@@ -163,15 +165,28 @@ public class Controller implements MouseListener, KeyListener {
 			}
 			break;
 		}
-		//Enviamos a la vista los resultados del combate para su representación
-		if (!this.model.getCombate().isEmpty()) {
-			System.out.println("Ha habido combate");
-			new CombatController(model.getCombate());
-			//this.vista.reFullScreen(); Lanzar al terminar
-			//this.model.getCombate().removeAll(this.model.getCombate());
+		// Enviamos a la vista los resultados del combate para su representación
+		if (this.model.getCombate().size() > 1) {
+			Thread hilo = new Thread(controladorCombate = new CombatController(model.getCombate()));
+			//this.vista.setVisible(false);
+			this.vista.setEnabled(false);
+
+			
+			try {
+				hilo.join();
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			System.out.println("Salgo del hilo");
+
+			this.vista.setVisible(true);
+			this.vista.setEnabled(true);
+
 		}
-		
-		//Actualización de estadísticas y tablero
+
+		// Actualización de estadísticas y tablero
 		pos = this.model.buscarPersonaje("personaje");
 		this.vista.getEnerVar()
 				.setText(String.format("%.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
