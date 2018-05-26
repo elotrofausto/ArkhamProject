@@ -29,11 +29,12 @@ public class View extends JFrame {
 	private BgLabel[][] tableroCasillas;
 	private JMenuBar mainMenu;
 	private JMenu leyenda, salir;
-	private JLabel bg, northTitle, nombrePj, fuerza, velocidad, oro, energia, sabiduria, movimientos, movVar, fuerzaVar,
-			veloVar, oroVar, enerVar, sabVar, hero, cthulhu, controlInst;
+	private JLabel bg, northTitle, nombrePj, puntos, puntosVar, fuerza, velocidad, oro, energia, sabiduria, movimientos,
+			movVar, fuerzaVar, veloVar, oroVar, enerVar, sabVar, hero, cthulhu, controlInst;
 	private JButton up, down, right, left, lanzarDado, finTurno;
 	private BackGround tab;
-	private JPanel stats, control, north, arrows, controlMov, controlStats, cabeceraS, cabeceraC, oroPanel, controlInfo;
+	private JPanel puntosPanel, stats, control, north, arrows, controlMov, controlStats, cabeceraS, cabeceraC, oroPanel,
+			controlInfo;
 	private Dimension screenSize, columna;
 	private GridBagConstraints c = new GridBagConstraints();
 	private Font fuente;
@@ -65,7 +66,10 @@ public class View extends JFrame {
 		cabeceraC = new JPanel();
 		oroPanel = new JPanel();
 		controlInfo = new JPanel();
+		puntosPanel = new JPanel();
 		nombrePj = new JLabel(model.getNombrePj());
+		puntos = new JLabel("Puntos");
+		puntosVar = new JLabel(" 0,00");
 		fuerza = new JLabel(" Fuerza");
 		velocidad = new JLabel(" Velocidad");
 		oro = new JLabel(" Oro");
@@ -129,6 +133,9 @@ public class View extends JFrame {
 		oroPanel.setLayout(new GridBagLayout());
 		oroPanel.setBackground(new Color(0, 0, 0, 0));
 		controlInfo.setBackground(new Color(0, 0, 0, 0));
+		puntosPanel.setLayout(new GridBagLayout());
+		puntos.setForeground(Color.WHITE);
+		puntosVar.setForeground(Color.WHITE);
 		fuerza.setForeground(Color.WHITE);
 		fuerzaVar.setForeground(Color.WHITE);
 		velocidad.setForeground(Color.WHITE);
@@ -152,6 +159,8 @@ public class View extends JFrame {
 		enerVar.setFont(fuente);
 		sabiduria.setFont(fuente);
 		sabVar.setFont(fuente);
+		puntos.setFont(fuente);
+		puntosVar.setFont(fuente);
 		c.fill = GridBagConstraints.BOTH;
 		c.weightx = 0;
 		c.gridx = 0;
@@ -216,10 +225,12 @@ public class View extends JFrame {
 		c.gridx = 0;
 		c.gridy = 0;
 		cabeceraC.add(cthulhu, c);
+		puntosPanel.add(puntos);
 		c.gridx = 1;
 		c.gridy = 0;
 		c.gridheight = 1;
 		c.weightx = 0;
+		puntosPanel.add(puntosVar);
 		arrows.add(up, c);
 		c.gridx = 0;
 		c.gridy = 1;
@@ -248,6 +259,7 @@ public class View extends JFrame {
 		c.gridwidth = 1;
 		arrows.setBackground(new Color(0, 0, 0, 0));
 		controlMov.setBackground(new Color(0, 0, 0, 0));
+		puntosPanel.setBackground(new Color(0, 0, 0, 0));
 		control.setPreferredSize(columna);
 		control.setBorder(BorderFactory.createRaisedBevelBorder());
 		control.setBackground(new Color(0, 255, 0, 80));
@@ -255,6 +267,7 @@ public class View extends JFrame {
 		cthulhu.setHorizontalAlignment(JLabel.CENTER);
 		control.add(cabeceraC);
 		control.add(controlMov);
+		control.add(puntosPanel);
 		control.add(arrows);
 
 		// Title

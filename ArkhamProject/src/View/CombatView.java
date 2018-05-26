@@ -34,7 +34,7 @@ public class CombatView extends JDialog {
 		this.combate = combate;
 		c = new GridBagConstraints();
 		new JLabel();
-		fondo = new JLabel(new ImageIcon("img/catedralBIG.gif"));
+		fondo = new JLabel(new ImageIcon("img/catedralBIGwhite.gif"));
 		personaje = new JLabel(new ImageIcon("img/char.gif"));
 		enemigo = new JLabel(new ImageIcon("img/" + combate.get(0) + "BIG" + ".gif"));
 		damagePj = new JLabel("");
