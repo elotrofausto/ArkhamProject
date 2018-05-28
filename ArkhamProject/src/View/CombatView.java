@@ -41,9 +41,7 @@ public class CombatView extends JDialog {
 		damageEne = new JLabel("");
 		fight = new JButton("Combate!");
 		pjLife = new JProgressBar(0, (int) Double.parseDouble(this.combate.get(1)));
-		System.out.println((int) Double.parseDouble(this.combate.get(1)));
-		eneLife = new JProgressBar(0, (int) Double.parseDouble(this.combate.get(2)));
-		System.out.println((int) Double.parseDouble(this.combate.get(2)));
+		eneLife = new JProgressBar();
 		iniciarCombatView();
 	}
 
@@ -53,6 +51,7 @@ public class CombatView extends JDialog {
 		pjLife.setStringPainted(true); // Mostrar valor numérico del progreso de la barra
 		pjLife.setForeground(Color.GREEN);
 
+		eneLife.setMaximum((int) Double.parseDouble(this.combate.get(2)));
 		eneLife.setValue((int) Double.parseDouble(this.combate.get(2))); // Fijar valor por defecto.
 		eneLife.setStringPainted(true); // Mostrar valor numérico del progreso de la barra
 		eneLife.setForeground(Color.RED);

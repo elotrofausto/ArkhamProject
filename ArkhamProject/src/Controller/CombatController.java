@@ -2,8 +2,6 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -12,7 +10,7 @@ import javax.swing.Timer;
 
 import View.CombatView;
 
-public class CombatController implements MouseListener, KeyListener{
+public class CombatController implements MouseListener{
 	
 	private CombatView vistaCombate;
 	private int contadorTimer;
@@ -30,25 +28,10 @@ public class CombatController implements MouseListener, KeyListener{
 
 	public void iniciarControlCombate() {
 		this.vistaCombate.getFight().addMouseListener(this);
+		this.vistaCombate.addMouseListener(this);
 	}
 
-	@Override
-	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
@@ -71,7 +54,7 @@ public class CombatController implements MouseListener, KeyListener{
 	@Override
 	public void mousePressed(MouseEvent e) {
 		JButton event = (JButton) e.getSource();
-		if (event.getText() == "Combate!") {
+		if (event.getText() == "Combate!" && this.vistaCombate.getFight().isEnabled()) {
 			this.vistaCombate.getFight().setEnabled(false);
 			combatTimer();
 		}

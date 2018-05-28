@@ -14,8 +14,12 @@ import View.InitView;
 
 public class InitViewController implements MouseListener, ItemListener {
 
-	InitView vistaInicial;
-	InicioModel model;
+	private InitView vistaInicial;
+	private InicioModel model;
+	private static final int FACIL=6;
+	private static final int MEDIO=6;
+	private static final int DIFICIL=6;
+
 
 	public InitViewController() {
 		model = new InicioModel();
@@ -55,6 +59,9 @@ public class InitViewController implements MouseListener, ItemListener {
 		if (e.getSource() instanceof JButton) {
 			JButton event = (JButton) e.getSource();
 			if (event == this.vistaInicial.getContinuar()) {
+				if (!this.vistaInicial.getNombre().getText().equals("Introduce tu nombre...") && !this.vistaInicial.getNombre().getText().equals("")){
+					this.model.setNombrePlayer(this.vistaInicial.getNombre().getText());
+				}
 				this.vistaInicial.dispose();
 				new Controller(this.model);
 			} else if (event == this.vistaInicial.getSalir()) {
@@ -79,13 +86,13 @@ public class InitViewController implements MouseListener, ItemListener {
 	public void itemStateChanged(ItemEvent e) {
 		JCheckBox event = (JCheckBox) e.getSource();
 		if (event == this.vistaInicial.getFacil()) {
-			this.model.setDificultad(6);			
+			this.model.setDificultad(FACIL);			
 		}
 		else if (event == this.vistaInicial.getMedio()) {
-			this.model.setDificultad(12);
+			this.model.setDificultad(MEDIO);
 		}
 		else if (event == this.vistaInicial.getDificil()) {
-			this.model.setDificultad(24);
+			this.model.setDificultad(DIFICIL);
 		}
 	}
 

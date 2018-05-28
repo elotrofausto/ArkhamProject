@@ -39,7 +39,6 @@ public class Controller implements MouseListener, KeyListener {
 		// Key Listeners
 		vista.addKeyListener(this);
 		vista.setFocusable(true);
-
 	}
 
 	@Override
@@ -97,15 +96,23 @@ public class Controller implements MouseListener, KeyListener {
 			}
 			if (event.getName() == "finTurno") {
 				this.model.comprobarEvento(pos = this.model.buscarPersonaje("personaje"), new int[2]);
+
 				if (this.model.getBoard()[pos[0]][pos[1]].getEdificio().isActivo()) {
 					this.vista.actualizaStats(pos);
 				}
 				this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
 			}
 		}
+		// Enviamos a la vista los resultados del combate para su representación
+		if (this.model.getCombate().size() > 1) {
+			controladorCombate = new CombatController(model.getCombate());
+		}
+
+		// Actualización de estadísticas y tablero
 		pos = this.model.buscarPersonaje("personaje");
 		this.vista.getEnerVar()
-				.setText(String.format("%.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
+				.setText(String.format(" %.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
+		this.vista.getOroVar().setText(" " + String.valueOf(model.getBoard()[pos[0]][pos[1]].getPj().getOro()));
 		this.vista.repintarTablero();
 		this.vista.repaint();
 	}
@@ -158,7 +165,6 @@ public class Controller implements MouseListener, KeyListener {
 			this.vista.getMovVar().setText(String.valueOf(this.model.getMovimientos()));
 			break;
 		case KeyEvent.VK_SPACE:
-			this.vista.reFullScreen();
 			if (this.model.getMovimientos() == 0) {
 				this.model.moverMonstruos();
 				this.vista.getMovVar().setText(String.valueOf(this.model.calculaMovimiento()));

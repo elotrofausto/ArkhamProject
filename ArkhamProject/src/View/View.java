@@ -3,8 +3,6 @@ package View;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -38,14 +36,10 @@ public class View extends JFrame {
 	private Dimension screenSize, columna;
 	private GridBagConstraints c = new GridBagConstraints();
 	private Font fuente;
-	private GraphicsEnvironment ge;
-	private GraphicsDevice screen;
 
 	public View(Tablero model) {
 		this.model = model;
 		// Elementos para configurar la pantalla completa y las dimensiones
-		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		screen = ge.getDefaultScreenDevice();
 		screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		columna = new Dimension((int) ((screenSize.getWidth() - 975) / 2), (int) screenSize.getHeight() / 2);
 		// Menú bar
@@ -313,9 +307,9 @@ public class View extends JFrame {
 
 		this.add(bg);
 		this.setJMenuBar(mainMenu);
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		this.setVisible(true);
-		screen.setFullScreenWindow(this); // Pantalla completa por encima de los
-											// elementos del SO
+		
 	}
 
 	public void efectuarMovimiento(String dir, int[] pos, String nombre) {
@@ -369,11 +363,6 @@ public class View extends JFrame {
 				}
 			}
 		}
-	}
-
-	public void reFullScreen() {
-		screen.setFullScreenWindow(this);
-		this.setVisible(true);
 	}
 
 	// Getters y Setters
