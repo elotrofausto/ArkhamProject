@@ -13,7 +13,7 @@ public class InicioModel {
 	public InicioModel(){
 		//Valores por defecto de la partida, si el usuario no los cambia
 		nombrePlayer="Vagabundo";
-		dificultad=12;
+		dificultad=16;
 	}
 	
 	public InicioModel(String nombrePlayer, int dificultad) {

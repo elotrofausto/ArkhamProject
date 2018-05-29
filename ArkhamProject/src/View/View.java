@@ -307,9 +307,9 @@ public class View extends JFrame {
 
 		this.add(bg);
 		this.setJMenuBar(mainMenu);
-		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.setVisible(true);
-		
+
 	}
 
 	public void efectuarMovimiento(String dir, int[] pos, String nombre) {
@@ -334,7 +334,8 @@ public class View extends JFrame {
 
 	}
 
-	// Método que actualiza las estadísticas conforme a la recompensa de la casilla
+	// Método que actualiza las estadísticas conforme a la recompensa de la
+	// casilla
 	public void actualizaStats(int[] pos) {
 		this.getFuerzaVar()
 				.setText(String.format(" %.2f", (float) model.getBoard()[pos[0]][pos[1]].getPj().getFuerza()));
@@ -345,14 +346,25 @@ public class View extends JFrame {
 				.setText(String.format(" %.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
 		this.getSabVar()
 				.setText(String.format(" %.2f", (float) model.getBoard()[pos[0]][pos[1]].getPj().getSabiduría()));
+		this.getPuntosVar()
+				.setText(String.format(" %.2f",
+						(float) ((model.getBoard()[pos[0]][pos[1]].getPj().getFuerza() * 10)
+								+ (model.getBoard()[pos[0]][pos[1]].getPj().getOro() * 50)
+								+ (model.getBoard()[pos[0]][pos[1]].getPj().getVelocidad() * 10)
+								+ (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía() * 10)
+								+ (model.getBoard()[pos[0]][pos[1]].getPj().getSabiduría() * 10))));
+
 		if (!(this.model.getBoard()[pos[0]][pos[1]].getEdificio() instanceof Calle)) {
 			this.tableroCasillas[pos[0]][pos[1]].setTapiz(new ImageIcon("img/calle2.png").getImage());
 		}
-		this.model.getBoard()[pos[0]][pos[1]].getEdificio().setActivo(false); // Desactivamos la casilla
+		this.model.getBoard()[pos[0]][pos[1]].getEdificio().setActivo(false); // Desactivamos
+																				// la
+																				// casilla
 	}
 
 	public void repintarTablero() {
-		// Repinta el tablero de juego teniendo en cuenta dónde están los personajes
+		// Repinta el tablero de juego teniendo en cuenta dónde están los
+		// personajes
 		for (int i = 0; i < tableroCasillas.length; i++) {
 			for (int j = 0; j < tableroCasillas[0].length; j++) {
 				if (model.getBoard()[i][j].getPj() == null) {
@@ -492,6 +504,14 @@ public class View extends JFrame {
 
 	public void setFinTurno(JButton finTurno) {
 		this.finTurno = finTurno;
+	}
+
+	public JLabel getPuntosVar() {
+		return puntosVar;
+	}
+
+	public void setPuntosVar(JLabel puntosVar) {
+		this.puntosVar = puntosVar;
 	}
 
 }

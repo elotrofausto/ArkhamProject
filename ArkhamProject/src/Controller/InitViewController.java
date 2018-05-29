@@ -16,9 +16,9 @@ public class InitViewController implements MouseListener, ItemListener {
 
 	private InitView vistaInicial;
 	private InicioModel model;
-	private static final int FACIL=6;
-	private static final int MEDIO=6;
-	private static final int DIFICIL=6;
+	private static final int FACIL=8;
+	private static final int MEDIO=16;
+	private static final int DIFICIL=24;
 
 
 	public InitViewController() {

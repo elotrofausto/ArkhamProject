@@ -72,7 +72,7 @@ public class CombatController implements MouseListener{
 			
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				if (contadorTimer < vistaCombate.getCombate().size()) {
+				if (contadorTimer < vistaCombate.getCombate().size()-1) {
 					if (Double.parseDouble(vistaCombate.getCombate().get(contadorTimer)) >= 0) {
 						vistaCombate.getDamagePj().setText("");
 						vistaCombate.getDamageEne().setText("GOLPEAS! - " + vistaCombate.getCombate().get(contadorTimer) + " VIT");

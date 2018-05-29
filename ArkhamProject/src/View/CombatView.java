@@ -16,6 +16,8 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
 
+import Controller.EndGameController;
+
 @SuppressWarnings("serial")
 public class CombatView extends JDialog {
 
@@ -109,6 +111,10 @@ public class CombatView extends JDialog {
 	
 	@Override
 	public void dispose() {
+		if (!(combate.get(combate.size()-1).equals("0"))){
+			System.out.println(combate.get(combate.size()-1));
+			new EndGameController(Integer.parseInt(combate.get(combate.size()-1)));
+		}
 		combate.clear();
 		super.dispose();
 	}

@@ -282,8 +282,8 @@ public class Tablero {
 			}
 			movimientos = 0;
 		}
-
 	}
+	
 
 	public void combate(int[] pos, int[] origen) {
 		ArrayList<Integer> arrayDados = new ArrayList<Integer>();
@@ -345,10 +345,13 @@ public class Tablero {
 
 			if (board[prota[0]][prota[1]].getPj().getEnergía() <= 0) {
 				System.out.println("Has perdido la partida");
-				System.exit(0);
+				combate.add("-1");
+				//System.exit(0);
 			} else {
 				oro = RecompensaCombate.getInstance().recompensar(board[enem[0]][enem[1]].getPj().getNombre());
 				board[prota[0]][prota[1]].getPj().setOro(board[prota[0]][prota[1]].getPj().getOro() + oro[0]);
+				
+				combate.add(compruebaVictoria());
 			}
 
 		}
@@ -371,9 +374,22 @@ public class Tablero {
 		comprobarEvento(pos, new int[2]);
 	}
 
-	public void compruebaVictoria() {
-		// TODO Auto-generated method stub
+	public String compruebaVictoria() {
+		String result = "1";
+		
+		//Si queda algún enemigo devolveremos un 0
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[0].length; j++) {
+				if (board[i][j].getPj() != null) {
+					if (!(board[i][j].getPj() instanceof Protagonista)) {
+						System.out.println("Quedan enemigos");
+						result ="0";
+					}
+				}
+			}
+		}
 
+		return result;
 	}
 
 	public Casilla[][] getBoard() {
