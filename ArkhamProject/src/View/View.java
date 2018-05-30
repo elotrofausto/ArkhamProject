@@ -18,6 +18,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import Model.Locations.Calle;
+import Model.Logic.PuntosModel;
 import Model.Logic.Tablero;
 
 @SuppressWarnings("serial")
@@ -346,13 +347,16 @@ public class View extends JFrame {
 				.setText(String.format(" %.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
 		this.getSabVar()
 				.setText(String.format(" %.2f", (float) model.getBoard()[pos[0]][pos[1]].getPj().getSabiduría()));
-		this.getPuntosVar()
-				.setText(String.format(" %.2f",
-						(float) ((model.getBoard()[pos[0]][pos[1]].getPj().getFuerza() * 10)
+		
+		PuntosModel.getInstance().setPuntos((float) ((model.getBoard()[pos[0]][pos[1]].getPj().getFuerza() * 10)
 								+ (model.getBoard()[pos[0]][pos[1]].getPj().getOro() * 50)
 								+ (model.getBoard()[pos[0]][pos[1]].getPj().getVelocidad() * 10)
 								+ (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía() * 10)
-								+ (model.getBoard()[pos[0]][pos[1]].getPj().getSabiduría() * 10))));
+								+ (model.getBoard()[pos[0]][pos[1]].getPj().getSabiduría() * 10)));
+		this.getPuntosVar()
+				.setText(String.format(" %.2f", PuntosModel.getInstance().getPuntos()));
+
+		System.out.println(PuntosModel.getInstance().getNombre() + " " + PuntosModel.getInstance().getPuntos());
 
 		if (!(this.model.getBoard()[pos[0]][pos[1]].getEdificio() instanceof Calle)) {
 			this.tableroCasillas[pos[0]][pos[1]].setTapiz(new ImageIcon("img/calle2.png").getImage());

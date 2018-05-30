@@ -94,8 +94,9 @@ public class Tablero {
 			}
 		}
 
-		// Asignamos el Personaje Principal al tablero
-
+		//Hacemos set del nombre en la Clase Singleton que gastamos como modelo para guardar las puntuaciones.
+		PuntosModel.getInstance().setNombre(nombrePj);
+		
 	}
 
 	// Método para buscar a un personaje en el tablero
@@ -346,7 +347,7 @@ public class Tablero {
 
 			if (board[prota[0]][prota[1]].getPj().getEnergía() <= 0) {
 				combate.add("-1");
-				// System.exit(0);
+				
 			} else {
 				oro = RecompensaCombate.getInstance().recompensar(board[enem[0]][enem[1]].getPj().getNombre());
 				board[prota[0]][prota[1]].getPj().setOro(board[prota[0]][prota[1]].getPj().getOro() + oro[0]);

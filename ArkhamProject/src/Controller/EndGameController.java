@@ -44,7 +44,7 @@ public class EndGameController implements MouseListener{
 		if (e.getSource() instanceof JButton){
 		JButton event = (JButton) e.getSource();
 		if (event.getText() == "Puntuaciones") {
-			
+			new PointsController();
 		}
 		else if (event.getText() == "Salir"){
 			System.exit(0);

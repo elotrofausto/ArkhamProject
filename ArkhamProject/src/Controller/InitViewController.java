@@ -62,8 +62,7 @@ public class InitViewController implements MouseListener, ItemListener {
 						&& !this.vistaInicial.getNombre().getText().equals("")) {
 					if (this.vistaInicial.getNombre().getText().length() > 10) {
 						this.model.setNombrePlayer(this.vistaInicial.getNombre().getText().substring(0, 10));
-					}
-					else {
+					} else {
 						this.model.setNombrePlayer(this.vistaInicial.getNombre().getText());
 					}
 				}
