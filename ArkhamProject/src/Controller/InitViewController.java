@@ -16,10 +16,9 @@ public class InitViewController implements MouseListener, ItemListener {
 
 	private InitView vistaInicial;
 	private InicioModel model;
-	private static final int FACIL=8;
-	private static final int MEDIO=16;
-	private static final int DIFICIL=24;
-
+	private static final int FACIL = 8;
+	private static final int MEDIO = 16;
+	private static final int DIFICIL = 24;
 
 	public InitViewController() {
 		model = new InicioModel();
@@ -59,8 +58,14 @@ public class InitViewController implements MouseListener, ItemListener {
 		if (e.getSource() instanceof JButton) {
 			JButton event = (JButton) e.getSource();
 			if (event == this.vistaInicial.getContinuar()) {
-				if (!this.vistaInicial.getNombre().getText().equals("Introduce tu nombre...") && !this.vistaInicial.getNombre().getText().equals("")){
-					this.model.setNombrePlayer(this.vistaInicial.getNombre().getText().substring(0, 10));
+				if (!this.vistaInicial.getNombre().getText().equals("Introduce tu nombre...")
+						&& !this.vistaInicial.getNombre().getText().equals("")) {
+					if (this.vistaInicial.getNombre().getText().length() > 10) {
+						this.model.setNombrePlayer(this.vistaInicial.getNombre().getText().substring(0, 10));
+					}
+					else {
+						this.model.setNombrePlayer(this.vistaInicial.getNombre().getText());
+					}
 				}
 				this.vistaInicial.dispose();
 				new Controller(this.model);
@@ -86,12 +91,10 @@ public class InitViewController implements MouseListener, ItemListener {
 	public void itemStateChanged(ItemEvent e) {
 		JCheckBox event = (JCheckBox) e.getSource();
 		if (event == this.vistaInicial.getFacil()) {
-			this.model.setDificultad(FACIL);			
-		}
-		else if (event == this.vistaInicial.getMedio()) {
+			this.model.setDificultad(FACIL);
+		} else if (event == this.vistaInicial.getMedio()) {
 			this.model.setDificultad(MEDIO);
-		}
-		else if (event == this.vistaInicial.getDificil()) {
+		} else if (event == this.vistaInicial.getDificil()) {
 			this.model.setDificultad(DIFICIL);
 		}
 	}
