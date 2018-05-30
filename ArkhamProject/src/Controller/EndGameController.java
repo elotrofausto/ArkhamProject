@@ -1,10 +1,14 @@
 package Controller;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.JButton;
+
 import View.EndGameView;
 
-public class EndGameController {
+public class EndGameController implements MouseListener{
 	
-	@SuppressWarnings("unused")
 	private EndGameView vistaFinJuego;
 
 	public EndGameController(int option){
@@ -13,6 +17,44 @@ public class EndGameController {
 	}
 	
 	public void initEndGameController(){
+		this.vistaFinJuego.getNewGame().addMouseListener(this);
+		this.vistaFinJuego.getExit().addMouseListener(this);
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		if (e.getSource() instanceof JButton){
+		JButton event = (JButton) e.getSource();
+		if (event.getText() == "Puntuaciones") {
+			
+		}
+		else if (event.getText() == "Salir"){
+			System.exit(0);
+		}
+		}
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
 		
 	}
 	

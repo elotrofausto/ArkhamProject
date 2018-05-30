@@ -16,10 +16,12 @@ import Model.Pers.Wolf;
 
 public class Tablero {
 
-	private InicioModel modeloInicio; // Modelo con los parámetros de inicio de partida
+	private InicioModel modeloInicio; // Modelo con los parámetros de inicio de
+										// partida
 	private ArrayList<Casilla> arrayCasillas; // ArrayList para tablero
 	private Casilla[][] board; // Tablero de casillas
-	private ArrayList<String> combate; // ArrayList para los resultados de combate
+	private ArrayList<String> combate; // ArrayList para los resultados de
+										// combate
 	private String nombrePj; // Nombre elegido por el jugador
 	private Evento[] event; // Array de eventos
 	private float puntos; // Puntuación del jugador
@@ -283,7 +285,6 @@ public class Tablero {
 			movimientos = 0;
 		}
 	}
-	
 
 	public void combate(int[] pos, int[] origen) {
 		ArrayList<Integer> arrayDados = new ArrayList<Integer>();
@@ -344,13 +345,12 @@ public class Tablero {
 			}
 
 			if (board[prota[0]][prota[1]].getPj().getEnergía() <= 0) {
-				System.out.println("Has perdido la partida");
 				combate.add("-1");
-				//System.exit(0);
+				// System.exit(0);
 			} else {
 				oro = RecompensaCombate.getInstance().recompensar(board[enem[0]][enem[1]].getPj().getNombre());
 				board[prota[0]][prota[1]].getPj().setOro(board[prota[0]][prota[1]].getPj().getOro() + oro[0]);
-				
+
 				combate.add(compruebaVictoria());
 			}
 
@@ -375,19 +375,29 @@ public class Tablero {
 	}
 
 	public String compruebaVictoria() {
-		String result = "1";
-		
-		//Si queda algún enemigo devolveremos un 0
+		String result = "";
+		int contador = 0;
+
+		// Si queda algún enemigo devolveremos un 0
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[0].length; j++) {
 				if (board[i][j].getPj() != null) {
-					if (!(board[i][j].getPj() instanceof Protagonista)) {
-						System.out.println("Quedan enemigos");
-						result ="0";
+					if ((board[i][j].getPj() != null)) {
+						if (!(board[i][j].getPj() instanceof Protagonista)) {
+							contador++;
+						}
 					}
 				}
 			}
 		}
+		
+		if (contador<=1){
+			result = "1";
+		}
+		else{
+			result = "0";
+		}
+		
 
 		return result;
 	}

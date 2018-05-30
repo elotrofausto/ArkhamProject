@@ -60,7 +60,7 @@ public class InitViewController implements MouseListener, ItemListener {
 			JButton event = (JButton) e.getSource();
 			if (event == this.vistaInicial.getContinuar()) {
 				if (!this.vistaInicial.getNombre().getText().equals("Introduce tu nombre...") && !this.vistaInicial.getNombre().getText().equals("")){
-					this.model.setNombrePlayer(this.vistaInicial.getNombre().getText());
+					this.model.setNombrePlayer(this.vistaInicial.getNombre().getText().substring(0, 10));
 				}
 				this.vistaInicial.dispose();
 				new Controller(this.model);

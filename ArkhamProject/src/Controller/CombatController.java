@@ -53,10 +53,12 @@ public class CombatController implements MouseListener{
 
 	@Override
 	public void mousePressed(MouseEvent e) {
+		if (e.getSource() instanceof JButton){
 		JButton event = (JButton) e.getSource();
 		if (event.getText() == "Combate!" && this.vistaCombate.getFight().isEnabled()) {
 			this.vistaCombate.getFight().setEnabled(false);
 			combatTimer();
+		}
 		}
 	}
 

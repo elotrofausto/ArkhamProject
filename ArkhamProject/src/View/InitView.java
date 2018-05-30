@@ -29,7 +29,7 @@ public class InitView extends JFrame{
 	private JCheckBox facil, medio, dificil;
 	private JButton continuar, salir;
 	private JTextField nombre;
-	private GridBagConstraints c = new GridBagConstraints();
+	private GridBagConstraints c;
 
 	public InitView(InicioModel model) {
 		fondo = new JLabel(new ImageIcon("img/giphy.gif"));
