@@ -43,7 +43,7 @@ public class FileController {
 	public void write(byte[] buf) {
 		try {
 			FileOutputStream ficheroSalida = new FileOutputStream(new File(nombreS));
-			ficheroSalida.write(buf, 0, BUFFER_SIZE);
+			ficheroSalida.write(buf, 0, buf.length);
 			ficheroSalida.close();
 		} catch (IOException e) {
 			e.printStackTrace();
