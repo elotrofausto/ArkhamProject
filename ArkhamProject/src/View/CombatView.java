@@ -18,6 +18,10 @@ import javax.swing.JProgressBar;
 
 import Controller.EndGameController;
 
+/**
+ * Clase CombatView. Es la Clase en la que construimos la Vista que representará el combate del juego.
+ * @author Alberto Fausto
+ */
 @SuppressWarnings("serial")
 public class CombatView extends JDialog {
 

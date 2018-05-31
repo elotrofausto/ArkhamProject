@@ -19,6 +19,10 @@ import javax.swing.JTextField;
 
 import Model.Logic.InicioModel;
 
+/**
+ * Clase InitView. Es la Clase en la que construimos la Vista que representará el menú inicial del juego.
+ * @author Alberto Fausto
+ */
 @SuppressWarnings("serial")
 public class InitView extends JFrame{
 	

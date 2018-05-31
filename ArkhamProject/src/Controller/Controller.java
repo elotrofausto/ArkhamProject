@@ -17,10 +17,10 @@ import View.View;
  */
 public class Controller implements MouseListener, KeyListener {
 
-	InicioModel modeloInicio;
-	CombatController controladorCombate;
-	Tablero model;
-	View vista;
+	private InicioModel modeloInicio;
+	private CombatController controladorCombate;
+	private Tablero model;
+	private View vista;
 
 	public Controller(InicioModel modeloInicio) {
 		controladorCombate = null;

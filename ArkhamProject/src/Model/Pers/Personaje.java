@@ -10,12 +10,12 @@ package Model.Pers;
  */
 public abstract class Personaje {
 
-	private float Fuerza;
-	private float Velocidad;
-	private float Oro;
-	private float Energía;
-	private float Sabiduría;
-	private String nombre;
+	protected float Fuerza;
+	protected float Velocidad;
+	protected float Oro;
+	protected float Energía;
+	protected float Sabiduría;
+	protected String nombre;
 
 	// Constructor por defecto
 	public Personaje() {

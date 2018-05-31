@@ -9,7 +9,6 @@ import javax.swing.JLabel;
 /**
  * Clase que actúa como un JLabel pero permite pintar un fondo mediante el
  * Override del método paint
- * 
  * @author elotrofausto
  *
  */

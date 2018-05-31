@@ -10,9 +10,9 @@ import View.PointsView;
  */
 public class PointsController {
 
-	FileController fc;
-	PuntosModel modelo;
-	PointsView vistaPuntos;
+	private FileController fc;
+	private PuntosModel modelo;
+	private PointsView vistaPuntos;
 	
 	public PointsController() {
 		fc = new FileController("puntos.ark","puntos.ark");

@@ -11,6 +11,10 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * Clase EndGameView. Es la Clase en la que construimos la Vista que representará el Fin del juego.
+ * @author Alberto Fausto
+ */
 @SuppressWarnings("serial")
 public class EndGameView extends JFrame {
 

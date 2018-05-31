@@ -11,8 +11,8 @@ public class PuntosModel {
 	/** objeto Singleton */
 	private static PuntosModel instance = new PuntosModel();
 	
-	String nombre;
-	Float puntos;
+	protected String nombre;
+	protected Float puntos;
 	
 	//Constructor privado para asegurar que solo la propia clase pueda hacer la instancia
 	private PuntosModel() {

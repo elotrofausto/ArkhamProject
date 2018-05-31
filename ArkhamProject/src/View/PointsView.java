@@ -8,26 +8,29 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import Controller.FileController;
 import Model.Logic.PuntosModel;
 
+/**
+ * Clase PointsView. Es la Clase en la que construimos la Vista que representará la lista de Puntuaciones del juego.
+ * @author Alberto Fausto
+ */
 @SuppressWarnings("serial")
 public class PointsView extends JDialog {
 
-	BackGround fondo;
-	FileController fc;
-	JScrollPane scroll;
-	JTextArea areaTexto;
-	JLabel puntosTitle;
-	String ultimaPunt;
-	String panelPuntos;
-	String relleno;
-	int contador;
-	ArrayList<String> puntuaciones;
+	private BackGround fondo;
+	private FileController fc;
+	private JScrollPane scroll;
+	private JTextArea areaTexto;
+	private JLabel puntosTitle;
+	private String ultimaPunt;
+	private String panelPuntos;
+	private String relleno;
+	private int contador;
+	private ArrayList<String> puntuaciones;
 
 	public PointsView(PuntosModel modelo) {
 		fondo = new BackGround("img/fondoPuntos.gif");

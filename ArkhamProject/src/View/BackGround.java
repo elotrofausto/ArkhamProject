@@ -6,7 +6,6 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-
 /**
  * Clase que actúa como un JPanel pero permite pintar un fondo mediante el Override del método paint
  * @author elotrofausto

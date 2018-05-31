@@ -8,8 +8,8 @@ package Model.Locations;
  */
 public abstract class Edificacion {
 
-	private String image;
-	private boolean activo;
+	protected String image;
+	protected boolean activo;
 	
 	public Edificacion(String image){
 		this.image=image;
