@@ -33,7 +33,7 @@ public class PointsView extends JDialog {
 	private ArrayList<String> puntuaciones;
 
 	public PointsView(PuntosModel modelo) {
-		fondo = new BackGround("img/fondoPuntos.gif");
+		fondo = new BackGround("img/lovecraft.gif");
 		fc = new FileController("puntos.ark", "puntos.ark");
 		areaTexto = new JTextArea();
 		scroll = new JScrollPane(areaTexto);
@@ -68,9 +68,9 @@ public class PointsView extends JDialog {
 		this.setLayout(new BorderLayout());
 		areaTexto.setText(panelPuntos);
 		areaTexto.setEnabled(false);
-		areaTexto.setBackground(new Color(0,0,0,0));
+		areaTexto.setBackground(new Color(0,0,0,90));
 		areaTexto.setFont(new Font("", 1, 20));
-		areaTexto.setForeground(Color.WHITE);
+		areaTexto.setForeground(Color.RED);
 		scroll.setOpaque(false);
 		fondo.add(puntosTitle, BorderLayout.NORTH);
 		fondo.add(scroll, BorderLayout.CENTER);
