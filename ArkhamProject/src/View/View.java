@@ -21,6 +21,11 @@ import Model.Locations.Calle;
 import Model.Logic.PuntosModel;
 import Model.Logic.Tablero;
 
+/**
+ * Clase View. Es la Clase en la que construimos la Vista principal del juego. Recibe el modelo principal
+ * para basarse en él a la hora de hacerlo.
+ * @author Alberto Fausto
+ */
 @SuppressWarnings("serial")
 public class View extends JFrame {
 
@@ -129,7 +134,7 @@ public class View extends JFrame {
 		oroPanel.setBackground(new Color(0, 0, 0, 0));
 		controlInfo.setBackground(new Color(0, 0, 0, 0));
 		puntosPanel.setLayout(new GridBagLayout());
-		puntos.setForeground(Color.WHITE);
+		puntos.setForeground(Color.BLACK);
 		puntosVar.setForeground(Color.WHITE);
 		fuerza.setForeground(Color.WHITE);
 		fuerzaVar.setForeground(Color.WHITE);
@@ -220,15 +225,15 @@ public class View extends JFrame {
 		c.gridx = 0;
 		c.gridy = 0;
 		cabeceraC.add(cthulhu, c);
-		puntosPanel.add(puntos);
+		puntosPanel.add(puntos, c);
 		c.gridx = 1;
 		c.gridy = 0;
 		c.gridheight = 1;
 		c.weightx = 0;
-		puntosPanel.add(puntosVar);
 		arrows.add(up, c);
 		c.gridx = 0;
 		c.gridy = 1;
+		puntosPanel.add(puntosVar, c);
 		arrows.add(left, c);
 		c.gridx = 3;
 		c.gridy = 1;
