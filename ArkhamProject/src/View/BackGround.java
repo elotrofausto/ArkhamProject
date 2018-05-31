@@ -18,8 +18,11 @@ public class BackGround extends JPanel {
 	private Image tapiz;
 
 	public BackGround() {
-		//this.setPreferredSize(new Dimension(975,650)); No mantiene la proporción del tablero
 		tapiz = new ImageIcon("img/tab_bg.png").getImage();
+	}
+	
+	public BackGround(String ruta){
+		tapiz = new ImageIcon(ruta).getImage();
 	}
 /**
  * Metodo para pintar el background del JPanel
