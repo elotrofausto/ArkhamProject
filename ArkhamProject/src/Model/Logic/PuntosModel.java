@@ -1,5 +1,11 @@
 package Model.Logic;
 
+/**
+ * Clase PuntosModel que utiliza el patrón Singleton para evitar más de una instancia.
+ * Es el Modelo que utilizaremos para cargar la última puntuación al final de la partida.
+ * Necesitamos acceder de forma estática para actualizar o consultar los puntos a lo largo de la partida.
+ * @author Alberto Fausto
+ */
 public class PuntosModel {
 
 	/** objeto Singleton */
@@ -8,6 +14,7 @@ public class PuntosModel {
 	String nombre;
 	Float puntos;
 	
+	//Constructor privado para asegurar que solo la propia clase pueda hacer la instancia
 	private PuntosModel() {
 		nombre="";
 		puntos=0F;

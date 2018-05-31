@@ -1,5 +1,10 @@
 package Model.Locations;
 
+/**
+ * Clase Calle que extiende a la Clase Abstracta Edificación. Utiliza un superConstructor.
+ * @author Alberto Fausto
+ *
+ */
 public class Calle extends Edificacion {
 
 	public Calle(){

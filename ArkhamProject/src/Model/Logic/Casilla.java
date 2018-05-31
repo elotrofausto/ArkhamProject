@@ -3,6 +3,10 @@ package Model.Logic;
 import Model.Locations.Edificacion;
 import Model.Pers.Personaje;
 
+/**
+ * Clase Casilla. Representa cada una de las casillas del tablero de juego. El Modelo tendrá una matriz de Casillas.
+ * @author Alberto Fausto
+ */
 public class Casilla {
 
 	private Edificacion edificio;
@@ -41,8 +45,12 @@ public class Casilla {
 		this.pj = pj;
 	}
 
+	public Evento getEvento() {
+		return evento;
+	}
 
-	
-	
+	public void setEvento(Evento evento) {
+		this.evento = evento;
+	}
 	
 }

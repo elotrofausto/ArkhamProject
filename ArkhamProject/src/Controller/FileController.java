@@ -9,7 +9,6 @@ import java.util.ArrayList;
 /**
  * Clase Controlador de Ficheros Binarios. En este caso se utiliza para
  * gestionar el grabado y consulta de puntuaciones de juego.
- * 
  * @author Alberto Fausto
  *
  */

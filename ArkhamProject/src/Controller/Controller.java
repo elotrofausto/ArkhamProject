@@ -10,6 +10,11 @@ import Model.Logic.InicioModel;
 import Model.Logic.Tablero;
 import View.View;
 
+/**
+ * Clase Controlador de la Vista Principal. Gestiona la lógica de la Vista Principal y sus respectivos listeners.
+ * @author Alberto Fausto
+ *
+ */
 public class Controller implements MouseListener, KeyListener {
 
 	InicioModel modeloInicio;
@@ -95,7 +100,7 @@ public class Controller implements MouseListener, KeyListener {
 				}
 			}
 			if (event.getName() == "finTurno") {
-				this.model.comprobarEvento(pos = this.model.buscarPersonaje("personaje"), new int[2]);
+				this.model.comprobarEvento(pos = this.model.buscarPersonaje("personaje"), new int[] {999,999});
 
 				if (this.model.getBoard()[pos[0]][pos[1]].getEdificio().isActivo()) {
 					this.vista.actualizaStats(pos);
@@ -157,7 +162,7 @@ public class Controller implements MouseListener, KeyListener {
 			}
 			break;
 		case KeyEvent.VK_ENTER:
-			this.model.comprobarEvento(pos = this.model.buscarPersonaje("personaje"), new int[2]);
+			this.model.comprobarEvento(pos = this.model.buscarPersonaje("personaje"), new int[] {999,999});
 
 			if (this.model.getBoard()[pos[0]][pos[1]].getEdificio().isActivo()) {
 				this.vista.actualizaStats(pos);
@@ -172,7 +177,7 @@ public class Controller implements MouseListener, KeyListener {
 			break;
 		}
 		// Enviamos a la vista los resultados del combate para su representación
-		if (this.model.getCombate().size() > 1) {
+		if (this.model.getCombate().size() >= 1) {
 			controladorCombate = new CombatController(model.getCombate());
 		}
 

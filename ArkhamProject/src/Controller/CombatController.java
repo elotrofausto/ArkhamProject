@@ -10,15 +10,20 @@ import javax.swing.Timer;
 
 import View.CombatView;
 
-public class CombatController implements MouseListener{
-	
+
+/**
+ * Clase Controlador del Combate. Gestiona la lógica de la vista Combate y sus respectivos listeners.
+ * @author Alberto Fausto
+ *
+ */
+public class CombatController implements MouseListener {
+
 	private CombatView vistaCombate;
 	private int contadorTimer;
 	private Timer timer;
 	private ArrayList<String> combate;
 
 	public CombatController(ArrayList<String> combate) {
-		
 		this.combate = combate;
 		vistaCombate = new CombatView(combate);
 		iniciarControlCombate();
@@ -30,8 +35,6 @@ public class CombatController implements MouseListener{
 		this.vistaCombate.getFight().addMouseListener(this);
 		this.vistaCombate.addMouseListener(this);
 	}
-
-	
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
@@ -53,12 +56,12 @@ public class CombatController implements MouseListener{
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		if (e.getSource() instanceof JButton){
-		JButton event = (JButton) e.getSource();
-		if (event.getText() == "Combate!" && this.vistaCombate.getFight().isEnabled()) {
-			this.vistaCombate.getFight().setEnabled(false);
-			combatTimer();
-		}
+		if (e.getSource() instanceof JButton) {
+			JButton event = (JButton) e.getSource();
+			if (event.getText() == "Combate!" && this.vistaCombate.getFight().isEnabled()) {
+				this.vistaCombate.getFight().setEnabled(false);
+				combatTimer();
+			}
 		}
 	}
 
@@ -69,28 +72,31 @@ public class CombatController implements MouseListener{
 	}
 
 	public void combatTimer() {
-		
+
 		ActionListener action = new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent event) {
-				if (contadorTimer < vistaCombate.getCombate().size()-1) {
+				if (contadorTimer < vistaCombate.getCombate().size() - 1) {
 					if (Double.parseDouble(vistaCombate.getCombate().get(contadorTimer)) >= 0) {
 						vistaCombate.getDamagePj().setText("");
-						vistaCombate.getDamageEne().setText("GOLPEAS! - " + vistaCombate.getCombate().get(contadorTimer) + " VIT");
-						vistaCombate.getEneLife().setValue((int) vistaCombate.getEneLife().getValue() - (int) Double.parseDouble(vistaCombate.getCombate().get(contadorTimer)));
+						vistaCombate.getDamageEne()
+								.setText("GOLPEAS! - " + vistaCombate.getCombate().get(contadorTimer) + " VIT");
+						vistaCombate.getEneLife().setValue((int) vistaCombate.getEneLife().getValue()
+								- (int) Double.parseDouble(vistaCombate.getCombate().get(contadorTimer)));
 						vistaCombate.repaint();
 						contadorTimer++;
 
 					} else {
 						vistaCombate.getDamageEne().setText("");
-						vistaCombate.getDamagePj().setText("RECIBES! " + vistaCombate.getCombate().get(contadorTimer) + " VIT");
-						vistaCombate.getPjLife().setValue((int) vistaCombate.getPjLife().getValue() + (int) Double.parseDouble(vistaCombate.getCombate().get(contadorTimer)));
+						vistaCombate.getDamagePj()
+								.setText("RECIBES! " + vistaCombate.getCombate().get(contadorTimer) + " VIT");
+						vistaCombate.getPjLife().setValue((int) vistaCombate.getPjLife().getValue()
+								+ (int) Double.parseDouble(vistaCombate.getCombate().get(contadorTimer)));
 						vistaCombate.repaint();
 						contadorTimer++;
 					}
-				}
-				else {
+				} else {
 					timer.stop();
 					vistaCombate.dispose();
 				}
@@ -100,7 +106,7 @@ public class CombatController implements MouseListener{
 		timer = new Timer(700, action);
 		timer.setInitialDelay(0);
 		timer.start();
-		
+
 	}
 
 	public ArrayList<String> getCombate() {

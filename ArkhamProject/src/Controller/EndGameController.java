@@ -7,6 +7,11 @@ import javax.swing.JButton;
 
 import View.EndGameView;
 
+/**
+ * Clase Controlador de la Vista de Fin de Juego. Gestiona la lógica de la vista y sus respectivos listeners.
+ * @author Alberto Fausto
+ *
+ */
 public class EndGameController implements MouseListener{
 	
 	private EndGameView vistaFinJuego;

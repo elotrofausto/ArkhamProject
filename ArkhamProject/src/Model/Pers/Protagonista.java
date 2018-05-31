@@ -1,5 +1,10 @@
 package Model.Pers;
 
+/**
+ * Clase Protagonista que extiende a la Clase Abstracta Personaje. Utiliza un superConstructor.
+ * @author Alberto Fausto
+ *
+ */
 public class Protagonista extends Personaje{
 
 	public Protagonista() {

@@ -14,6 +14,12 @@ import Model.Pers.Protagonista;
 import Model.Pers.Tree;
 import Model.Pers.Wolf;
 
+/**
+ * Clase Tablero. Es el Modelo principal del programa. Contiene el tablero de
+ * juego.
+ * 
+ * @author Alberto Fausto
+ */
 public class Tablero {
 
 	private InicioModel modeloInicio; // Modelo con los parámetros de inicio de
@@ -29,8 +35,14 @@ public class Tablero {
 	private int dificultad; // Dificultad del juego
 	private int cont; // Contador necesario en el constructor
 
+	// Constructor por defecto
+	public Tablero() {
+
+	}
+
 	// Constructor parametrizado. Recibe en un modeloInicio la dificultad,
-	// nombrePj...
+	// nombrePj... Es el que utiliza el programa para generar el modelo con los
+	// datos recogidos en la VistaInicial.
 	public Tablero(InicioModel modeloInicio) {
 		this.modeloInicio = modeloInicio;
 		dificultad = modeloInicio.getDificultad();
@@ -94,9 +106,32 @@ public class Tablero {
 			}
 		}
 
-		//Hacemos set del nombre en la Clase Singleton que gastamos como modelo para guardar las puntuaciones.
+		// Hacemos set del nombre en la Clase Singleton que gastamos como modelo para
+		// guardar las puntuaciones.
 		PuntosModel.getInstance().setNombre(nombrePj);
-		
+
+	}
+
+	// Constructor parametrizado
+	public Tablero(InicioModel modeloInicio, ArrayList<Casilla> arrayCasillas, Casilla[][] board,
+			ArrayList<String> combate, String nombrePj, Evento[] event, float puntos, int movimientos, int dificultad,
+			int cont) {
+		this.modeloInicio = modeloInicio;
+		this.arrayCasillas = arrayCasillas;
+		this.board = board;
+		this.combate = combate;
+		this.nombrePj = nombrePj;
+		this.event = event;
+		this.puntos = puntos;
+		this.movimientos = movimientos;
+		this.dificultad = dificultad;
+		this.cont = cont;
+	}
+
+	// Constructor copia
+	public Tablero(Tablero modelo) {
+		this(modelo.modeloInicio, modelo.arrayCasillas, modelo.board, modelo.combate, modelo.nombrePj, modelo.event,
+				modelo.puntos, modelo.movimientos, modelo.dificultad, modelo.cont);
 	}
 
 	// Método para buscar a un personaje en el tablero
@@ -119,12 +154,10 @@ public class Tablero {
 	}
 
 	// Método para mover los personajes. Recibe la dirección y ubicación como
-	// parámtro
+	// parámetro. Es utilizado tanto por el Protagonista como por los enemigos.
 	public int[] mover(String dir, int[] pos) {
 		int origen[] = new int[2];
 		int movs = 0; // Variable para almacenar la cantidad de movimientos
-		// if (!combate.isEmpty())
-		// combate.clear();
 
 		// Asignamos a la variable movs las casillas que movera el personaje de
 		// golpe dependiendo del tipo
@@ -149,7 +182,7 @@ public class Tablero {
 		origen[1] = pos[1];
 
 		// Movemos según dirección. Las comprobaciones evitan que los monstruos
-		// colisionen
+		// colisionen entre ellos
 		switch (dir) {
 		case "up":
 			if ((pos[0] - movs >= 0) && (board[pos[0] - movs][pos[1]].getPj() == null)
@@ -204,7 +237,7 @@ public class Tablero {
 				board[pos[0]][pos[1]].setPj(board[origen[0]][origen[1]].getPj());
 				board[origen[0]][origen[1]].setPj(null);
 			}
-			// Si monstruo va a casilla donde está el protagonista
+			// Si mueve el monstruo
 			else if (!(board[origen[0]][origen[1]].getPj() instanceof Protagonista)) {
 
 				if (!(board[pos[0]][pos[1]].getPj() instanceof Protagonista)) {
@@ -215,13 +248,11 @@ public class Tablero {
 				}
 
 			}
-
 		}
 
 		if (movimientos >= 1)
 			movimientos--;
 		return pos;
-
 	}
 
 	public void moverMonstruos() {
@@ -258,15 +289,17 @@ public class Tablero {
 
 		float[] recompensa = new float[5];
 		String nombreEdificio = "";
-		if ((board[pos[0]][pos[1]].getPj() != null)
-				&& (board[origen[0]][origen[1]].getPj() != null
-						&& (board[pos[0]][pos[1]].getPj() instanceof Protagonista))
-				|| ((board[pos[0]][pos[1]].getPj() != null) && (board[origen[0]][origen[1]].getPj() != null)
-						&& board[origen[0]][origen[1]].getPj() instanceof Protagonista)) {
+		if (origen[0] != 999) {
+			if ((board[pos[0]][pos[1]].getPj() != null)
+					&& (board[origen[0]][origen[1]].getPj() != null
+							&& (board[pos[0]][pos[1]].getPj() instanceof Protagonista))
+					|| ((board[pos[0]][pos[1]].getPj() != null) && (board[origen[0]][origen[1]].getPj() != null)
+							&& board[origen[0]][origen[1]].getPj() instanceof Protagonista)) {
 
-			// Evento combate
-			combate(pos, origen);
-			movimientos = 0;
+				// Evento combate
+				combate(pos, origen);
+				movimientos = 0;
+			}
 
 		} else if (board[pos[0]][pos[1]].getPj() instanceof Protagonista) {
 			// Evento de localización
@@ -347,7 +380,7 @@ public class Tablero {
 
 			if (board[prota[0]][prota[1]].getPj().getEnergía() <= 0) {
 				combate.add("-1");
-				
+
 			} else {
 				oro = RecompensaCombate.getInstance().recompensar(board[enem[0]][enem[1]].getPj().getNombre());
 				board[prota[0]][prota[1]].getPj().setOro(board[prota[0]][prota[1]].getPj().getOro() + oro[0]);
@@ -391,14 +424,12 @@ public class Tablero {
 				}
 			}
 		}
-		
-		if (contador<=1){
+
+		if (contador <= 1) {
 			result = "1";
-		}
-		else{
+		} else {
 			result = "0";
 		}
-		
 
 		return result;
 	}

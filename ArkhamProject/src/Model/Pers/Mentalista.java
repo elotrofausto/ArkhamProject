@@ -1,5 +1,10 @@
 package Model.Pers;
 
+/**
+ * Clase Mentalista que extiende a la Clase Abstracta Personaje. Utiliza un superConstructor.
+ * @author Alberto Fausto
+ *
+ */
 public class Mentalista extends Personaje{
 
 	public Mentalista() {

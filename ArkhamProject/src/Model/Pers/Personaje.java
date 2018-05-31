@@ -1,5 +1,13 @@
 package Model.Pers;
 
+/**
+ * Clase Abstracta Personaje. Todas los tipos de personajes del juego son hijos
+ * de esta. Como la clase Abstracta no se puede instanciar. Las hijas utilizarán
+ * un superConstructor.
+ * 
+ * @author Alberto Fausto
+ *
+ */
 public abstract class Personaje {
 
 	private float Fuerza;
@@ -8,7 +16,13 @@ public abstract class Personaje {
 	private float Energía;
 	private float Sabiduría;
 	private String nombre;
-	
+
+	// Constructor por defecto
+	public Personaje() {
+
+	}
+
+	// Constructor parametrizado
 	public Personaje(float fuerza, float velocidad, float oro, float energía, float sabiduría, String nombre) {
 		this.Fuerza = fuerza;
 		this.Velocidad = velocidad;
@@ -16,6 +30,11 @@ public abstract class Personaje {
 		this.Energía = energía;
 		this.Sabiduría = sabiduría;
 		this.nombre = nombre;
+	}
+
+	// Constructor copia
+	public Personaje(Personaje modelo) {
+		this(modelo.Fuerza, modelo.Velocidad, modelo.Oro, modelo.Energía, modelo.Sabiduría, modelo.nombre);
 	}
 
 	public float getFuerza() {
@@ -65,7 +84,5 @@ public abstract class Personaje {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	
-	
+
 }

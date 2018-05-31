@@ -3,9 +3,8 @@ package Model.Logic;
 import java.util.ArrayList;
 
 /**
- * Clase dado que utiliza el patrón Singleton para evitar más de una instancia.
- * @author Alberto Fausto ML
- *
+ * Clase Dado que utiliza el patrón Singleton para evitar más de una instancia.
+ * @author Alberto Fausto
  */
 public class Dado {
 	private static Dado instance;

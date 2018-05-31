@@ -1,5 +1,10 @@
 package Model.Pers;
 
+/**
+ * Clase Cthonian que extiende a la Clase Abstracta Personaje. Utiliza un superConstructor.
+ * @author Alberto Fausto
+ *
+ */
 public class Cthonian extends Personaje{
 
 	//Equivalente al aldeano

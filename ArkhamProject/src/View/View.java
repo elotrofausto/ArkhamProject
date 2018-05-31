@@ -313,27 +313,6 @@ public class View extends JFrame {
 
 	}
 
-	public void efectuarMovimiento(String dir, int[] pos, String nombre) {
-		switch (dir) {
-		case "up":
-			tableroCasillas[pos[0] + 1][pos[1]].setIcon(new ImageIcon("img/blank.png"));
-			tableroCasillas[pos[0]][pos[1]].setIcon(new ImageIcon("img/" + nombre + ".gif"));
-			break;
-		case "down":
-			tableroCasillas[pos[0] - 1][pos[1]].setIcon(new ImageIcon("img/blank.png"));
-			tableroCasillas[pos[0]][pos[1]].setIcon(new ImageIcon("img/" + nombre + ".gif"));
-			break;
-		case "left":
-			tableroCasillas[pos[0]][pos[1] + 1].setIcon(new ImageIcon("img/blank.png"));
-			tableroCasillas[pos[0]][pos[1]].setIcon(new ImageIcon("img/" + nombre + ".gif"));
-			break;
-		case "right":
-			tableroCasillas[pos[0]][pos[1] - 1].setIcon(new ImageIcon("img/blank.png"));
-			tableroCasillas[pos[0]][pos[1]].setIcon(new ImageIcon("img/" + nombre + ".gif"));
-			break;
-		}
-
-	}
 
 	// Método que actualiza las estadísticas conforme a la recompensa de la
 	// casilla
@@ -355,8 +334,6 @@ public class View extends JFrame {
 								+ (model.getBoard()[pos[0]][pos[1]].getPj().getSabiduría() * 10)));
 		this.getPuntosVar()
 				.setText(String.format(" %.2f", PuntosModel.getInstance().getPuntos()));
-
-		System.out.println(PuntosModel.getInstance().getNombre() + " " + PuntosModel.getInstance().getPuntos());
 
 		if (!(this.model.getBoard()[pos[0]][pos[1]].getEdificio() instanceof Calle)) {
 			this.tableroCasillas[pos[0]][pos[1]].setTapiz(new ImageIcon("img/calle2.png").getImage());

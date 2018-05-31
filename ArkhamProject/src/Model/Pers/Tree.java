@@ -1,5 +1,10 @@
 package Model.Pers;
 
+/**
+ * Clase Tree que extiende a la Clase Abstracta Personaje. Utiliza un superConstructor.
+ * @author Alberto Fausto
+ *
+ */
 public class Tree extends Personaje{
 
 	//Equivale al delincuente

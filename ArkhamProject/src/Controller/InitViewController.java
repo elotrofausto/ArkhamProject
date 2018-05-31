@@ -12,6 +12,11 @@ import javax.swing.JTextField;
 import Model.Logic.InicioModel;
 import View.InitView;
 
+/**
+ * Clase Controlador de la Vista Inicial. Gestiona la lógica de la vista y sus respectivos listeners.
+ * @author Alberto Fausto
+ *
+ */
 public class InitViewController implements MouseListener, ItemListener {
 
 	private InitView vistaInicial;

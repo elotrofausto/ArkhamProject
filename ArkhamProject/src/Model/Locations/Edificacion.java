@@ -1,5 +1,11 @@
 package Model.Locations;
 
+/**
+ * Clase Abstracta Edificación. Todas los tipos de edificaciones del juego son hijos de esta.
+ * Como la clase Abstracta no se puede instanciar. Las hijas utilizarán un superConstructor.
+ * @author Alberto Fausto
+ *
+ */
 public abstract class Edificacion {
 
 	private String image;

@@ -1,5 +1,11 @@
 package Model.Logic;
 
+/**
+ * Clase Recompensa que utiliza el patrón Singleton para evitar más de una instancia.
+ * Es la Clase que utilizamos para hacer efectivas las recompensas de las diferentes Edificaciones.
+ * Extiende a la clase Evento e implementa obligatoriamente su método abstracto recompensar().
+ * @author Alberto Fausto
+ */
 public class Recompensa extends Evento {
 
 	/** objeto Singleton */
@@ -11,6 +17,7 @@ public class Recompensa extends Evento {
 	private static float logia[];
 	private static float calle[];
 	
+	//Constructor privado para asegurar que solo la propia clase pueda hacer la instancia
 	private Recompensa(){
 		armeria = new float[]{1.2F,1.1F,10.0F,1F,1F};
 		biblioteca = new float[]{1.0F,1.0F,10F,1.05F,1.25F};
