@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class Dado {
 	private static Dado instance;
 	
+	//Constructor privado para asegurar que solo la propia clase pueda hacer la instancia
 	private Dado(){
 		
 	}

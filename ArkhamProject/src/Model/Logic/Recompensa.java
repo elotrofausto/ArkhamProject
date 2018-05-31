@@ -11,19 +11,16 @@ public class Recompensa extends Evento {
 	/** objeto Singleton */
 	private static Recompensa instance = new Recompensa();
 	
-	private static float armeria[];
-	private static float biblioteca[];
-	private static float hospital[];
-	private static float logia[];
-	private static float calle[];
+	//Las recompensas son constantes
+	private static final float ARMERIA[] =  new float[]{1.2F,1.1F,10.0F,1F,1F};
+	private static final float BIBLIOTECA[] = new float[]{1.0F,1.0F,10F,1.05F,1.25F};
+	private static final float HOSPITAL[] = new float[]{1.0F,1.0F,10.0F,1.25F,1.05F};
+	private static final float LOGIA[] = new float[]{1.1F,1.1F,0F,1.1F,1.1F};
+	private static final float CALLE[] = new float[]{1F,1F,1F,1F,1F};
 	
 	//Constructor privado para asegurar que solo la propia clase pueda hacer la instancia
 	private Recompensa(){
-		armeria = new float[]{1.2F,1.1F,10.0F,1F,1F};
-		biblioteca = new float[]{1.0F,1.0F,10F,1.05F,1.25F};
-		hospital = new float[]{1.0F,1.0F,10.0F,1.25F,1.05F};
-		logia = new float[]{1.1F,1.1F,0F,1.1F,1.1F};
-		calle = new float[]{1F,1F,1F,1F,1F};
+
 	}
 	
 	public static Recompensa getInstance() {
@@ -38,19 +35,19 @@ public class Recompensa extends Evento {
 		
 		switch (tipo) {
 		case "armeria":
-			recom=armeria;
+			recom=ARMERIA;
 			break;
 		case "biblioteca":
-			recom=biblioteca;
+			recom=BIBLIOTECA;
 			break;
 		case "hospital":
-			recom=hospital;
+			recom=HOSPITAL;
 			break;
 		case "logia":
-			recom=logia;
+			recom=LOGIA;
 			break;
 		default:
-			recom=calle;
+			recom=CALLE;
 			break;
 		}
 		
