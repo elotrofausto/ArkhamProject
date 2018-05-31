@@ -71,6 +71,9 @@ public class Controller implements MouseListener, KeyListener {
 			if (event == this.vista.getSalir()) {
 				System.exit(0);
 			}
+			else if (event == this.vista.getLeyenda()){
+				new InfoController();
+			}
 		} else {
 			JButton event = (JButton) ev.getSource();
 			if (event.getName() == "up" && model.getMovimientos() > 0) {
