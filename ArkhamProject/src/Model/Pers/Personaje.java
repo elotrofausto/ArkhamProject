@@ -13,8 +13,8 @@ public abstract class Personaje {
 	protected float Fuerza;
 	protected float Velocidad;
 	protected float Oro;
-	protected float Energía;
-	protected float Sabiduría;
+	protected float Energia;
+	protected float Sabiduria;
 	protected String nombre;
 
 	// Constructor por defecto
@@ -23,18 +23,18 @@ public abstract class Personaje {
 	}
 
 	// Constructor parametrizado
-	public Personaje(float fuerza, float velocidad, float oro, float energía, float sabiduría, String nombre) {
+	public Personaje(float fuerza, float velocidad, float oro, float energia, float sabiduria, String nombre) {
 		this.Fuerza = fuerza;
 		this.Velocidad = velocidad;
 		this.Oro = oro;
-		this.Energía = energía;
-		this.Sabiduría = sabiduría;
+		this.Energia = energia;
+		this.Sabiduria = sabiduria;
 		this.nombre = nombre;
 	}
 
 	// Constructor copia
 	public Personaje(Personaje modelo) {
-		this(modelo.Fuerza, modelo.Velocidad, modelo.Oro, modelo.Energía, modelo.Sabiduría, modelo.nombre);
+		this(modelo.Fuerza, modelo.Velocidad, modelo.Oro, modelo.Energia, modelo.Sabiduria, modelo.nombre);
 	}
 
 	public float getFuerza() {
@@ -61,20 +61,20 @@ public abstract class Personaje {
 		Oro = oro;
 	}
 
-	public float getEnergía() {
-		return Energía;
+	public float getEnergia() {
+		return Energia;
 	}
 
-	public void setEnergía(float energía) {
-		Energía = energía;
+	public void setEnergia(float energia) {
+		Energia = energia;
 	}
 
-	public float getSabiduría() {
-		return Sabiduría;
+	public float getSabiduria() {
+		return Sabiduria;
 	}
 
-	public void setSabiduría(float sabiduría) {
-		Sabiduría = sabiduría;
+	public void setSabiduria(float sabiduria) {
+		Sabiduria = sabiduria;
 	}
 
 	public String getNombre() {

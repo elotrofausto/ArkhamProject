@@ -312,9 +312,9 @@ public class Tablero {
 				board[pos[0]][pos[1]].getPj()
 						.setVelocidad(board[pos[0]][pos[1]].getPj().getVelocidad() * recompensa[1]);
 				board[pos[0]][pos[1]].getPj().setOro(board[pos[0]][pos[1]].getPj().getOro() + recompensa[2]);
-				board[pos[0]][pos[1]].getPj().setEnergía(board[pos[0]][pos[1]].getPj().getEnergía() * recompensa[3]);
+				board[pos[0]][pos[1]].getPj().setEnergia(board[pos[0]][pos[1]].getPj().getEnergia() * recompensa[3]);
 				board[pos[0]][pos[1]].getPj()
-						.setSabiduría(board[pos[0]][pos[1]].getPj().getSabiduría() * recompensa[4]);
+						.setSabiduria(board[pos[0]][pos[1]].getPj().getSabiduria() * recompensa[4]);
 			}
 			movimientos = 0;
 		}
@@ -346,39 +346,39 @@ public class Tablero {
 		if (!(board[enem[0]][enem[1]].getPj() instanceof Protagonista)) {
 
 			combate.add(board[enem[0]][enem[1]].getPj().getNombre());
-			combate.add(String.valueOf(board[prota[0]][prota[1]].getPj().getEnergía()));
-			combate.add(String.valueOf(board[enem[0]][enem[1]].getPj().getEnergía()));
+			combate.add(String.valueOf(board[prota[0]][prota[1]].getPj().getEnergia()));
+			combate.add(String.valueOf(board[enem[0]][enem[1]].getPj().getEnergia()));
 
-			while (board[prota[0]][prota[1]].getPj().getEnergía() > 0
-					&& board[enem[0]][enem[1]].getPj().getEnergía() > 0) {
+			while (board[prota[0]][prota[1]].getPj().getEnergia() > 0
+					&& board[enem[0]][enem[1]].getPj().getEnergia() > 0) {
 
 				// Calculamos el ataque del personaje
 				arrayDados = Dado.getInstance().tirarDados(6, 6);
 				damage = (((arrayDados.get(0) + arrayDados.get(1) + arrayDados.get(2))
 						* board[prota[0]][prota[1]].getPj().getFuerza()) * 0.75)
 						+ (((arrayDados.get(3) + arrayDados.get(4) + arrayDados.get(5))
-								* board[prota[0]][prota[1]].getPj().getSabiduría()) * 0.25);
+								* board[prota[0]][prota[1]].getPj().getSabiduria()) * 0.25);
 
 				// Calculamos la defensa del monstruo
 				arrayDados = Dado.getInstance().tirarDados(6, 6);
 				defense = (((arrayDados.get(0) + arrayDados.get(1) + arrayDados.get(2))
 						* board[enem[0]][enem[1]].getPj().getFuerza()) * 0.75)
 						+ (((arrayDados.get(3) + arrayDados.get(4) + arrayDados.get(5))
-								* board[enem[0]][enem[1]].getPj().getSabiduría()) * 0.25);
+								* board[enem[0]][enem[1]].getPj().getSabiduria()) * 0.25);
 
 				result = damage - defense;
 				combate.add(String.valueOf(Math.floor(result)));
 
 				if (damage > defense) {
 					board[enem[0]][enem[1]].getPj()
-							.setEnergía((float) (board[enem[0]][enem[1]].getPj().getEnergía() - result));
+							.setEnergia((float) (board[enem[0]][enem[1]].getPj().getEnergia() - result));
 				} else {
 					board[prota[0]][prota[1]].getPj()
-							.setEnergía((float) (board[prota[0]][prota[1]].getPj().getEnergía() + result));
+							.setEnergia((float) (board[prota[0]][prota[1]].getPj().getEnergia() + result));
 				}
 			}
 
-			if (board[prota[0]][prota[1]].getPj().getEnergía() <= 0) {
+			if (board[prota[0]][prota[1]].getPj().getEnergia() <= 0) {
 				combate.add("-1");
 
 			} else {

@@ -328,15 +328,15 @@ public class View extends JFrame {
 				.setText(String.format(" %.2f", (float) model.getBoard()[pos[0]][pos[1]].getPj().getVelocidad()));
 		this.getOroVar().setText(String.format("%.2f", (float) model.getBoard()[pos[0]][pos[1]].getPj().getOro()));
 		this.getEnerVar()
-				.setText(String.format(" %.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía())));
+				.setText(String.format(" %.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergia())));
 		this.getSabVar()
-				.setText(String.format(" %.2f", (float) model.getBoard()[pos[0]][pos[1]].getPj().getSabiduría()));
+				.setText(String.format(" %.2f", (float) model.getBoard()[pos[0]][pos[1]].getPj().getSabiduria()));
 		
 		PuntosModel.getInstance().setPuntos((float) ((model.getBoard()[pos[0]][pos[1]].getPj().getFuerza() * 10)
 								+ (model.getBoard()[pos[0]][pos[1]].getPj().getOro() * 50)
 								+ (model.getBoard()[pos[0]][pos[1]].getPj().getVelocidad() * 10)
-								+ (model.getBoard()[pos[0]][pos[1]].getPj().getEnergía() * 10)
-								+ (model.getBoard()[pos[0]][pos[1]].getPj().getSabiduría() * 10)));
+								+ (model.getBoard()[pos[0]][pos[1]].getPj().getEnergia() * 10)
+								+ (model.getBoard()[pos[0]][pos[1]].getPj().getSabiduria() * 10)));
 		this.getPuntosVar()
 				.setText(String.format(" %.2f", PuntosModel.getInstance().getPuntos()));
 
