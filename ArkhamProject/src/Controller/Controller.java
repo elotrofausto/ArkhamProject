@@ -202,4 +202,37 @@ public class Controller implements MouseListener, KeyListener {
 
 	}
 
+	public InicioModel getModeloInicio() {
+		return modeloInicio;
+	}
+
+	public void setModeloInicio(InicioModel modeloInicio) {
+		this.modeloInicio = modeloInicio;
+	}
+
+	public CombatController getControladorCombate() {
+		return controladorCombate;
+	}
+
+	public void setControladorCombate(CombatController controladorCombate) {
+		this.controladorCombate = controladorCombate;
+	}
+
+	public Tablero getModel() {
+		return model;
+	}
+
+	public void setModel(Tablero model) {
+		this.model = model;
+	}
+
+	public View getVista() {
+		return vista;
+	}
+
+	public void setVista(View vista) {
+		this.vista = vista;
+	}
+
+	
 }

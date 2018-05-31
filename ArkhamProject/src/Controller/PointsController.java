@@ -10,8 +10,10 @@ import View.PointsView;
  */
 public class PointsController {
 
+	@SuppressWarnings("unused")
 	private FileController fc;
 	private PuntosModel modelo;
+	@SuppressWarnings("unused")
 	private PointsView vistaPuntos;
 	
 	public PointsController() {
@@ -19,5 +21,6 @@ public class PointsController {
 		modelo = PuntosModel.getInstance();
 		vistaPuntos = new PointsView(modelo);
 	}
+	
 	
 }
