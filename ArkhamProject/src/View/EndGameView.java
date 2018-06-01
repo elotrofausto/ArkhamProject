@@ -78,6 +78,14 @@ public class EndGameView extends JFrame {
 		this.exit = exit;
 	}
 
+	public JButton getScore() {
+		return score;
+	}
+
+	public void setScore(JButton score) {
+		this.score = score;
+	}
+
 	
 	
 }

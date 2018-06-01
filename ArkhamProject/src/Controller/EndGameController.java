@@ -48,7 +48,8 @@ public class EndGameController implements MouseListener{
 	public void mousePressed(MouseEvent e) {
 		if (e.getSource() instanceof JButton){
 		JButton event = (JButton) e.getSource();
-		if (event.getText() == "Puntuaciones") {
+		if (event.getText() == "Puntuaciones" && this.vistaFinJuego.getScore().isEnabled()) {
+			this.vistaFinJuego.getScore().setEnabled(false);
 			new PointsController();
 		}
 		else if (event.getText() == "Salir"){
