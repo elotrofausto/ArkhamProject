@@ -19,7 +19,9 @@ import javax.swing.JProgressBar;
 import Controller.EndGameController;
 
 /**
- * Clase CombatView. Es la Clase en la que construimos la Vista que representará el combate del juego.
+ * Clase CombatView. Es la Clase en la que construimos la Vista que representará
+ * el combate del juego.
+ * 
  * @author Alberto Fausto
  */
 @SuppressWarnings("serial")
@@ -53,22 +55,30 @@ public class CombatView extends JDialog {
 
 	public void iniciarCombatView() {
 
-		pjLife.setValue((int) Double.parseDouble(this.combate.get(1))); // Fijar valor por defecto.
-		pjLife.setStringPainted(true); // Mostrar valor numérico del progreso de la barra
+		pjLife.setValue((int) Double.parseDouble(this.combate.get(1))); // Fijar
+																		// valor
+																		// por
+																		// defecto.
+		pjLife.setStringPainted(true); // Mostrar valor numérico del progreso de
+										// la barra
 		pjLife.setForeground(Color.GREEN);
 
 		eneLife.setMaximum((int) Double.parseDouble(this.combate.get(2)));
-		eneLife.setValue((int) Double.parseDouble(this.combate.get(2))); // Fijar valor por defecto.
-		eneLife.setStringPainted(true); // Mostrar valor numérico del progreso de la barra
+		eneLife.setValue((int) Double.parseDouble(this.combate.get(2))); // Fijar
+																			// valor
+																			// por
+																			// defecto.
+		eneLife.setStringPainted(true); // Mostrar valor numérico del progreso
+										// de la barra
 		eneLife.setForeground(Color.RED);
-		
+
 		fondo.setLayout(new GridBagLayout());
 		fight.setFont(new Font("", 1, 20));
 		damagePj.setFont(new Font("", 1, 20));
 		damagePj.setForeground(Color.RED);
 		damageEne.setFont(new Font("", 1, 20));
 		damageEne.setForeground(Color.GRAY);
-		
+
 		c.fill = GridBagConstraints.HORIZONTAL;
 
 		c.gridx = 0;
@@ -95,7 +105,7 @@ public class CombatView extends JDialog {
 		c.gridx = 1;
 		c.gridy = 2;
 		fondo.add(fight, c);
-		c.weighty=1;
+		c.weighty = 1;
 		c.gridx = 2;
 		c.gridy = 2;
 		fondo.add(enemigo, c);
@@ -112,11 +122,13 @@ public class CombatView extends JDialog {
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 	}
-	
+
 	@Override
 	public void dispose() {
-		if (!(combate.get(combate.size()-1).equals("0"))){
-			new EndGameController(Integer.parseInt(combate.get(combate.size()-1)));
+		if (!combate.isEmpty()) {
+			if (!(combate.get(combate.size() - 1).equals("0"))) {
+				new EndGameController(Integer.parseInt(combate.get(combate.size() - 1)));
+			}
 		}
 		combate.clear();
 		super.dispose();
@@ -168,6 +180,6 @@ public class CombatView extends JDialog {
 
 	public void setEneLife(JProgressBar eneLife) {
 		this.eneLife = eneLife;
-	}	
-	
+	}
+
 }

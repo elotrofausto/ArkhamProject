@@ -16,7 +16,6 @@ import View.InfoView;
  */
 public class InfoController implements MouseListener {
 
-	@SuppressWarnings("unused")
 	private InfoView leyenda;
 
 	public InfoController() {
