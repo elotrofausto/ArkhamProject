@@ -122,6 +122,7 @@ public class Controller implements MouseListener, KeyListener {
 				.setText(String.format(" %.2f", (float) (model.getBoard()[pos[0]][pos[1]].getPj().getEnergia())));
 		this.vista.getOroVar().setText(" " + String.valueOf(model.getBoard()[pos[0]][pos[1]].getPj().getOro()));
 		this.vista.repintarTablero();
+		this.vista.requestFocus();
 		this.vista.repaint();
 	}
 
